@@ -1,0 +1,25 @@
+<br>
+<ng-container *ngIf="show">
+    <div cdkDropList class="applicants" (cdkDropListDropped)="drop($event)">
+        <div class="box" *ngFor="let name of names" cdkDrag>
+            <div class="placeholder" *cdkDragPlaceholder></div>
+            {{name}}
+        </div>
+    </div>
+
+    <label *ngFor="let cb of checkboxes">
+        <input type="checkbox" [(ngModel)]="cb.state">{{cb.label}}
+    </label>
+    <p><button (click) = "sub($event)" id="bt">{{buttonName}}</button> 
+</ng-container>
+
+<ng-container *ngIf="show2">
+    <div cdkDropList class="applicants" (cdkDropListDropped)="drop($event)">
+        <div class="box" *ngFor="let name of names" cdkDragDisabled>
+            <div class="placeholder" *cdkDragPlaceholder></div>
+            {{name}}
+        </div>
+    </div>
+</ng-container>
+
+<button id = "back">Back</button>

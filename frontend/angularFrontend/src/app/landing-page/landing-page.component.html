@@ -1,2 +1,16 @@
 <p>landing-page works!</p>
 <h1>{{data.msg}} is the data</h1>
+
+
+<div>
+    <label>Instructor Name: </label>
+    <input [(ngModel)] = "instructor" type="text"  placeholder="Enter Instructor Name here">
+
+    <label>Instructor Email Name: </label>
+    <input [(ngModel)] = "email" type="text" placeholder="Enter Instructor Email here">
+
+    <label>Course Name: </label>
+    <input [(ngModel)] = "course" type="text" placeholder="Enter Course name here">
+
+    <button (click) = "submitInstructor()"> submit</button>
+</div>

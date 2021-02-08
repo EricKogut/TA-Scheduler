@@ -1,12 +1,25 @@
 const express = require('express');
 const connectDB = require('./database/connection');
-var cors = require('cors')
+var cors = require('cors');
 
 
 const app = express();
 
-app.use(cors())
+//Establish database connection 
 connectDB();
+
+// app.use are middlewalres which runs everytime when we try to make a request 
+app.use(express.json({extesnded: false}));
+app.use(cors())
+
+
+// connecting to routes.js
+const routes = require('./API/routes');
+
+app.use('/api', routes);
+
+
+
 
 // SAMPLE ROUTE
 app.get('/', (req, res) => {

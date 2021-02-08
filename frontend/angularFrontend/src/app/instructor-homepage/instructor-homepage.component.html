@@ -1,0 +1,32 @@
+<p>instructor-homepage works!</p>
+
+<div id = "header">
+
+    <button (click) = "logOut()">Log out</button>
+</div>
+
+<table>
+    <tr id="course-list" *ngFor =  'let course of courses'>
+        <td>{{course}}</td>
+        <td (click) = "createEval()" >Add Evaluation</td>
+        <td (click) = "navigateToApplicants()">View Applicants</td>
+        <td (click) = "viewAssigned()">View Assigned</td>
+    </tr>
+</table>
+
+<div id = "evaluation"> 
+
+    <h4>Create Evaluation</h4>
+    
+    <label>Question1:</label>
+    <input type="text">
+    
+    <button (click) = "newQuestion()">Add New Question</button>
+    <button (click) = "save()">Save</button>
+    <button (click) = "close()"> Close</button>
+
+</div>
+
+<div id = "Assigned">
+    <h4>Assigned TA's:</h4>
+</div>

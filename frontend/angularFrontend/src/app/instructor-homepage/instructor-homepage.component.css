@@ -1,0 +1,31 @@
+#evaluation{
+    visibility: hidden;
+    background-color: #272727;
+    opacity: 95%;
+    border-radius: 45px;
+    position: absolute;
+    left: 6.05%;
+    right: 6.05%;
+    top: 10.09%;
+    bottom: 35.47%;
+}
+
+#evaluation button {
+    background: #C4C4C4;
+    border-radius: 32px;
+}
+
+#Assigned{
+    visibility: hidden;
+    background-color: #272727;
+    opacity: 95%;
+}
+
+table{
+    width: 100%;
+    background-color: #E5E5E5;
+}
+
+td{
+    border: 1px solid black;
+}

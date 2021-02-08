@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-instructor-ranking-page',
@@ -10,10 +10,15 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class InstructorRankingPageComponent{
 
-  constructor(public fb: FormBuilder) {}
+  constructor(public fb: FormBuilder, private router: Router) {}
   
   //original array of names
   names = ['John', 'Halston', 'Rio', 'Xavier'];
+
+  //goes back to 
+  navigateToInstructorHome(){
+    this.router.navigate(['instructor']);
+  }
 
   //drag and drop functionalities
   drop(event: CdkDragDrop<string[]>) {

@@ -23,10 +23,12 @@ import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HeaderComponent } from './header/header.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ResponsesUploadPageComponent } from './responses-upload-page/responses-upload-page.component';
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
-  { path: 'login', component: LoginPageComponent }
+  { path: 'login', component: LoginPageComponent },
+  { path: 'upload', component: ResponsesUploadPageComponent },
 ]
 
 @NgModule({
@@ -35,7 +37,8 @@ const myRoutes: Routes =  [
     HelloWorldComponent,
     LoginPageComponent,
     HeaderComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    ResponsesUploadPageComponent
   ],
   imports: [
     BrowserModule,

@@ -26,6 +26,14 @@ export class LandingPageComponent implements OnInit {
 }
 
 submitInstructor(){
+  this.applicationService.addinstructor(this.instructor, this.email, this.course).subscribe(
+    response=>{
+      console.log("Instructor successfully added to the database");
+      console.log(response);
+
+  }, error=>{
+    alert(error.error);
+  });
 
 }
 

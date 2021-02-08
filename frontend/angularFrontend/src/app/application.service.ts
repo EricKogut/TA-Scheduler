@@ -14,4 +14,13 @@ export class ApplicationService {
     return this.http.get(baseUrl+"/test")
   }
 
+  addinstructor(name: string, email: string, course: string){
+    return this.http.post(baseUrl + '/api/add/instructor',{
+      "name": name,
+      "email": email,
+      "course": course
+
+    })
+  }
+
 }

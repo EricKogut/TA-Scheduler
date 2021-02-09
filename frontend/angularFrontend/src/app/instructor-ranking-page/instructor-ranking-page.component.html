@@ -1,25 +1,63 @@
 <br>
+<div class = "counters">
+    <div *ngFor = "let num of numbers">
+        <div class="circle">{{num}}</div>
+    </div>
+</div>
+
 <ng-container *ngIf="show">
     <div cdkDropList class="applicants" (cdkDropListDropped)="drop($event)">
-        <div class="box" *ngFor="let name of names" cdkDrag>
+        <div class="box" *ngFor="let name of applicantResponses" cdkDrag>
             <div class="placeholder" *cdkDragPlaceholder></div>
-            {{name}}
+            {{name.applicantName}}
         </div>
     </div>
 
-    <label *ngFor="let cb of checkboxes">
-        <input type="checkbox" [(ngModel)]="cb.state">{{cb.label}}
-    </label>
-    <p><button (click) = "sub($event)" id="bt">{{buttonName}}</button> 
+    <div class = "counters">
+        <div *ngFor = "let name of applicantResponses">
+            <button (click) = "findApp(name.applicantName)" class="applications">View</button>
+        </div>
+    </div>
+    
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="submission">
+        <label *ngFor="let cb of checkboxes">
+            <input type="checkbox" [(ngModel)]="cb.state">{{cb.label}}
+        </label>
+        <p><button [disabled]="buttonState()" (click) = "submit($event)" id="bt">Submit</button> 
+    </div>
 </ng-container>
 
 <ng-container *ngIf="show2">
     <div cdkDropList class="applicants" (cdkDropListDropped)="drop($event)">
-        <div class="box" *ngFor="let name of names" cdkDragDisabled>
+        <div class="box" *ngFor="let name of applicantResponses" cdkDragDisabled>
             <div class="placeholder" *cdkDragPlaceholder></div>
-            {{name}}
+            {{name.applicantName}}
+        </div>
+    </div>
+
+    <div class = "counters">
+        <div *ngFor = "let name of applicantResponses">
+            <button (click) = "findApp(name.applicantName)" class="applications">View</button>
         </div>
     </div>
 </ng-container>
 
 <button id = "back" (click)= "navigateToInstructorHome()">Back</button>
+
+
+<br><br>
+<ng-container *ngIf="view">
+    <div class = "displayApp">
+        <div *ngFor = "let apps of foundApp">
+            <p>Name: {{ apps.foundName }}</p>
+            <p>Email: {{ apps.foundEmail }}</p>
+            <div *ngFor = "let response of apps.foundResponses">
+                <p>Question: {{ response.foundQuestion }}</p>
+                <p>Answer: {{ response.foundAnswer }}</p>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<button (click) = "displayApp()">{{ viewButton }}</button>

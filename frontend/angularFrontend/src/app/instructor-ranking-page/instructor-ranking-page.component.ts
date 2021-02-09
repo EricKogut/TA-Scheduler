@@ -132,13 +132,7 @@ export class InstructorRankingPageComponent implements OnInit{
     this.foundApp = [{
       foundName: "",
       foundEmail: "",
-      foundResponses: [{
-          foundQuestion: "",
-          foundAnswer: ""
-      },{
-        foundQuestion: "",
-        foundAnswer: ""
-    }]
+      foundResponses: []
     }];
     
     //load found object details into empty object
@@ -147,11 +141,14 @@ export class InstructorRankingPageComponent implements OnInit{
         this.foundApp[0].foundName = this.applicantResponses[i].applicantName;
         this.foundApp[0].foundEmail = this.applicantResponses[i].applicantEmail;
         for(let j = 0; j < this.applicantResponses[i].responses.length; j++){
-          this.foundApp[0].foundResponses[j].foundQuestion = this.applicantResponses[i].responses[j].question;
-          this.foundApp[0].foundResponses[j].foundAnswer = this.applicantResponses[i].responses[j].answer;
+          let ob = {foundQuestion: "", foundAnswer: ""};
+          ob.foundQuestion = this.applicantResponses[i].responses[j].question;
+          ob.foundAnswer = this.applicantResponses[i].responses[j].answer;
+          this.foundApp[0].foundResponses.push(ob);
         }
       }
     }
+    
     //call display function to make the display visible
     this.displayApp();
   }

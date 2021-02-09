@@ -1,3 +1,28 @@
+#header{
+    width: 100%;
+    background-color: #EEE;
+    height: 10%;
+}
+
+#header #logout{
+    float: right;
+    background-color: #4F2683;
+}
+
+#header img{
+    float: left;
+}
+
+#active-courses{
+    width: 100%;
+    background-color: #4F2683;
+}
+
+#active-courses h5{
+    width: 100%;
+    color: #fff;
+}
+
 #evaluation{
     visibility: hidden;
     background-color: #272727;
@@ -8,6 +33,10 @@
     right: 6.05%;
     top: 10.09%;
     bottom: 35.47%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #evaluation button {
@@ -15,10 +44,19 @@
     border-radius: 32px;
 }
 
-#Assigned{
+#evaluation a{
+    display: block;
+}
+
+#assigned{
     visibility: hidden;
     background-color: #272727;
+    border-radius: 45px;
     opacity: 95%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 table{

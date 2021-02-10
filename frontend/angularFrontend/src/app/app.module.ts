@@ -27,12 +27,13 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { InstructorRankingPageComponent } from './instructor-ranking-page/instructor-ranking-page.component';
 import { InstructorHomepageComponent } from './instructor-homepage/instructor-homepage.component';
 import { ResponsesUploadPageComponent } from './responses-upload-page/responses-upload-page.component';
+import { CourseViewPageComponent } from './course-view-page/course-view-page.component';
 
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
   { path: 'login', component: LoginPageComponent },
-
+  {path:  'course', component: CourseViewPageComponent},
   { path: 'instructor-ranking', component: InstructorRankingPageComponent},
   { path: 'instructor', component: InstructorHomepageComponent},
 
@@ -49,7 +50,8 @@ const myRoutes: Routes =  [
     LandingPageComponent,
     InstructorRankingPageComponent,
     InstructorHomepageComponent,
-    ResponsesUploadPageComponent
+    ResponsesUploadPageComponent,
+    CourseViewPageComponent
 
   ],
   imports: [

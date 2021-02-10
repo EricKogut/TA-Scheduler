@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Router} from "@angular/router";
 import { OnInit } from '@angular/core';
-
+import { HiringEventService } from "../hiring-event.service";
 @Component({
   selector: 'app-instructor-ranking-page',
   templateUrl: './instructor-ranking-page.component.html',
@@ -11,61 +11,32 @@ import { OnInit } from '@angular/core';
 })
 export class InstructorRankingPageComponent implements OnInit{
 
-  constructor(public fb: FormBuilder, private router: Router) {}
+  constructor(public fb: FormBuilder, private router: Router, private hiringEventService: HiringEventService) {}
 
   numbers: any;
+  events: any;
+  applicantResponses = [];
+
+  @Input() currentResponses: any;
+  @Input() currentCourse: any;
+
 
   ngOnInit(): void {
+    this.applicantResponses = this.currentCourse.applicantResponses;
     this.numbers = [];
     this.counter();
+    //console.log(this.applicantResponses)
+    console.log(this.currentCourse, "is the course")
+
+    this.hiringEventService.getEvent(this.currentCourse).subscribe(element =>{
+      console.log(element, "is the elemnt")
+    })
+
+
   }
 
-  //data in format from main model
-  applicantResponses = [{
-    applicantName: "John Doe",
-    applicantEmail: 'jdoe@uwo.ca',
-    applicantRanking: 8,
-    adminRanking: 0,
-    responses: [{
-      question: "Educational experience?",
-      answer: "Undergrad in Computer Science"
-      },
-      {
-        question: "List any relevant teaching experience.",
-        answer: "Teaching assistant for SE2202, SE2203, and SE2205"
-    }]
-  },
-  {
-      applicantName: 'Halston Shu',
-      applicantEmail: 'hshu@uwo.ca',
-      applicantRanking: 2,
-      adminRanking: 0,
-      responses: [{
-          question: "Educational experience?",
-          answer: "Undergrad in Biological Studies"
-      },
-      {
-        question: "List any relevant teaching experience.",
-        answer: "Teaching assistant for Bio1000"
-    }]
-  },
-  {
-        applicantName: 'Rio Trio',
-        applicantEmail: 'rtrio@uwo.ca',
-        applicantRanking: 2,
-        adminRanking: 0,
-        responses: [{
-          question: "Educational experience?",
-          answer: "Undergrad in Integrated Science, Masters in History"
-          },
-          {
-            question: "List any relevant teaching experience.",
-            answer: "None"
-        }]
-  }
-  ];
 
-  //goes back to 
+  //goes back to
   navigateToInstructorHome(){
     this.router.navigate(['instructor']);
   };
@@ -79,6 +50,7 @@ export class InstructorRankingPageComponent implements OnInit{
 
   //drag and drop functionalities
   drop(event: CdkDragDrop<string[]>) {
+
     moveItemInArray(this.applicantResponses, event.previousIndex, event.currentIndex);
   }
 
@@ -86,17 +58,24 @@ export class InstructorRankingPageComponent implements OnInit{
   submit(event: CdkDragDrop<string[]>){
 
     const adminRankingAr =[];
-    
+
     for(let n=0; n< this.applicantResponses.length; n++){
-      adminRankingAr[n] = this.applicantResponses[n].applicantName;
+      this.applicantResponses[n].instructorRank = n+1;
+      console.log(this.applicantResponses[n])
+
       this.applicantResponses[n].adminRanking = n+1;
     }
+
+
+    this.hiringEventService.updateRanking(this.currentCourse._id, this.applicantResponses).subscribe(response=>{
+      console.log(response, "UPDATE SUCCESSFULLY")
+    })
     this.disableChanges();
   }
 
   //only enable submit button if confirmation check box is selected
   checkboxes = [{label: 'I understand that this ranking may only be submit once.', state:''}];
-  
+
   buttonState() {
     return !this.checkboxes.some(_ => _.state);
   }
@@ -118,9 +97,9 @@ export class InstructorRankingPageComponent implements OnInit{
     this.view = !this.view;
 
     if(this.view)
-      this.viewButton = "Hide Application"; 
+      this.viewButton = "Hide Application";
     else
-      this.viewButton = "View Previous"; 
+      this.viewButton = "View Previous";
   }
 
   //found application from searching
@@ -134,7 +113,7 @@ export class InstructorRankingPageComponent implements OnInit{
       foundEmail: "",
       foundResponses: []
     }];
-    
+
     //load found object details into empty object
     for(let i = 0; i < this.applicantResponses.length; i++){
       if(name == this.applicantResponses[i].applicantName){
@@ -148,7 +127,7 @@ export class InstructorRankingPageComponent implements OnInit{
         }
       }
     }
-    
+
     //call display function to make the display visible
     this.displayApp();
   }

@@ -1,47 +1,52 @@
-<div id = "header">
-    <button id = "logout" (click) = "logOut()">Log out</button>
+<div id="header">
+    <button id="logout" (click)="logOut()">Log out</button>
 </div>
 
-<div id  = "active-courses">
+<div id="active-courses">
     <h5> My Active Courses:</h5>
 </div>
 
+<input maxlength="30" #courseCodeBox (input)="handleCourseCode(courseCodeBox.value)" placeholder="Enter Course Code" />
+
+<button (click)="createHiringEvent()">Create new hiring Event</button>
+
 <table>
-    <tr id="course-list" *ngFor =  'let course of courses'>
-        <td>{{course.courseCode}}</td>
-        <td (click) = "createEval()" >Add Evaluation</td>
-        <td (click) = "navigateToApplicants()">View Applicants</td>
-        <td (click) = "viewAssigned()">View Assigned</td>
+    <tr id=" course-list " *ngFor='let event of events'>
+        <td>{{event.courseCode}}</td>
+        <td (click)="createEval() ">Add Evaluation</td>
+        <td (click)="navigateToApplicants() ">View Applicants</td>
+        <td (click)="viewAssigned() ">View Assigned</td>
+        <button (click)="viewCourse(event) ">View Course</button>
     </tr>
 </table>
 
 
-<div id = "evaluation" [style.visibility]= "visibility"> 
-    <p (click) = "close()">Close</p>
+<div id="evaluation " [style.visibility]="visibility ">
+    <p (click)="close() ">Close</p>
 
-    <form [formGroup]="evaluationForm" (ngSubmit)="save()">
-        <div formArrayName="questions">
-          <h3>Create Evaluation</h3>
-      
-          <div *ngFor="let question of questions.controls; let i=index">
+    <form [formGroup]="evaluationForm " (ngSubmit)="save() ">
+        <div formArrayName="questions ">
+            <h3>Create Evaluation</h3>
+
+            <div *ngFor="let question of questions.controls; let i=index ">
                 <label>
                     Question:
-                    <input type="text" [formControlName]="i">
+                    <input type="text " [formControlName]="i ">
                 </label>
-          </div>
+            </div>
 
         </div>
 
-        <button (click)="addQuestion()">New Question</button>
-        <button type="submit" [disabled]="!evaluationForm.valid">Save</button>
+        <button (click)="addQuestion() ">New Question</button>
+        <button type="submit " [disabled]="!evaluationForm.valid ">Save</button>
     </form>
 
 </div>
 
-<div id = "assigned" [style.visibility]= "taVisibility">
-    <p (click) = "close()">Close</p>
+<div id="assigned " [style.visibility]="taVisibility ">
+    <p (click)="close() ">Close</p>
     <h4>Assigned TA's:</h4>
     <ol>
-        <li *ngFor =  'let ta of assignedTAs'></li>
+        <li *ngFor='let ta of assignedTAs'></li>
     </ol>
 </div>

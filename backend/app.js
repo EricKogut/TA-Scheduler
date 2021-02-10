@@ -22,7 +22,11 @@ connectDB();
 
 // connecting to routes.js
 const routes = require('./API/routes');
-
+//Adding a callback function to do logging
+app.use((req, res, next) => {
+    console.log(req.method + " request for " + req.url)
+    next()
+})
 app.use('/api', routes);
 
 

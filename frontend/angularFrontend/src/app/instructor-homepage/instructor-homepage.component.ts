@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {ApplicationService} from '../application.service';
 import { FormBuilder } from "@angular/forms";
 import { FormArray } from "@angular/forms";
+import { HiringEventService } from "../hiring-event.service";
 
 @Component({
   selector: 'app-instructor-homepage',
@@ -10,27 +11,11 @@ import { FormArray } from "@angular/forms";
   styleUrls: ['./instructor-homepage.component.css']
 })
 export class InstructorHomepageComponent implements OnInit {
+  courseCode;
+  handleCourseCode(term: string): void {this.courseCode = term.replace(/[<={}()>/\\]/gi, "")}
 
   //sample data
-  courses : any = [{
-        courseCode: "SE2250: Software Construction" ,
-        instructorID: "Prof. K. Grolinger",
-        facultyID: null,
-        startDate: Date.now(),
-        endDate: null,
-        status: "questionsPending",
-        questionFile: null,
-        applicantResponses: [{
-            applicantName: null,
-            applicantEmail: null,
-            rank: null,
-            responses: [{
-                question: null,
-                answer: null,
-            }],
-        }]
-
-  }];//used to store array of courses
+//used to store array of courses
   assignedTAs :any = [];
   visibility = "hidden";
   taVisibility = "hidden";
@@ -45,17 +30,31 @@ export class InstructorHomepageComponent implements OnInit {
   get questions() {
     return this.evaluationForm.get("questions") as FormArray;
   }
+  events: any;
 
-  constructor(private router: Router, private appService: ApplicationService, private fb: FormBuilder) { }
+  constructor(private router: Router,
+    private appService: ApplicationService,
+    private fb: FormBuilder,
+    private hiringEventService:HiringEventService) { }
 
   ngOnInit(): void {
-    
+    this.hiringEventService.getAllEvents().subscribe(events =>{
+      console.log(events);
+      this.events = events
+    })
   }
 
   //Navigating to the applicant page
   logOut(){
     this.router.navigate(['login']);
   }
+
+  //Navigating to the applicant page
+  viewCourse(course){
+    this.router.navigate(['course'], {state: {data: {currentCourse:course}}});
+  }
+
+
 
   //
   addQuestion() {
@@ -68,7 +67,7 @@ export class InstructorHomepageComponent implements OnInit {
     this.router.navigate(['instructor-ranking']);
   }
 
- //toggles div visibility to allow users to create 
+ //toggles div visibility to allow users to create
   createEval(){
     this.visibility = "visible";
   }
@@ -76,6 +75,15 @@ export class InstructorHomepageComponent implements OnInit {
   //shows popup with assigned TAs
   viewAssigned(){
     this.taVisibility = "visible";
+  }
+
+
+  createHiringEvent(){
+
+    this.hiringEventService.createEvent(this.courseCode, "6022e3cf3e66f36b08f0ca35").subscribe(event=>{
+      console.log(event, "created!!")
+    })
+
   }
 
   save(){

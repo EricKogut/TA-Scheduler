@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { read, IWorkBook } from 'ts-xlsx';
 import * as XLSX from 'ts-xlsx';
+import { HiringEventService } from "../hiring-event.service";
 
 @Component({
   selector: 'app-responses-upload-page',
@@ -9,7 +10,12 @@ import * as XLSX from 'ts-xlsx';
 })
 export class ResponsesUploadPageComponent  {
 
-  constructor() { }
+  @Input() currentCourse:any;
+
+   @Input() uploadType: any;
+
+
+  constructor(private hiringEventService:HiringEventService) { }
 
 
   arrayBuffer:any;
@@ -30,9 +36,23 @@ incomingfile(event)
             var workbook = read(bstr, {type:"binary"});
             var first_sheet_name = workbook.SheetNames[0];
             var worksheet = workbook.Sheets[first_sheet_name];
-            console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+            const fileObject = XLSX.utils.sheet_to_json(worksheet,{raw:true})
+            if(fileObject){
+              if(this.uploadType == "question"){
+                this.hiringEventService.updateQuestions(this.currentCourse._id, fileObject).subscribe(object => {
+                  console.log("Success in uploading questions.\n", fileObject, "has been uploaded")
+                })
+              }
+              if(this.uploadType == "answer"){
+                this.hiringEventService.updateAnswers(this.currentCourse._id, fileObject).subscribe(object => {
+                  console.log("Success in uploading answers.\n", fileObject, "has been uploaded")
+                })
+              }
+            }
         }
         fileReader.readAsArrayBuffer(this.file);
 }
+
+
 
 }

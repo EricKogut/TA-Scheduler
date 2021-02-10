@@ -26,12 +26,18 @@ import { HeaderComponent } from './header/header.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { InstructorRankingPageComponent } from './instructor-ranking-page/instructor-ranking-page.component';
 import { InstructorHomepageComponent } from './instructor-homepage/instructor-homepage.component';
+import { ResponsesUploadPageComponent } from './responses-upload-page/responses-upload-page.component';
+
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
   { path: 'login', component: LoginPageComponent },
+
   { path: 'instructor-ranking', component: InstructorRankingPageComponent},
-  { path: 'instructor', component: InstructorHomepageComponent}
+  { path: 'instructor', component: InstructorHomepageComponent},
+
+  { path: 'upload', component: ResponsesUploadPageComponent },
+
 ]
 
 @NgModule({
@@ -42,7 +48,9 @@ const myRoutes: Routes =  [
     HeaderComponent,
     LandingPageComponent,
     InstructorRankingPageComponent,
-    InstructorHomepageComponent
+    InstructorHomepageComponent,
+    ResponsesUploadPageComponent
+
   ],
   imports: [
     BrowserModule,

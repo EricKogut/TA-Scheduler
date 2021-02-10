@@ -14,7 +14,8 @@ import {
 } from '@angular/material';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { Routes, RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,12 +24,20 @@ import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HeaderComponent } from './header/header.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { InstructorRankingPageComponent } from './instructor-ranking-page/instructor-ranking-page.component';
+import { InstructorHomepageComponent } from './instructor-homepage/instructor-homepage.component';
 import { ResponsesUploadPageComponent } from './responses-upload-page/responses-upload-page.component';
+
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
   { path: 'login', component: LoginPageComponent },
+
+  { path: 'instructor-ranking', component: InstructorRankingPageComponent},
+  { path: 'instructor', component: InstructorHomepageComponent},
+
   { path: 'upload', component: ResponsesUploadPageComponent },
+
 ]
 
 @NgModule({
@@ -38,7 +47,10 @@ const myRoutes: Routes =  [
     LoginPageComponent,
     HeaderComponent,
     LandingPageComponent,
+    InstructorRankingPageComponent,
+    InstructorHomepageComponent,
     ResponsesUploadPageComponent
+
   ],
   imports: [
     BrowserModule,
@@ -54,6 +66,8 @@ const myRoutes: Routes =  [
     MatDividerModule,
     MatProgressSpinnerModule,
     FormsModule,
+    ReactiveFormsModule,
+    DragDropModule,
     RouterModule.forRoot(myRoutes, {useHash:true}),
   ],
   providers: [],

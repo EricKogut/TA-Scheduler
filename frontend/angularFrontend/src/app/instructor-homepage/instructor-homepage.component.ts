@@ -81,7 +81,7 @@ export class InstructorHomepageComponent implements OnInit {
   save(){
     //obtains all the input values and sends them to the database
     console.log(this.questions.value);
-    this.visibility = "hidden";
+    //this.visibility = "hidden";
   }
 
   close(){

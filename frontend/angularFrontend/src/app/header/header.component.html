@@ -1,9 +1,31 @@
-<div>
-    <button (click)="navigateToLanding()">Main</button>
-    
-    <button (click)="navigateToInstructor()">Instructor</button>
+<div *ngIf="role == 'admin'">
+  <p>sup {{ role }}</p>
+  <button (click)="navigateToLanding()">Main</button>
 
+  <button (click)="navigateToInstructor()">Instructor</button>
 
-    <button (click)="navigateToLogin()">Login</button>
-    <button (click)="navigateToSignUp()">Signup</button>
+  <button (click)="logout()">LOGOUT</button>
+</div>
+
+<div *ngIf="role == 'chair'">
+  <p>sup {{ role }}</p>
+  <button (click)="navigateToLanding()">Main</button>
+
+  <button (click)="navigateToInstructor()">Instructor</button>
+
+  <button (click)="logout()">LOGOUT</button>
+</div>
+
+<div *ngIf="role == 'instructor'">
+  <p>sup {{ role }}</p>
+  <button (click)="navigateToLanding()">Main</button>
+
+  <button (click)="navigateToInstructor()">Instructor</button>
+
+  <button (click)="logout()">LOGOUT</button>
+</div>
+
+<div *ngIf="!role">
+  <button (click)="navigateToLogin()">Login</button>
+  <button (click)="navigateToSignUp()">Signup</button>
 </div>

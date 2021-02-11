@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationService } from "../application.service";
-
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-signup-page',
@@ -11,7 +11,7 @@ export class SignupPageComponent implements OnInit {
 
 
 
-  constructor(private applicationService: ApplicationService) { }
+  constructor(private router: Router, private applicationService: ApplicationService) { }
 
   ngOnInit(): void {
   }
@@ -21,6 +21,8 @@ export class SignupPageComponent implements OnInit {
 
     this.applicationService.signup(data).subscribe(res=>{
       console.log(res)
+      localStorage.setItem('role', res.role);
+      this.router.navigate(['landing']).then(()=>window.location.reload())
     } )
   }
 

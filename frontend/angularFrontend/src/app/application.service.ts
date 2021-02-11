@@ -15,7 +15,11 @@ export class ApplicationService {
   }
 
   signup(data){
-    return this.http.post(baseUrl+"/signup", data)
+    return this.http.post<any>(baseUrl+"/signup", data)
+  }
+
+  login(data){
+    return this.http.post<any>(baseUrl+"/login", data)
   }
 
 }

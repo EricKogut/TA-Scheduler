@@ -8,7 +8,21 @@ const UsersModel = mongoose.model("users");
 const express = require("express");
 const router = express.Router();
 
+// firebase stuff
+const admin = require("firebase-admin");
+
+var firebaseConfig = {
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
+  };
+
+
 const firebase = require("firebase");
+
 
 // SAMPLE ROUTE
 router.put("/create/hiringEvent", async (req, res) => {
@@ -154,12 +168,9 @@ const authMid = (req, res, next) => {
           if (doc) {
             console.log("here");
   
-            req.user.admin = doc.admin;
-            req.user.active = doc.active;
-  
             return next();
           } else {
-            return res.status(404).send("no schedule with that name");
+            return res.status(404).send("no thing with that name");
           }
         });
       })
@@ -170,7 +181,7 @@ const authMid = (req, res, next) => {
       });
   };
 
-  
+
 router.post("/signup", async (req, res) => {
   // vars
   let password = req.body.password;
@@ -215,7 +226,7 @@ router.post("/signup", async (req, res) => {
         .save()
         .then((result) => {
           console.log(result);
-          res.status(200).json({ JWT });
+          res.status(200).json({ token: token, role: role });
         })
         .catch((err) => {
           console.log(err);
@@ -227,6 +238,42 @@ router.post("/signup", async (req, res) => {
       return res.status(500).send(err);
     });
 });
+
+
+
+router.post("/login", async(req, res) => {
+    const user = {
+      email: req.body.email,
+      password: req.body.password,
+    };
+  
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(user.email, user.password)
+      .then((data) => {
+        return data.user.getIdToken();
+      })
+      .then((token) => {
+        UsersModel.findOne({ email: user.email }, (err, doc) => {
+            if (doc) {
+              console.log(doc);
+    
+
+    
+              return res.json({  token: token, role: doc.role  });
+            } else {
+              return res.status(404).send("no schedule with that name");
+            }
+          });
+
+        
+      })
+      .catch((err) => {
+        console.error(err);
+  
+        return res.status(403).send(err);
+      });
+  });
 
 // Testing ROUTE
 router.get("/", (req, res) => {

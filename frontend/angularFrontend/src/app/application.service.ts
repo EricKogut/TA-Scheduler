@@ -14,4 +14,8 @@ export class ApplicationService {
     return this.http.get(baseUrl+"/test")
   }
 
+  signup(data){
+    return this.http.post(baseUrl+"/signup", data)
+  }
+
 }

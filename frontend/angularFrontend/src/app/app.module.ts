@@ -10,7 +10,8 @@ import {
   MatMenuModule,
   MatProgressSpinnerModule,
   MatTableModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSelectModule
 } from '@angular/material';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -28,11 +29,13 @@ import { InstructorRankingPageComponent } from './instructor-ranking-page/instru
 import { InstructorHomepageComponent } from './instructor-homepage/instructor-homepage.component';
 import { ResponsesUploadPageComponent } from './responses-upload-page/responses-upload-page.component';
 import { CourseViewPageComponent } from './course-view-page/course-view-page.component';
+import { SignupPageComponent } from './signup-page/signup-page.component';
 
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
   { path: 'login', component: LoginPageComponent },
+  { path: 'signup', component: SignupPageComponent },
   {path:  'course', component: CourseViewPageComponent},
   { path: 'instructor-ranking', component: InstructorRankingPageComponent},
   { path: 'instructor', component: InstructorHomepageComponent},
@@ -51,7 +54,8 @@ const myRoutes: Routes =  [
     InstructorRankingPageComponent,
     InstructorHomepageComponent,
     ResponsesUploadPageComponent,
-    CourseViewPageComponent
+    CourseViewPageComponent,
+    SignupPageComponent
 
   ],
   imports: [
@@ -71,6 +75,7 @@ const myRoutes: Routes =  [
     ReactiveFormsModule,
     DragDropModule,
     RouterModule.forRoot(myRoutes, {useHash:true}),
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

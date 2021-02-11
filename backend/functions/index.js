@@ -2,6 +2,11 @@ const express = require('express');
 var bodyParser = require('body-parser')
 const connectDB = require('./database/connection');
 var cors = require('cors')
+const dotenv = require('dotenv');
+
+
+dotenv.config();
+
 
 // FIREBASE STUFF
 const admin = require("firebase-admin");
@@ -13,10 +18,11 @@ var firebaseConfig = {
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
     appId: process.env.FIREBASE_APP_ID,
-
   };
 
 const functions = require("firebase-functions");
+const firebase = require("firebase");
+firebase.initializeApp(firebaseConfig);
 
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -40,7 +46,8 @@ app.use((req, res, next) => {
     console.log(req.method + " request for " + req.url)
     next()
 })
-app.use('/api', routes);
+
+app.use(routes);
 
 
 

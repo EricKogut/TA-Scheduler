@@ -18,6 +18,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  navigateToSignUp(){
+    this.router.navigate(['signup']);
+  }
+
   navigateToLanding(){
     this.router.navigate(['landing']);
   }

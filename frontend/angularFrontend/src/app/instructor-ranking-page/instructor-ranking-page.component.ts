@@ -28,9 +28,6 @@ export class InstructorRankingPageComponent implements OnInit{
     //console.log(this.applicantResponses)
     console.log(this.currentCourse, "is the course")
 
-    this.hiringEventService.getEvent(this.currentCourse).subscribe(element =>{
-      console.log(element, "is the elemnt")
-    })
 
 
   }
@@ -74,7 +71,7 @@ export class InstructorRankingPageComponent implements OnInit{
   }
 
   //only enable submit button if confirmation check box is selected
-  checkboxes = [{label: 'I understand that this ranking may only be submit once.', state:''}];
+  checkboxes = [{label: '  I understand that this ranking may only be submit once.', state:''}];
 
   buttonState() {
     return !this.checkboxes.some(_ => _.state);

@@ -1,5 +1,58 @@
-<div>
+<!-- <div *ngIf="role == 'admin'">
+    <p>{{role}} View</p>
     <button (click)="navigateToLanding()">Main</button>
-    <button (click)="navigateToLogin()">Login</button>
+
     <button (click)="navigateToInstructor()">Instructor</button>
+
+    <button (click)="logout()">LOGOUT</button>
 </div>
+
+<div *ngIf="role == 'chair'">
+    <p>{{role}} View</p>
+    <button (click)="navigateToLanding()">Main</button>
+
+    <button (click)="navigateToInstructor()">Instructor</button>
+
+    <button (click)="logout()">LOGOUT</button>
+</div> -->
+
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="#" routerLink="/">Course Matcher</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <span *ngIf="!role">
+        <ul class="navbar-nav mr-auto">
+
+
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/login">Login</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/signup">Sign Up</a>
+            </li>
+        </ul>
+        </span>
+
+
+
+
+
+        <span *ngIf="role">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a (click) = "logout()" class="nav-link" routerLink="/login">Logout</a>
+          </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/instructor">Course View </a>
+      </li>
+
+    </ul>
+    </span>
+
+    </div>
+</nav>

@@ -14,6 +14,14 @@ export class ApplicationService {
     return this.http.get(baseUrl+"/test")
   }
 
+  signup(data){
+    return this.http.post<any>(baseUrl+"/signup", data)
+  }
+
+  login(data){
+    return this.http.post<any>(baseUrl+"/login", data)
+  }
+
   saveQuestions(questions: any) {
     return this.http.post(baseUrl+"/api/addEvaluation/questions", {
     "courseCode": "SE3313",
@@ -21,5 +29,5 @@ export class ApplicationService {
     "questions": questions
     });
   }
-
 }
+

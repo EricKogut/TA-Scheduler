@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+  <a class="navbar-brand" href="#" routerLink="/landing">Course Matcher</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+
+    <span *ngIf="!role">
+
+      <li class="nav-item">
+        <a  class="nav-link" routerLink="/login">Login</a>
+      </li>
+
+      </span>
+
+
+
+      <span *ngIf="role">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a (click) = "handleLogout()" class="nav-link" routerLink="/login">Logout</a>
+          </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/schedule">Schedule Lecture</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/track">Track</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/search">Search for Classes</a>
+      </li>
+    </ul>
+    </span>
+    </ul>
+  </div>
+</nav>
+
+
+
+</body>
+</html>

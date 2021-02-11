@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const HiringEvent = require("../models/HiringEvent");
+const Evaluation = require("../models/Evaluation");
 const router = express.Router();
 
 
@@ -103,6 +104,27 @@ router.get('/get/hiringEvents/:instructorID', (req, res) => {
 
 router.get('/get/hiringEvents/:_id', (req, res) => {
     HiringEvent.find({ _id: _id }).then(event => res.status(200).json(event));
+})
+
+router.post('/addEvaluation/questions', async(req,res)=>{
+
+const evaluationModel = new Evaluation({
+    courseCode: req.body.courseCode,
+    instructorName: req.body.instructorName,
+    questions: req.body.questions
+
+})
+
+        try{
+    // saves the user model into the database
+        const evaluationAdded =  await evaluationModel.save();
+        res.json(evaluationAdded);
+        }
+        catch(error){
+            res.json({message: error});
+        }
+
+
 })
 
 

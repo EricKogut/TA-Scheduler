@@ -15,7 +15,11 @@ export class ApplicationService {
   }
 
   saveQuestions(questions: any) {
-    return this.http.post(baseUrl+"api/addEvaluation/questions", questions);
+    return this.http.post(baseUrl+"/api/addEvaluation/questions", {
+    "courseCode": "SE3313",
+    "instructorName": "Quazi Rahman",
+    "questions": questions
+    });
   }
 
 }

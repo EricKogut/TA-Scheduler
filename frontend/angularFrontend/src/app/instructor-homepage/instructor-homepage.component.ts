@@ -21,7 +21,7 @@ export class InstructorHomepageComponent implements OnInit {
   taVisibility = "hidden";
   user = "Prof. K. Grolinger";
 
-  answers:any;
+  evQuestions:any;
 
   //dynamic reactive forms
   evaluationForm = new FormGroup({
@@ -96,17 +96,17 @@ export class InstructorHomepageComponent implements OnInit {
 
   save(){
     // displays array of questions
-    console.log(this.questions.value);  
+    //console.log(this.questions.value);  
     // displays object containing array of questions
     //console.log(this.evaluationForm.value);
-
  
   };
 
   submitResponse(){
-    console.log(this.evaluationForm.value);
-    this.appService.saveQuestions(this.evaluationForm.value).subscribe(response=>{
-      console.log(response);
+    console.log(this.questions.value);  
+    this.evQuestions = this.questions.value;
+    this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
+    console.log(response);
 
     });
     

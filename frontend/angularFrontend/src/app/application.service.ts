@@ -14,4 +14,8 @@ export class ApplicationService {
     return this.http.get(baseUrl+"/test")
   }
 
+  saveQuestions(questions: any) {
+    return this.http.post(baseUrl+"api/addEvaluation/questions", questions);
+  }
+
 }

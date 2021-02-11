@@ -24,21 +24,21 @@
 <div id="evaluation " [style.visibility]="visibility ">
     <p (click)="close() ">Close</p>
 
-    <form [formGroup]="evaluationForm " (ngSubmit)="save() ">
-        <div formArrayName="questions ">
+    <form [formGroup]="evaluationForm " (ngSubmit)="save()">
+        <div formArrayName="questions">
             <h3>Create Evaluation</h3>
 
             <div *ngFor="let question of questions.controls; let i=index ">
                 <label>
                     Question:
-                    <input type="text " [formControlName]="i ">
+                    <input type="text " [formControlName]="i">
                 </label>
             </div>
 
         </div>
 
         <button (click)="addQuestion() ">New Question</button>
-        <button type="submit " [disabled]="!evaluationForm.valid ">Save</button>
+         <button  (click)= "submitResponse()" >Save</button>
     </form>
 
 </div>

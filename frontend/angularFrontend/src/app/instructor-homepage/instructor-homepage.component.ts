@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {ApplicationService} from '../application.service';
 import { FormBuilder } from "@angular/forms";
-import { FormArray } from "@angular/forms";
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import { HiringEventService } from "../hiring-event.service";
 
 @Component({
@@ -21,20 +21,32 @@ export class InstructorHomepageComponent implements OnInit {
   taVisibility = "hidden";
   user = "Prof. K. Grolinger";
 
-  //reactive form that will be used to obtain information from users
-  evaluationForm = this.fb.group({
-    questions: this.fb.array([this.fb.control("")])
+  evQuestions:any;
+
+  //dynamic reactive forms
+  evaluationForm = new FormGroup({
+    questions: new FormArray([
+      //placeholders
+    ]),
   });
 
   //gets the array of questions from the reactive form
-  get questions() {
-    return this.evaluationForm.get("questions") as FormArray;
+  get questions(): FormArray {
+    return this.evaluationForm.get('questions') as FormArray;
   }
+
+   // for adding a new question input 
+   addQuestion() {
+    console.log("new question added");
+    //this.questions.push(this.fb.control(""));
+    this.questions.push(new FormControl());
+  }
+
+
   events: any;
 
   constructor(private router: Router,
     private appService: ApplicationService,
-    private fb: FormBuilder,
     private hiringEventService:HiringEventService) { }
 
   ngOnInit(): void {
@@ -56,11 +68,7 @@ export class InstructorHomepageComponent implements OnInit {
 
 
 
-  //
-  addQuestion() {
-    console.log("new question added");
-    this.questions.push(this.fb.control(""));
-  }
+ 
 
   //Navigating to the applicant page
   navigateToApplicants(){
@@ -87,10 +95,24 @@ export class InstructorHomepageComponent implements OnInit {
   }
 
   save(){
-    //obtains all the input values and sends them to the database
-    console.log(this.questions.value);
-    //this.visibility = "hidden";
+    // displays array of questions
+    //console.log(this.questions.value);  
+    // displays object containing array of questions
+    //console.log(this.evaluationForm.value);
+ 
+  };
+
+  submitResponse(){
+    console.log(this.questions.value);  
+    this.evQuestions = this.questions.value;
+    this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
+    console.log(response);
+
+    });
+    
   }
+
+  
 
   close(){
     this.visibility = "hidden";
@@ -98,3 +120,6 @@ export class InstructorHomepageComponent implements OnInit {
   }
 
 }
+
+
+// <button type="submit " [disabled]="!evaluationForm.valid ">Save</button>

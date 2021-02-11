@@ -22,4 +22,12 @@ export class ApplicationService {
     return this.http.post<any>(baseUrl+"/login", data)
   }
 
+  saveQuestions(questions: any) {
+    return this.http.post(baseUrl+"/api/addEvaluation/questions", {
+    "courseCode": "SE3313",
+    "instructorName": "Quazi Rahman",
+    "questions": questions
+    });
+  }
 }
+

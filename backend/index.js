@@ -3,10 +3,7 @@ var bodyParser = require('body-parser')
 const connectDB = require('./database/connection');
 var cors = require('cors')
 const dotenv = require('dotenv');
-
-
 dotenv.config();
-
 
 // FIREBASE STUFF
 const admin = require("firebase-admin");
@@ -26,6 +23,8 @@ firebase.initializeApp(firebaseConfig);
 
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+
 
 const app = express();
 

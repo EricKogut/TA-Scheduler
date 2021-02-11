@@ -19,9 +19,9 @@ export class LoginPageComponent implements OnInit {
 
   login(data){
     console.log(data)
-
+    console.log("signed in")
     this.applicationService.login(data).subscribe((res)=>{
-      console.log(res)
+      console.log(res,"is the res")
       localStorage.setItem('role', res.role);
       this.router.navigate(['landing']).then(()=>window.location.reload())
     } )

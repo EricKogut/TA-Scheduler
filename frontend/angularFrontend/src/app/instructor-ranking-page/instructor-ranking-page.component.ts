@@ -28,9 +28,9 @@ export class InstructorRankingPageComponent implements OnInit{
     //console.log(this.applicantResponses)
     console.log(this.currentCourse, "is the course")
 
-    this.hiringEventService.getEvent(this.currentCourse).subscribe(element =>{
-      console.log(element, "is the elemnt")
-    })
+    // this.hiringEventService.getEvent(this.currentCourse).subscribe(element =>{
+    //   console.log(element, "is the elemnt")
+    // })
 
 
   }

@@ -38,9 +38,9 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     localStorage.removeItem('role');
-    
+
     this.router.navigate(['landing']).then(()=>window.location.reload())
-   
+
   }
 
   ngOnInit(): void {

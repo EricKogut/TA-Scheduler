@@ -1,0 +1,13 @@
+<h1>
+    Viewing {{currentCourse.courseCode}}
+</h1>
+<h2>Upload Questions</h2>
+<app-responses-upload-page [(currentCourse)]='currentCourse' [uploadType]="'question'"></app-responses-upload-page>
+<h2>Upload Answers</h2>
+<app-responses-upload-page [(currentCourse)]='currentCourse' [uploadType]="'answer'"></app-responses-upload-page>
+<h2>Upload Enrollment</h2>
+<app-responses-upload-page [(currentCourse)]='currentCourse' [uploadType]="'rating'"></app-responses-upload-page>
+
+<hr>
+<app-instructor-ranking-page [(currentCourse)]='currentCourse'>
+</app-instructor-ranking-page>

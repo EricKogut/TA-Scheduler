@@ -22,6 +22,13 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['landing']);
   }
 
+  navigateToRanking(){
+    this.router.navigate(['instructor-ranking']);
+  }
+
+  navigateToInstructor(){
+    this.router.navigate(['instructor']);
+  }
 
   ngOnInit(): void {
   }

@@ -14,7 +14,8 @@ import {
 } from '@angular/material';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { Routes, RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,10 +25,21 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { HeaderComponent } from './header/header.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { InstructorRankingPageComponent } from './instructor-ranking-page/instructor-ranking-page.component';
+import { InstructorHomepageComponent } from './instructor-homepage/instructor-homepage.component';
+import { ResponsesUploadPageComponent } from './responses-upload-page/responses-upload-page.component';
+import { CourseViewPageComponent } from './course-view-page/course-view-page.component';
+
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
-  { path: 'login', component: LoginPageComponent }
+  { path: 'login', component: LoginPageComponent },
+  {path:  'course', component: CourseViewPageComponent},
+  { path: 'instructor-ranking', component: InstructorRankingPageComponent},
+  { path: 'instructor', component: InstructorHomepageComponent},
+
+  { path: 'upload', component: ResponsesUploadPageComponent },
+
 ]
 
 @NgModule({
@@ -37,7 +49,12 @@ const myRoutes: Routes =  [
     LoginPageComponent,
     HeaderComponent,
     LandingPageComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    InstructorRankingPageComponent,
+    InstructorHomepageComponent,
+    ResponsesUploadPageComponent,
+    CourseViewPageComponent
+
   ],
   imports: [
     BrowserModule,
@@ -53,6 +70,8 @@ const myRoutes: Routes =  [
     MatDividerModule,
     MatProgressSpinnerModule,
     FormsModule,
+    ReactiveFormsModule,
+    DragDropModule,
     RouterModule.forRoot(myRoutes, {useHash:true}),
   ],
   providers: [],

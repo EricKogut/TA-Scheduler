@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {environment} from "./environment"
+
 const baseUrl = environment.backend_url;
 
 @Injectable({
@@ -29,5 +30,14 @@ export class ApplicationService {
     "questions": questions
     });
   }
+  addinstructor(name: string, email: string, course: string){
+    return this.http.post(baseUrl + '/api/add/instructor',{
+      "name": name,
+      "email": email,
+      "course": course
+
+    })
+  }
+
 }
 

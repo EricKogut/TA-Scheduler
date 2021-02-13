@@ -30,7 +30,7 @@ import { InstructorHomepageComponent } from './instructor-homepage/instructor-ho
 import { ResponsesUploadPageComponent } from './responses-upload-page/responses-upload-page.component';
 import { CourseViewPageComponent } from './course-view-page/course-view-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
-
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
@@ -55,8 +55,9 @@ const myRoutes: Routes =  [
     InstructorHomepageComponent,
     ResponsesUploadPageComponent,
     CourseViewPageComponent,
-    SignupPageComponent
-
+    SignupPageComponent,
+    LandingPageComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

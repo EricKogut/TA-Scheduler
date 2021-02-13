@@ -7,6 +7,12 @@ import { ApplicationService } from "../application.service";
 })
 export class LandingPageComponent implements OnInit {
 
+  instructor = '';
+  course = '';
+  email ='';
+
+
+
   constructor(private applicationService: ApplicationService) { }
 
   //Variables
@@ -17,6 +23,18 @@ export class LandingPageComponent implements OnInit {
       console.log(data, "is the data")
       this.data=data
     } )
+}
+
+submitInstructor(){
+  this.applicationService.addinstructor(this.instructor, this.email, this.course).subscribe(
+    response=>{
+      console.log("Instructor successfully added to the database");
+      console.log(response);
+
+  }, error=>{
+    alert(error.error);
+  });
+
 }
 
 

@@ -23,6 +23,7 @@ import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HeaderComponent } from './header/header.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
@@ -35,7 +36,8 @@ const myRoutes: Routes =  [
     HelloWorldComponent,
     LoginPageComponent,
     HeaderComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {StateService} from "../state.service";
 
 @Component({
   selector: 'app-hiring-event-home',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hiring-event-home.component.css']
 })
 export class HiringEventHomeComponent implements OnInit {
+  currentHiringEvent;
 
-  constructor() { }
+  constructor(private stateService:StateService) { }
 
   ngOnInit(): void {
+    this.currentHiringEvent= this.stateService.getCurrentHiringEvent();
   }
 
 }

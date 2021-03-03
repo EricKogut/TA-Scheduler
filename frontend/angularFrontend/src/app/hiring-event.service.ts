@@ -19,12 +19,16 @@ export class HiringEventService {
   getEvent(_id){
     return this.http.get(baseUrl+"/hiringEvents/getEvent/"+_id)
   }
+  getUserEvents(departmentChairId){
+    return this.http.get(baseUrl+"/get/chairHiringEvents/"+departmentChairId);
+  }
+
 
 
   //PUTs
   ///////////////////////////////////////////
-  createEvent(courseCode:string, departmentChairID:string,){
-    return this.http.put(baseUrl+"/create/hiringEvent", {courseCode:courseCode, departmentChairID: departmentChairID})
+  createEvent(departmentChairID:string){
+    return this.http.put(baseUrl+"/create/hiringEvent", {departmentChairID: departmentChairID})
   }
   updateQuestions(_id, questions){
     return this.http.put(baseUrl+"/update/hiringEvent/questions", {_id:_id, questions: questions})

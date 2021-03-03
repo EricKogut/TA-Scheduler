@@ -33,7 +33,7 @@ export class FileUploadComponent {
 
     if (file) {
       this.fileName = file.name;
-      
+
       const formData = new FormData();
 
       formData.append("name", 'aouda'); // for demonstration purposes, but later to pull from LocalStorage
@@ -43,7 +43,7 @@ export class FileUploadComponent {
       const upload$ = this.http.post(this.baseUrl + '/api/add/enrolment', {
         'name': 'aouda',
         'payload': fileString
-      }, { 
+      }, {
         observe: 'events',
         reportProgress: true
       })
@@ -56,10 +56,10 @@ export class FileUploadComponent {
           this.uploadProgress = Math.round(100 * (event.loaded / event.total));
         }
       })
-      
+
       console.log('You\'re about to make the request');
 
-      
+
     }
   }
 

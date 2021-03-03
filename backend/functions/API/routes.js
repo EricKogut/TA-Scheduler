@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const HiringEvent = require("../models/HiringEvent");
 const Users = require("../models/Users");
 const UsersModel = mongoose.model("users");
+const { ObjectId } = require( "mongodb");
 
 // express stuff
 const express = require("express");
@@ -27,12 +28,28 @@ const firebase = require("firebase");
 // SAMPLE ROUTE
 router.put("/create/hiringEvent", async (req, res) => {
   newEvent = {
-    courseCode: req.body.courseCode,
-    instructorID: null,
+    hiringEventName: "New Hiring Event",
     departmentChairID: req.body.departmentChairID,
+    instructors: [],
     startDate: Date.now(),
     endDate: null,
     status: "questionsPending",
+    rankingFile: null,
+    enrollmentFile: null,
+  };
+
+  HiringEvent.create(newEvent).then((event) => res.status(200).json(event));
+});
+
+// SAMPLE ROUTE
+router.put("/create/course", async (req, res) => {
+  newEvent = {
+    hiringEventName: "New Hiring Event",
+    departmentChairID: req.body.departmentChairID,
+    instructors: [],
+    startDate: Date.now(),
+    endDate: null,
+    status: "Courses and Questions Pending",
     questionFile: null,
     answerFile: null,
     rankingFile: null,
@@ -132,16 +149,22 @@ router.put("/update/hiringEvent/instructorRanking", async (req, res) => {
     }
   ).then((event) => res.status(200).json(event));
 });
-router.get("/get/hiringEvents/:instructorID", (req, res) => {
-  HiringEvent.find({ instructorID: instructorID }).then((event) =>
-    res.status(200).json(event)
-  );
-});
+// router.get("/get/hiringEvents/:instructorID", (req, res) => {
+//   HiringEvent.find({ instructorID: instructorID }).then((event) =>
+//     res.status(200).json(event)
+//   );
+// });
 
 router.get("/get/hiringEvents/:_id", (req, res) => {
   HiringEvent.find({ _id: _id }).then((event) => res.status(200).json(event));
 });
 
+router.get("/get/chairHiringEvents/:departmentChairId", (req, res) => {
+  console.log("getting");
+  const currentObjectId = new ObjectId(req.params.departmentChairId)
+  console.log(currentObjectId)
+  HiringEvent.find({ departmentChairID: currentObjectId }).then((event) => res.status(200).json(event));
+});
 // auth
 
 const authMid = (req, res, next) => {

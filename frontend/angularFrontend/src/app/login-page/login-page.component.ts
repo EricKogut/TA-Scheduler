@@ -23,7 +23,7 @@ export class LoginPageComponent implements OnInit {
     this.applicationService.login(data).subscribe((res)=>{
       console.log(res,"is the res")
       localStorage.setItem('role', res.role);
-      this.router.navigate(['landing']).then(()=>window.location.reload())
+      this.router.navigate(['instructor']).then(()=>window.location.reload())
     } )
   }
 

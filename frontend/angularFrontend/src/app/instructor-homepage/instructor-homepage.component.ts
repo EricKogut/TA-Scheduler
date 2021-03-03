@@ -35,7 +35,7 @@ export class InstructorHomepageComponent implements OnInit {
     return this.evaluationForm.get('questions') as FormArray;
   }
 
-   // for adding a new question input 
+   // for adding a new question input
    addQuestion() {
     console.log("new question added");
     //this.questions.push(this.fb.control(""));
@@ -68,7 +68,7 @@ export class InstructorHomepageComponent implements OnInit {
 
 
 
- 
+
 
   //Navigating to the applicant page
   navigateToApplicants(){
@@ -88,7 +88,7 @@ export class InstructorHomepageComponent implements OnInit {
 
   createHiringEvent(){
 
-    this.hiringEventService.createEvent(this.courseCode, "6022e3cf3e66f36b08f0ca35").subscribe(event=>{
+    this.hiringEventService.createEvent(this.courseCode).subscribe(event=>{
       console.log(event, "created!!")
     })
 
@@ -96,23 +96,23 @@ export class InstructorHomepageComponent implements OnInit {
 
   save(){
     // displays array of questions
-    //console.log(this.questions.value);  
+    //console.log(this.questions.value);
     // displays object containing array of questions
     //console.log(this.evaluationForm.value);
- 
+
   };
 
   submitResponse(){
-    console.log(this.questions.value);  
+    console.log(this.questions.value);
     this.evQuestions = this.questions.value;
     this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
     console.log(response);
 
     });
-    
+
   }
 
-  
+
 
   close(){
     this.visibility = "hidden";

@@ -48,6 +48,11 @@ incomingfile(event)
                   console.log("Success in uploading answers.\n", fileObject, "has been uploaded")
                 })
               }
+              if(this.uploadType == "upload"){
+                this.hiringEventService.updateTaHours(this.currentCourse._id, fileObject).subscribe(object => {
+                  console.log("Success in uploading enrollment information.\n", fileObject, "has been uploaded")
+                })
+              }
             }
         }
         fileReader.readAsArrayBuffer(this.file);

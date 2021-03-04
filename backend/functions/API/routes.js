@@ -132,6 +132,23 @@ router.put("/update/hiringEvent/answers", async (req, res) => {
   ).then((event) => res.status(200).json(event));
 });
 
+//PUT for updating TA Hours 
+router.put("/update/hiringEvent/hours", async(req,res)=>{
+  let finalTaHour; 
+  let TaHour;
+
+  TaHour = req.body.enrollementInfo;
+  finalTaHour = TaHour[0];
+  let num = finalTaHour["Hrs 2020"]/finalTaHour["Enrol 2020"];
+  let final = num*finalTaHour["Enrol 2021"];
+
+  console.log(final);
+
+
+  
+
+})
+
 router.put("/update/hiringEvent/ranking", async (req, res) => {
   HiringEvent.findOneAndUpdate(
     { _id: req.body._id },

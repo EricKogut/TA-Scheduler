@@ -15,4 +15,9 @@ export class HiringEventHomeComponent implements OnInit {
     this.currentHiringEvent= this.stateService.getCurrentHiringEvent();
   }
 
+
+  Upload(){
+    console.log("yes you are here!");
+  }
+
 }

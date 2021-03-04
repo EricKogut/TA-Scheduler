@@ -156,14 +156,15 @@ router.put("/update/hiringEvent/hours", async(req,res)=>{
   })
    console.log(finalArray);
 
-  
 
-  //     HiringEvent.findOneAndUpdate(
-  //    { _id: "60401e61625a9ea848c092bc" },
-  //    {
-  //      courses: finalArray,
-  //   }
-  //  ).then((event) => res.status(200).json(event));
+   const currentObjectId = new ObjectId("60401e61625a9ea848c092bc");
+
+     HiringEvent.findOneAndUpdate(
+     { _id: currentObjectId},
+     {
+       enrollmentFile: finalArray,
+    }
+   ).then((event) => res.status(200).json(event));
   
 
 })

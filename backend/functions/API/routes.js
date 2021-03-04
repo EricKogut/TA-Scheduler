@@ -134,17 +134,36 @@ router.put("/update/hiringEvent/answers", async (req, res) => {
 
 //PUT for updating TA Hours 
 router.put("/update/hiringEvent/hours", async(req,res)=>{
-  let finalTaHour; 
-  let TaHour;
 
-  TaHour = req.body.enrollementInfo;
-  finalTaHour = TaHour[0];
-  let num = finalTaHour["Hrs 2020"]/finalTaHour["Enrol 2020"];
-  let final = num*finalTaHour["Enrol 2021"];
+  let enrolmentBody;
+  let finalArray = [];
 
-  console.log(final);
+  enrolmentBody = req.body.enrollmentInfo;
 
+  enrolmentBody.forEach((element, i)=>{
+    //i starts from 0 and increaments 
+    // element is each element within the array we are looping 
+    let tempObject = {courseID: "", TA_hour: ""};
+    let course = element["Course "];
+    let hour = (element["Hrs 2020"]/element["Enrol 2020"]) * element["Enrol 2021"];
+    tempObject.courseID = course;
+    tempObject.TA_hour = Math.round(hour).toString();
+    // if course is defined then put it in the array 
+    if(course != undefined){
+      finalArray.push(tempObject);
+    }
+    
+  })
+   console.log(finalArray);
 
+  
+
+  //     HiringEvent.findOneAndUpdate(
+  //    { _id: "60401e61625a9ea848c092bc" },
+  //    {
+  //      courses: finalArray,
+  //   }
+  //  ).then((event) => res.status(200).json(event));
   
 
 })

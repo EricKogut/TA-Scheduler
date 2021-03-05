@@ -60,7 +60,6 @@ export class InstructorHomepageComponent implements OnInit {
     this.questions.push(new FormControl());
   }
 
-
   events: any;
 
   constructor(private router: Router,
@@ -89,8 +88,9 @@ export class InstructorHomepageComponent implements OnInit {
     this.customVisibility="visible";
   }
   saveTA(){
-    console.log(this.customTA.value);  
-    this.evQuestions = this.questions.value;
+    console.log(this.customTA.value);
+    //assigns FormArray of TAs to a new array that will be sent to backend
+    this.customAssignment = this.customTA.value;
     //this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
     //console.log(response);
     //});

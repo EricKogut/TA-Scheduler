@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const HiringEvent = require("../models/HiringEvent");
 const Users = require("../models/Users");
 const UsersModel = mongoose.model("users");
+const { ObjectId } = require( "mongodb");
 
 // express stuff
 const express = require("express");
@@ -27,12 +28,28 @@ const firebase = require("firebase");
 // SAMPLE ROUTE
 router.put("/create/hiringEvent", async (req, res) => {
   newEvent = {
-    courseCode: req.body.courseCode,
-    instructorID: null,
+    hiringEventName: "New Hiring Event",
     departmentChairID: req.body.departmentChairID,
+    instructors: [],
     startDate: Date.now(),
     endDate: null,
     status: "questionsPending",
+    rankingFile: null,
+    enrollmentFile: null,
+  };
+
+  HiringEvent.create(newEvent).then((event) => res.status(200).json(event));
+});
+
+// SAMPLE ROUTE
+router.put("/create/course", async (req, res) => {
+  newEvent = {
+    hiringEventName: "New Hiring Event",
+    departmentChairID: req.body.departmentChairID,
+    instructors: [],
+    startDate: Date.now(),
+    endDate: null,
+    status: "Courses and Questions Pending",
     questionFile: null,
     answerFile: null,
     rankingFile: null,
@@ -115,6 +132,51 @@ router.put("/update/hiringEvent/answers", async (req, res) => {
   ).then((event) => res.status(200).json(event));
 });
 
+//PUT for updating TA Hours 
+router.put("/update/hiringEvent/hours", async(req,res)=>{
+
+  let enrolmentBody;
+  let finalArray = [];
+
+  enrolmentBody = req.body.enrollmentInfo;
+
+  enrolmentBody.forEach((element, i)=>{
+    //i starts from 0 and increaments 
+    // element is each element within the array we are looping 
+    let tempObject = {courseID: "", TA_hour: ""};
+    let course = element["Course "];
+    let hour = (element["Hrs 2020"]/element["Enrol 2020"]) * element["Enrol 2021"];
+    tempObject.courseID = course;
+    tempObject.TA_hour = Math.round(hour).toString();
+    // if course is defined then put it in the array 
+    if(course != undefined){
+      finalArray.push(tempObject);
+    }
+    
+  })
+   console.log(finalArray);
+
+
+   const currentObjectId = new ObjectId("60401e61625a9ea848c092bc");
+
+     HiringEvent.findOneAndUpdate(
+     { _id: currentObjectId},
+     {
+       enrollmentFile: finalArray,
+    }
+   ).then((event) => res.status(200).json(event));
+  
+
+});
+
+//GET Ta hours from database 
+router.get("/get/tahour/:courseID", async(req,res)=>{
+
+console.log("Trying to get TA Hours");
+/////
+
+});
+
 router.put("/update/hiringEvent/ranking", async (req, res) => {
   HiringEvent.findOneAndUpdate(
     { _id: req.body._id },
@@ -132,16 +194,22 @@ router.put("/update/hiringEvent/instructorRanking", async (req, res) => {
     }
   ).then((event) => res.status(200).json(event));
 });
-router.get("/get/hiringEvents/:instructorID", (req, res) => {
-  HiringEvent.find({ instructorID: instructorID }).then((event) =>
-    res.status(200).json(event)
-  );
-});
+// router.get("/get/hiringEvents/:instructorID", (req, res) => {
+//   HiringEvent.find({ instructorID: instructorID }).then((event) =>
+//     res.status(200).json(event)
+//   );
+// });
 
 router.get("/get/hiringEvents/:_id", (req, res) => {
   HiringEvent.find({ _id: _id }).then((event) => res.status(200).json(event));
 });
 
+router.get("/get/chairHiringEvents/:departmentChairId", (req, res) => {
+  console.log("getting");
+  const currentObjectId = new ObjectId(req.params.departmentChairId)
+  console.log(currentObjectId)
+  HiringEvent.find({ departmentChairID: currentObjectId }).then((event) => res.status(200).json(event));
+});
 // auth
 
 const authMid = (req, res, next) => {

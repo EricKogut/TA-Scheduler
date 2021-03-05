@@ -19,12 +19,20 @@ export class HiringEventService {
   getEvent(_id){
     return this.http.get(baseUrl+"/hiringEvents/getEvent/"+_id)
   }
+  getUserEvents(departmentChairId){
+    return this.http.get(baseUrl+"/get/chairHiringEvents/"+departmentChairId);
+  }
+
+  getTaHours(courseID){
+    return this.http.get(baseUrl+"/get/tahour/"+courseID);
+  }
+
 
 
   //PUTs
   ///////////////////////////////////////////
-  createEvent(courseCode:string, departmentChairID:string,){
-    return this.http.put(baseUrl+"/create/hiringEvent", {courseCode:courseCode, departmentChairID: departmentChairID})
+  createEvent(departmentChairID:string){
+    return this.http.put(baseUrl+"/create/hiringEvent", {departmentChairID: departmentChairID})
   }
   updateQuestions(_id, questions){
     return this.http.put(baseUrl+"/update/hiringEvent/questions", {_id:_id, questions: questions})
@@ -39,5 +47,8 @@ export class HiringEventService {
 
   updateHours(_id, hours){
     return 0;
+  }
+  updateTaHours(_id,enrollmentInfo){
+    return this.http.put(baseUrl+ "/update/hiringEvent/hours", {_id:_id, enrollmentInfo: enrollmentInfo})
   }
 }

@@ -31,8 +31,14 @@ import { ResponsesUploadPageComponent } from './responses-upload-page/responses-
 import { CourseViewPageComponent } from './course-view-page/course-view-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+<<<<<<< HEAD
 import { ChairHoursComponent } from './chair-hours/chair-hours.component';
 import { AlgorithmOrderSelectorComponent } from './algorithm-order-selector/algorithm-order-selector.component';
+=======
+import { HiringEventsPageComponent } from './hiring-events-page/hiring-events-page.component';
+import { CreateNewHiringEventComponent } from './create-new-hiring-event/create-new-hiring-event.component';
+import { HiringEventHomeComponent } from './hiring-event-home/hiring-event-home.component';
+>>>>>>> schemaRestructure
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
@@ -41,6 +47,13 @@ const myRoutes: Routes =  [
   {path:  'course', component: CourseViewPageComponent},
   { path: 'instructor-ranking', component: InstructorRankingPageComponent},
   { path: 'instructor', component: InstructorHomepageComponent},
+<<<<<<< HEAD
+=======
+  { path: 'hiringEvents', component: HiringEventsPageComponent},
+  { path: 'hiringEventHome', component: HiringEventHomeComponent},
+
+  { path: 'new-hiring-event', component: CreateNewHiringEventComponent},
+>>>>>>> schemaRestructure
   { path: 'upload', component: ResponsesUploadPageComponent },
   { path: 'hours', component:  ChairHoursComponent}
 ]
@@ -59,8 +72,14 @@ const myRoutes: Routes =  [
     SignupPageComponent,
     LandingPageComponent,
     FileUploadComponent,
+<<<<<<< HEAD
     ChairHoursComponent,
     AlgorithmOrderSelectorComponent
+=======
+    HiringEventsPageComponent,
+    CreateNewHiringEventComponent,
+    HiringEventHomeComponent
+>>>>>>> schemaRestructure
   ],
   imports: [
     BrowserModule,

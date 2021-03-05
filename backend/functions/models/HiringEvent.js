@@ -1,25 +1,16 @@
 const mongoose = require('mongoose');
 
 const HiringEventSchema = new mongoose.Schema({
-    courseCode: String,
-    instructorID: { type: mongoose.ObjectId, ref: 'User' },
+    hiringEventName: String,
     departmentChairID: { type: mongoose.ObjectId, ref: 'User' },
+    instructors: [{ type: mongoose.ObjectId, ref: 'User' }],
+    courses: [{ type: mongoose.ObjectId, ref: 'Course' }],
     startDate: Date,
     endDate: Date,
     status: String,
-    questionFile: [Object],
-    answerFile: [Object],
-    rankingFile: [Object],
-    applicantResponses: [{
-        applicantName: String,
-        applicantEmail: String,
-        instructorRank: Number,
-        applicantRank: Number,
-        responses: [{
-            question: String,
-            answer: String,
-        }],
-    }]
+    rankingFiles: [Object],
+    enrollmentFile: [Object],
+    priority: String,
 }, { timestamps: true });
 
 module.exports = HiringEvent = mongoose.model('hiringEvent', HiringEventSchema);

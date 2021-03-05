@@ -6,8 +6,12 @@
 <h2>Upload Answers</h2>
 <app-responses-upload-page [(currentCourse)]='currentCourse' [uploadType]="'answer'"></app-responses-upload-page>
 <h2>Upload Enrollment</h2>
-<app-responses-upload-page [(currentCourse)]='currentCourse' [uploadType]="'rating'"></app-responses-upload-page>
+<app-responses-upload-page [(currentCourse)]='currentCourse' [uploadType]=" 'upload'"></app-responses-upload-page>
 
+<hr>
+<app-chair-hours [(currentCourse)]='currentCourse'></app-chair-hours>
+<hr>
+<app-algorithm-order-selector></app-algorithm-order-selector>
 <hr>
 
 <app-instructor-ranking-page [(currentCourse)]='currentCourse'>

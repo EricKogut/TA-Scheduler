@@ -4,20 +4,31 @@
 
 <button class="btn btn-secondary" (click)="addNewCourse()">Create new course</button>
 
-<div id="step2">
-  <ul>
-    <li>Course 1</li>
-    <li>Course 2</li>
-    <li>Course 3</li>
-  </ul>
-</div >
+<div *ngFor = "let course of  courses">
+  <div class="card">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Course Code: {{course.courseCode}}</h5>
+      <p class="card-text">Current status: {{course.status}}</p>
+      <p class="card-text">Time created : {{course.createdAt}}</p>
+
+      <a (click) = "navigateToCourse(course)" class="btn btn-primary">Navigate to Event Page</a>
+    </div>
+  </div>
+</div>
+
+<hr>
 
 <div id="step3">
   <h5>Upload answers</h5>
-<app-responses-upload-page> </app-responses-upload-page>
+  <app-responses-upload-page [(currentHiringEvent)]='currentHiringEvent' [uploadType]="'answer'"></app-responses-upload-page>
 </div>
 <div id="step4">
   <h5>Upload Enrollment</h5>
-  <app-responses-upload-page> </app-responses-upload-page>
+  <h2>Upload Enrollment</h2>
+<app-responses-upload-page [(currentHiringEvent)]='currentHiringEvent' [uploadType]=" 'upload'"></app-responses-upload-page>
+
 </div>
 

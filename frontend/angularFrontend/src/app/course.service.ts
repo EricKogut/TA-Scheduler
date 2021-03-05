@@ -21,4 +21,8 @@ export class CourseService {
   getHiringEventCourses(idInput){
     return this.http.get(baseUrl+"/courses/getAll/"+idInput)
   }
+
+  getInstructorCourses(instructorID){
+  return this.http.get(baseUrl+"/courses/getAll/instructorID/"+instructorID)
+}
 }

@@ -8,7 +8,8 @@ const HiringEventSchema = new mongoose.Schema({
     startDate: Date,
     endDate: Date,
     status: String,
-    rankingFiles: [Object],
+    rankingFile: [Object],
+    answerFile: [Object],
     enrollmentFile: [Object],
     priority: String,
 }, { timestamps: true });

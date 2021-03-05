@@ -31,6 +31,8 @@ import { ResponsesUploadPageComponent } from './responses-upload-page/responses-
 import { CourseViewPageComponent } from './course-view-page/course-view-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { ChairHoursComponent } from './chair-hours/chair-hours.component';
+import { AlgorithmOrderSelectorComponent } from './algorithm-order-selector/algorithm-order-selector.component';
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
@@ -39,9 +41,8 @@ const myRoutes: Routes =  [
   {path:  'course', component: CourseViewPageComponent},
   { path: 'instructor-ranking', component: InstructorRankingPageComponent},
   { path: 'instructor', component: InstructorHomepageComponent},
-
   { path: 'upload', component: ResponsesUploadPageComponent },
-
+  { path: 'hours', component:  ChairHoursComponent}
 ]
 
 @NgModule({
@@ -57,7 +58,9 @@ const myRoutes: Routes =  [
     CourseViewPageComponent,
     SignupPageComponent,
     LandingPageComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    ChairHoursComponent,
+    AlgorithmOrderSelectorComponent
   ],
   imports: [
     BrowserModule,

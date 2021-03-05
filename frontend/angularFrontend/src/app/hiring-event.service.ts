@@ -36,4 +36,8 @@ export class HiringEventService {
   updateRanking(_id, applicantResponsesUpdated){
     return this.http.put(baseUrl+"/update/hiringEvent/instructorRanking", {_id:_id, applicantResponsesUpdated: applicantResponsesUpdated})
   }
+
+  updateHours(_id, hours){
+    return 0;
+  }
 }

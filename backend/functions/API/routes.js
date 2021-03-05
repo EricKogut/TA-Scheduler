@@ -172,6 +172,11 @@ router.put("/update/hiringEvent/hours", async(req,res)=>{
 //GET Ta hours from database 
 router.get("/get/tahour/:courseID", async(req,res)=>{
 
+  console.log("pleasee");
+
+ HiringEvent.find({_id: "60401e61625a9ea848c092bc"}).then((event) => res.status(200).json(event));
+
+
 console.log("Trying to get TA Hours");
 /////
 

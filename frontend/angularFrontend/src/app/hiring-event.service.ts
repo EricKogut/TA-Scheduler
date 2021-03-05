@@ -24,7 +24,7 @@ export class HiringEventService {
   }
 
   getTaHours(courseID){
-    return this.http.get(baseUrl+"/get/tahour/"+courseID);
+    return this.http.get(baseUrl+"/get/tahour/"+"ECE 2231B");
   }
 
 

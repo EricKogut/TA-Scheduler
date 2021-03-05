@@ -4,8 +4,9 @@ const HiringEvent = require("../models/HiringEvent");
 const Evaluation = require("../models/Evaluation");
 const Instructor = require('../database/instructor');
 const Enrolment = require('../database/enrolment');
+const Course = requite("../models/Course")
 const Processor = require('./processing');
-
+const { ObjectId } = require( "mongodb");
 const router = express.Router();
 
 
@@ -130,6 +131,39 @@ const evaluationModel = new Evaluation({
 
 
 })
+
+//Courses
+router.get('/get/hiringEvents/:_id', (req, res) => {
+    HiringEvent.find({ _id: _id }).then(event => res.status(200).json(event));
+})
+
+
+////////////////////////////////////////////////////////////////
+//COURSES
+////////////////////////////////////////////////////////////////
+
+
+
+router.get('/courses/getAll/:_id', (req, res) => {
+    console.log(_id, "is what has been passed")
+    Course.find({ hiringEventID: new ObjectId(_id) }).then(event => res.status(200).json(event));
+})
+
+
+router.put('/courses/createnew/', (req, res) => {
+    newCourse ={
+        courseCode: req.body.courseCode,
+        instructorID:null,
+        hiringEventID:req.body.hiringEventID,
+        status: "created",
+        questionFile:null,
+        rankingFile:null,
+        applicantResponses:null,
+    }
+
+    Course.createNew({newCourse}).then(event => res.status(200).json(event));
+})
+
 
 
 // Testing ROUTE

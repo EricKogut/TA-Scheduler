@@ -29,7 +29,7 @@ export class HiringEventsPageComponent implements OnInit {
 
   navigateToEvent(event){
     this.stateService.setCurrentHiringEvent(event);
-    console.log("navtigating")
+
     this.router.navigate(['hiringEventHome'])
 
 

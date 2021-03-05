@@ -20,6 +20,7 @@ export class StateService {
   }
 
   getCurrentHiringEvent(){
+    console.log("getting the hiring event")
     return this._current_hiring_event
   }
   setCurrentHiringEvent(hiringEventInput){

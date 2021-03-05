@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const HiringEvent = require("../models/HiringEvent");
 const Users = require("../models/Users");
 const UsersModel = mongoose.model("users");
+const Course = require("../models/Course")
+
 const { ObjectId } = require( "mongodb");
 
 // express stuff
@@ -383,3 +385,31 @@ router.get("/hiringEvents/getAll", async (req, res) => {
 module.exports = router;
 
 // hey there, its ok, you'll fix that bug soon, you deserve a break rn - go
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+
+router.get('/courses/getAll/:_id', (req, res) => {
+  console.log(_id, "is what has been passed")
+  Course.find({ hiringEventID: new ObjectId(_id) }).then(event => res.status(200).json(event));
+})
+
+
+router.put('/courses/createnew/', (req, res) => {
+  newCourse ={
+      courseCode: req.body.courseCode,
+      instructorID:null,
+      hiringEventID:req.body.hiringEventID,
+      status: "created",
+      questionFile:null,
+      rankingFile:null,
+      applicantResponses:null,
+  }
+  console.log("creating", newCourse)
+  Course.create(newCourse).then(event => res.status(200).json(event));
+})
+

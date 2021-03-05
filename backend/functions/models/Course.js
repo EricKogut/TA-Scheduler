@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const CourseSchema = new mongoose.Schema({
     courseCode: String,
     instructorID: { type: mongoose.ObjectId, ref: 'User' },
-    hiringEvent: { type: mongoose.ObjectId, ref: 'HiringEvent' },
+    hiringEventID: { type: mongoose.ObjectId, ref: 'HiringEvent' },
     status: String,
     questionFile: [Object],
     rankingFile: [Object],

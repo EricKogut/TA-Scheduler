@@ -29,6 +29,7 @@ export class HiringEventService {
 
 
 
+
   //PUTs
   ///////////////////////////////////////////
   createEvent(departmentChairID:string){
@@ -45,10 +46,11 @@ export class HiringEventService {
     return this.http.put(baseUrl+"/update/hiringEvent/instructorRanking", {_id:_id, applicantResponsesUpdated: applicantResponsesUpdated})
   }
 
-  updateHours(_id, hours){
-    return 0;
-  }
   updateTaHours(_id,enrollmentInfo){
     return this.http.put(baseUrl+ "/update/hiringEvent/hours", {_id:_id, enrollmentInfo: enrollmentInfo})
+  }
+
+  modifyTaHours(courseCode, hours){
+    return this.http.put(baseUrl+ "/update/hours", {courseCode: courseCode, hours: hours})
   }
 }

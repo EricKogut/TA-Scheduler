@@ -1,19 +1,25 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { HiringEventService } from '../hiring-event.service';
 
 @Component({
   selector: 'app-chair-hours',
   templateUrl: './chair-hours.component.html',
   styleUrls: ['./chair-hours.component.css']
 })
-export class ChairHoursComponent {
-  hiringEventService: any;
+export class ChairHoursComponent implements OnInit{
   @Input() currentCourse: any;
 
-  constructor() { }
+  constructor(private hiringEventService:HiringEventService) { }
+  ngOnInit(): void {
+    this.hiringEventService.getTaHours("33").subscribe(response=>{
+      console.log(response, "TA HOURS UPDATED")
+
+      this.taHours = response[0].enrollmentFile[0].TA_hour;
+    });  }
 
   //visibility for the hours modification form
   visibility = "hidden";
-  taHours: number = 10;
+  taHours: number;
 
   //change the TA hours submission button
   submitResponse(newHours){
@@ -21,14 +27,14 @@ export class ChairHoursComponent {
     this.taHours = newHours;
     console.log(this.taHours);
 
+    this.hiringEventService.modifyTaHours("ECE 2231B", newHours).subscribe(response=>{
+      console.log(response, "TA HOURS UPDATED")
+
+      this.taHours = response[0].enrollmentFile[0].TA_hour;
+    });
+
     //changes visibility of form to close
     this.close();
-
-    //sends new hours to backend
-    this.hiringEventService.updateHours(this.currentCourse._id, this.taHours).subscribe(response=>{
-      console.log(response, "TA HOURS UPDATED")
-    })
-
   }
 
   //changes visibility of form to display

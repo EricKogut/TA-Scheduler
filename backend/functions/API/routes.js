@@ -182,6 +182,25 @@ console.log("Trying to get TA Hours");
 
 });
 
+//Update ta hours 
+router.put("/update/hours", async(req,res)=>{
+  
+  // const hiringevent = HiringEvent.findOne({_id: "60401e61625a9ea848c092bc" })
+  const currentObjectId = new ObjectId("60401e61625a9ea848c092bc");
+  
+ 
+  const updateTaHour = HiringEvent.updateOne(
+    //find the object that coreesponds to this ID
+       {_id: currentObjectId},
+       //set the TA hour to the hours value attached to the request body
+      {$set: {"enrollmentFile.$[elem].TA_hour": req.body.hours} },
+      //the condition to change the TA_hour is that the coursecode must match the corse code attached in the request body
+      {arrayFilters: [{"elem.courseID": req.body.courseCode}]}
+  ).then((event) => res.status(200).json(event));
+   console.log("done changing TA_hour");
+
+});
+
 router.put("/update/hiringEvent/ranking", async (req, res) => {
   HiringEvent.findOneAndUpdate(
     { _id: req.body._id },

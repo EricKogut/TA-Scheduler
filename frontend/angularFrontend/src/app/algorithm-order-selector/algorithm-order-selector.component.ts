@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { HiringEventService } from '../hiring-event.service';
 
 @Component({
   selector: 'app-algorithm-order-selector',
@@ -9,7 +10,7 @@ import { NgForm } from '@angular/forms';
 export class AlgorithmOrderSelectorComponent {
 
   isSubmitted = false;
-  constructor() { }
+  constructor(private hiringEventService:HiringEventService) { }
 
  runAlgorithm(myForm: NgForm) {
   this.isSubmitted = true;
@@ -17,6 +18,9 @@ export class AlgorithmOrderSelectorComponent {
     return false;
   } else {
     alert(JSON.stringify(myForm.value.order));
+    this.hiringEventService.getPriority(JSON.stringify(myForm.value.order)).subscribe(response=>{
+      console.log(response, "Priority sent")
+    });
   }
 }
 }

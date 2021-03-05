@@ -53,4 +53,8 @@ export class HiringEventService {
   modifyTaHours(courseCode, hours){
     return this.http.put(baseUrl+ "/update/hours", {courseCode: courseCode, hours: hours})
   }
+
+  getPriority(priority){
+    return this.http.put(baseUrl+ "/update/priority", {priority: priority})
+  }
 }

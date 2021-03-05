@@ -23,6 +23,10 @@ export class HiringEventService {
     return this.http.get(baseUrl+"/get/chairHiringEvents/"+departmentChairId);
   }
 
+  getTaHours(courseID){
+    return this.http.get(baseUrl+"/get/tahour/"+courseID);
+  }
+
 
 
   //PUTs

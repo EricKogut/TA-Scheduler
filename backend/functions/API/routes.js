@@ -167,7 +167,14 @@ router.put("/update/hiringEvent/hours", async(req,res)=>{
    ).then((event) => res.status(200).json(event));
   
 
-})
+});
+
+//GET Ta hours from database 
+router.get("/get/tahour/:courseID", async(req,res)=>{
+
+console.log("Trying to get TA Hours");
+
+});
 
 router.put("/update/hiringEvent/ranking", async (req, res) => {
   HiringEvent.findOneAndUpdate(

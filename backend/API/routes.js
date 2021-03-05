@@ -4,6 +4,8 @@ const HiringEvent = require("../models/HiringEvent");
 const Evaluation = require("../models/Evaluation");
 const Instructor = require('../database/instructor');
 const Enrolment = require('../database/enrolment');
+const Processor = require('./processing');
+
 const router = express.Router();
 
 
@@ -182,5 +184,14 @@ router.post('/add/enrolment', async(req, res) => {
      }
 })
 
+router.get('/download', async(req, res) => {
+    const filename = req.body.name;
+
+    let processor = new Processor(filename);
+
+    const sheet = processor.createSheet(); // add data when available
+
+    res.send(sheet)
+})
 
 module.exports = router;

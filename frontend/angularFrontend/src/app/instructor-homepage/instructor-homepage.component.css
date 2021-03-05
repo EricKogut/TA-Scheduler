@@ -48,6 +48,10 @@
     display: block;
 }
 
+#custom-assignment{
+    visibility: hidden;
+}
+
 #assigned{
     visibility: hidden;
     background-color: #272727;

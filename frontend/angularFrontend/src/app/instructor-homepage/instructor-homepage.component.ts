@@ -9,16 +9,18 @@ import { HiringEventService } from "../hiring-event.service";
   selector: 'app-instructor-homepage',
   templateUrl: './instructor-homepage.component.html',
   styleUrls: ['./instructor-homepage.component.css']
-})
+  })
 export class InstructorHomepageComponent implements OnInit {
   courseCode;
   handleCourseCode(term: string): void {this.courseCode = term.replace(/[<={}()>/\\]/gi, "")}
 
   //sample data
-//used to store array of courses
-  assignedTAs :any = [];
+  //used to store array of courses
+  suggestedTAs :any = [];
+  customAssignment: any = [];
   visibility = "hidden";
   taVisibility = "hidden";
+  customVisibility = "hidden";
   user = "Prof. K. Grolinger";
 
   evQuestions:any;
@@ -29,6 +31,22 @@ export class InstructorHomepageComponent implements OnInit {
       //placeholders
     ]),
   });
+
+  //Admin and Chair Functionality
+  taForm = new FormGroup({
+    customTA: new FormArray([
+      //placeholders
+    ]),
+  });
+  get customTA(): FormArray {
+    return this.taForm.get('customTA') as FormArray;
+  }
+  // for adding new TA to assignment
+  addTA() {
+    console.log("new TA added");
+    this.customTA.push(new FormControl());
+  }
+  
 
   //gets the array of questions from the reactive form
   get questions(): FormArray {
@@ -65,10 +83,18 @@ export class InstructorHomepageComponent implements OnInit {
   viewCourse(course){
     this.router.navigate(['course'], {state: {data: {currentCourse:course}}});
   }
-
-
-
  
+  //this is related to a chair and admin functionality
+  createAssignment(){
+    this.customVisibility="visible";
+  }
+  saveTA(){
+    console.log(this.customTA.value);  
+    this.evQuestions = this.questions.value;
+    //this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
+    //console.log(response);
+    //});
+  }
 
   //Navigating to the applicant page
   navigateToApplicants(){
@@ -84,7 +110,6 @@ export class InstructorHomepageComponent implements OnInit {
   viewAssigned(){
     this.taVisibility = "visible";
   }
-
 
   createHiringEvent(){
 
@@ -107,19 +132,15 @@ export class InstructorHomepageComponent implements OnInit {
     this.evQuestions = this.questions.value;
     this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
     console.log(response);
-
     });
-    
   }
-
-  
 
   close(){
     this.visibility = "hidden";
     this.taVisibility = "hidden";
+    this.customVisibility = "hidden";
   }
 
 }
-
 
 // <button type="submit " [disabled]="!evaluationForm.valid ">Save</button>

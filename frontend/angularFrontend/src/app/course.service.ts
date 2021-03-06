@@ -25,4 +25,19 @@ export class CourseService {
   getInstructorCourses(instructorID){
   return this.http.get(baseUrl+"/courses/getAll/instructorID/"+instructorID)
 }
+
+updateCourses(hiringEventID,  applicantResponses){
+  console.log(baseUrl+"/courses/createnew/")
+  return this.http.put(baseUrl+"/courses/update/",
+  {hiringEventID:hiringEventID,
+  answerFile:applicantResponses})
+}
+updateRequiredHours(hiringEventID,  enrollmentFile){
+  console.log(enrollmentFile, "is the enrollment file" )
+  return this.http.put(baseUrl+"/courses/updatehours/",
+  {hiringEventID:hiringEventID,
+    enrollmentFile:enrollmentFile})
+
+}
+
 }

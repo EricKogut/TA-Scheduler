@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {StateService} from "../state.service";
 import {CourseService} from "../course.service";
+import {Router} from "@angular/router"
+
 @Component({
   selector: 'app-hiring-event-home',
   templateUrl: './hiring-event-home.component.html',
@@ -13,7 +15,8 @@ export class HiringEventHomeComponent implements OnInit {
   handleCourseCode(term: string): void {this.courseCode = term.replace(/[<={}()>/\\]/gi, "")}
 
   constructor(private stateService:StateService,
-              private courseService:CourseService) { }
+              private courseService:CourseService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.currentHiringEvent= this.stateService.getCurrentHiringEvent();
@@ -35,8 +38,20 @@ export class HiringEventHomeComponent implements OnInit {
       console.log(courses," are the courses")
       this.getCourses();
     })
+  }
+
+  updateCourses(){
+    this.currentHiringEvent= this.stateService.getCurrentHiringEvent()
+      this.courseService.updateCourses(this.currentHiringEvent._id, this.stateService.getCurrentHiringEvent().answerFile).subscribe(event=>{
+        console.log("event updated!")
+      })
+      this.courseService.updateRequiredHours(this.currentHiringEvent._id, this.stateService.getCurrentHiringEvent().enrollmentFile).subscribe(event=>{
+        console.log("event updated!")
+      })
 
   }
+
+
 
 
   Upload(){
@@ -44,6 +59,7 @@ export class HiringEventHomeComponent implements OnInit {
   }
 
   navigateToCourse(course){
-
+    this.stateService.setCurrentCourse(course);
+    this.router.navigate(['course'])
   }
 }

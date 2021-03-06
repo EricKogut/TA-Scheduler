@@ -5,18 +5,20 @@ const CourseSchema = new mongoose.Schema({
     instructorID: { type: mongoose.ObjectId, ref: 'User' },
     hiringEventID: { type: mongoose.ObjectId, ref: 'HiringEvent' },
     status: String,
+    requiredHours: Number,
     questionFile: [Object],
     rankingFile: [Object],
-    applicantResponses: [{
-        applicantName: String,
-        applicantEmail: String,
-        instructorRank: Number,
-        applicantRank: Number,
-        responses: [{
-            question: String,
-            answer: String,
-        }],
-    }]
+    applicantResponses: [Object]
 }, { timestamps: true });
-
+// [{
+//     applicantName: String,
+//     applicantEmail: String,
+//     instructorRank: Number,
+//     applicantRank: Number,
+//     gradPrioritization: String,
+//     allocationType:String,
+//     responses: [{
+//         question: String,
+//         answer: String,
+//     }]
 module.exports = Course = mongoose.model('course', CourseSchema);

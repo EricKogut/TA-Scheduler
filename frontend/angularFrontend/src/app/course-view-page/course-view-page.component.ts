@@ -20,6 +20,6 @@ export class CourseViewPageComponent implements OnInit {
     //this.currentCourse = history.state.data.currentCourse;
   }
 
-  getCourse
+
 
 }

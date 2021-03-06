@@ -14,7 +14,7 @@
       <p class="card-text">Current status: {{course.status}}</p>
       <p class="card-text">Time created : {{course.createdAt}}</p>
 
-      <a (click) = "navigateToCourse(course)" class="btn btn-primary">Navigate to Event Page</a>
+      <a (click) = "navigateToCourse(course)" class="btn btn-primary">Navigate to Course Page</a>
     </div>
   </div>
 </div>
@@ -30,5 +30,10 @@
   <h2>Upload Enrollment</h2>
 <app-responses-upload-page [(currentHiringEvent)]='currentHiringEvent' [uploadType]=" 'upload'"></app-responses-upload-page>
 
+
+
+
+
 </div>
+<a (click) = "updateCourses()" class="btn btn-primary">Update Coures Enrollment and Answers</a>
 

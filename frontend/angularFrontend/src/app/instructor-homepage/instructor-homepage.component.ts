@@ -25,6 +25,8 @@ export class InstructorHomepageComponent implements OnInit {
 
   evQuestions:any;
 
+  openCourse;
+
   //dynamic reactive forms
   evaluationForm = new FormGroup({
     questions: new FormArray([
@@ -67,6 +69,7 @@ export class InstructorHomepageComponent implements OnInit {
     private hiringEventService:HiringEventService) { }
 
   ngOnInit(): void {
+
     this.hiringEventService.getAllEvents().subscribe(events =>{
       console.log(events);
       this.events = events
@@ -84,11 +87,22 @@ export class InstructorHomepageComponent implements OnInit {
   }
  
   //this is related to a chair and admin functionality
-  createAssignment(){
+  createAssignment(course){
+    this.openCourse = course.courseCode
     this.customVisibility="visible";
   }
   saveTA(){
+    
     console.log(this.customTA.value);
+
+
+
+    this.hiringEventService.manualMatch(this.customTA.value, this.openCourse).subscribe(event=>{
+      console.log(event, "nyeaheh")
+
+
+
+    })
     //assigns FormArray of TAs to a new array that will be sent to backend
     this.customAssignment = this.customTA.value;
     //this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
@@ -104,11 +118,53 @@ export class InstructorHomepageComponent implements OnInit {
  //toggles div visibility to allow users to create
   createEval(){
     this.visibility = "visible";
+    
   }
 
   //shows popup with assigned TAs
-  viewAssigned(){
-    this.taVisibility = "visible";
+  viewAssigned(course){
+    
+
+    console.log(course.courseCode)
+
+    this.openCourse = course.courseCode
+    this.hiringEventService.getMatches(course.courseCode).subscribe(event=>{
+      console.log(event, "nyeaheh")
+      let tas = event as Array<any>
+      for(let ta of tas){
+        if(ta.status == "pending"){
+          console.log(ta.name)
+          this.suggestedTAs.push(ta.name)
+        }
+  
+      }
+
+      console.log(this.suggestedTAs)
+
+      this.taVisibility = "visible";
+    })
+
+  }
+
+  reject(data){
+    console.log(data)
+
+    this.hiringEventService.rejectMatch(data, this.openCourse).subscribe(event=>{
+      console.log(event, "nyeaheh")
+
+
+
+    })
+  }
+
+
+  confirm(data){
+    console.log(data)
+
+    this.hiringEventService.confirmMatch(data, this.openCourse).subscribe(event=>{
+      console.log(event, "nyeaheh")
+     
+    })
   }
 
   createHiringEvent(){

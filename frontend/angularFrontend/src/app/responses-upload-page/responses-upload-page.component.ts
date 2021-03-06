@@ -11,6 +11,7 @@ import { HiringEventService } from "../hiring-event.service";
 export class ResponsesUploadPageComponent  {
 
   @Input() currentCourse:any;
+  @Input() currentHiringEvent:any;
 
    @Input() uploadType: any;
 
@@ -44,12 +45,12 @@ incomingfile(event)
                 })
               }
               if(this.uploadType == "answer"){
-                this.hiringEventService.updateAnswers(this.currentCourse._id, fileObject).subscribe(object => {
+                this.hiringEventService.updateAnswers(this.currentHiringEvent._id, fileObject).subscribe(object => {
                   console.log("Success in uploading answers.\n", fileObject, "has been uploaded")
                 })
               }
               if(this.uploadType == "upload"){
-                this.hiringEventService.updateTaHours(this.currentCourse._id, fileObject).subscribe(object => {
+                this.hiringEventService.updateTaHours(this.currentHiringEvent._id, fileObject).subscribe(object => {
                   console.log("Success in uploading enrollment information.\n", fileObject, "has been uploaded")
                 })
               }

@@ -4,6 +4,8 @@ import {ApplicationService} from '../application.service';
 import { FormBuilder } from "@angular/forms";
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import { HiringEventService } from "../hiring-event.service";
+import {CourseService} from "../course.service";
+import {StateService} from "../state.service";
 
 @Component({
   selector: 'app-instructor-homepage',
@@ -35,7 +37,7 @@ export class InstructorHomepageComponent implements OnInit {
     return this.evaluationForm.get('questions') as FormArray;
   }
 
-   // for adding a new question input 
+   // for adding a new question input
    addQuestion() {
     console.log("new question added");
     //this.questions.push(this.fb.control(""));
@@ -47,7 +49,8 @@ export class InstructorHomepageComponent implements OnInit {
 
   constructor(private router: Router,
     private appService: ApplicationService,
-    private hiringEventService:HiringEventService) { }
+    private hiringEventService:HiringEventService,
+    private stateService: StateService) { }
 
   ngOnInit(): void {
     this.hiringEventService.getAllEvents().subscribe(events =>{
@@ -63,12 +66,13 @@ export class InstructorHomepageComponent implements OnInit {
 
   //Navigating to the applicant page
   viewCourse(course){
+    this.stateService.setCurrentCourse(course);
     this.router.navigate(['course'], {state: {data: {currentCourse:course}}});
   }
 
 
 
- 
+
 
   //Navigating to the applicant page
   navigateToApplicants(){
@@ -96,23 +100,23 @@ export class InstructorHomepageComponent implements OnInit {
 
   save(){
     // displays array of questions
-    //console.log(this.questions.value);  
+    //console.log(this.questions.value);
     // displays object containing array of questions
     //console.log(this.evaluationForm.value);
- 
+
   };
 
   submitResponse(){
-    console.log(this.questions.value);  
+    console.log(this.questions.value);
     this.evQuestions = this.questions.value;
     this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
     console.log(response);
 
     });
-    
+
   }
 
-  
+
 
   close(){
     this.visibility = "hidden";

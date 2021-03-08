@@ -26,7 +26,6 @@ export class InstructorHomepageComponent implements OnInit {
   user = "Prof. K. Grolinger";
 
   evQuestions:any;
-
   openCourse;
 
   //dynamic reactive forms
@@ -45,6 +44,7 @@ export class InstructorHomepageComponent implements OnInit {
   get customTA(): FormArray {
     return this.taForm.get('customTA') as FormArray;
   }
+
   // for adding new TA to assignment
   addTA() {
     console.log("new TA added");
@@ -69,6 +69,7 @@ export class InstructorHomepageComponent implements OnInit {
   constructor(private router: Router,
     private appService: ApplicationService,
     private hiringEventService:HiringEventService,
+    private courseService: CourseService,
     private stateService: StateService) { }
 
   ngOnInit(): void {
@@ -96,16 +97,9 @@ export class InstructorHomepageComponent implements OnInit {
     this.customVisibility="visible";
   }
   saveTA(){
-
     console.log(this.customTA.value);
-
-
-
-    this.hiringEventService.manualMatch(this.customTA.value, this.openCourse).subscribe(event=>{
+    this.courseService.manualMatch(this.customTA.value, this.openCourse).subscribe(event=>{
       console.log(event, "nyeaheh")
-
-
-
     })
     //assigns FormArray of TAs to a new array that will be sent to backend
     this.customAssignment = this.customTA.value;
@@ -127,12 +121,9 @@ export class InstructorHomepageComponent implements OnInit {
 
   //shows popup with assigned TAs
   viewAssigned(course){
-
-
     console.log(course.courseCode)
-
     this.openCourse = course.courseCode
-    this.hiringEventService.getMatches(course.courseCode).subscribe(event=>{
+    this.courseService.getMatches(course.courseCode).subscribe(event=>{
       console.log(event, "nyeaheh")
       let tas = event as Array<any>
       for(let ta of tas){
@@ -142,49 +133,37 @@ export class InstructorHomepageComponent implements OnInit {
         }
 
       }
-
       console.log(this.suggestedTAs)
-
       this.taVisibility = "visible";
     })
-
   }
 
   reject(data){
     console.log(data)
-
-    this.hiringEventService.rejectMatch(data, this.openCourse).subscribe(event=>{
+    this.courseService.rejectMatch(data, this.openCourse).subscribe(event=>{
       console.log(event, "nyeaheh")
-
-
-
     })
   }
 
 
   confirm(data){
     console.log(data)
-
-    this.hiringEventService.confirmMatch(data, this.openCourse).subscribe(event=>{
+    this.courseService.confirmMatch(data, this.openCourse).subscribe(event=>{
       console.log(event, "nyeaheh")
-
     })
   }
 
   createHiringEvent(){
-
     this.hiringEventService.createEvent(this.courseCode).subscribe(event=>{
       console.log(event, "created!!")
     })
 
   }
-
   save(){
     // displays array of questions
     //console.log(this.questions.value);
     // displays object containing array of questions
     //console.log(this.evaluationForm.value);
-
   };
 
   submitResponse(){
@@ -203,4 +182,3 @@ export class InstructorHomepageComponent implements OnInit {
 
 }
 
-// <button type="submit " [disabled]="!evaluationForm.valid ">Save</button>

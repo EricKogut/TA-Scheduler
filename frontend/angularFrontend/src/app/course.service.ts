@@ -40,4 +40,27 @@ updateRequiredHours(hiringEventID,  enrollmentFile){
 
 }
 
+editTAHours(_id,newHours){
+  console.log(_id, "IS THE INPUTTED ID")
+  return this.http.put(baseUrl+ "/update/course/hours", {_id:_id, requiredHours: newHours})
+}
+
+
+getMatches(course){
+  return this.http.get(baseUrl+"/hiringEvent/matches/"+course)
+  console.log("Getting the matches for the following courses", course);
+}
+
+confirmMatch(name, course){
+  return this.http.get(baseUrl+"/hiringEvent/confirmMatch/"+name+"/"+course)
+}
+
+rejectMatch(name, course){
+  return this.http.get(baseUrl+"/hiringEvent/rejectMatch/"+name+"/"+course)
+}
+
+manualMatch(name, course){
+  return this.http.get(baseUrl+"/hiringEvent/manualMatch/"+name+"/"+course)
+}
+
 }

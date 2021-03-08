@@ -47,15 +47,14 @@
     <p (click)="close() ">Close</p>
     <h4>Suggested TA's:</h4>
     <ol *ngFor='let ta of suggestedTAs'>
-        <li>    
-            {{ta}} 
+        <li>
+            {{ta}}
 
             <button (click)="confirm(ta)">Confirm</button>
-            <button (click)="reject(ta)">Reject</button> 
+            <button (click)="reject(ta)">Reject</button>
         </li>
-        
+
     </ol>
-   
 </div>
 
 <!--This is a chair and admin functionality-->
@@ -73,12 +72,12 @@
                         <input type="text " [formControlName]="i">
                     </label>
                 </div>
-    
+
             </div>
-    
+
             <button (click)="addTA()">Add TA</button>
             <button (click)="saveTA()">Save</button>
         </form>
     </ol>
-    
+
 </div>

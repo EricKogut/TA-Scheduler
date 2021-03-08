@@ -51,6 +51,7 @@ incomingfile(event)
               }
               if(this.uploadType == "upload"){
                 this.hiringEventService.updateTaHours(this.currentHiringEvent._id, fileObject).subscribe(object => {
+                  console.log("UPDATED ")
                   console.log("Success in uploading enrollment information.\n", fileObject, "has been uploaded")
                 })
               }

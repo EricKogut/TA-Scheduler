@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HiringEventService } from '../hiring-event.service';
+import { CourseService } from '../course.service';
+import { StateService } from '../state.service';
 
 @Component({
   selector: 'app-chair-hours',
@@ -8,14 +10,12 @@ import { HiringEventService } from '../hiring-event.service';
 })
 export class ChairHoursComponent implements OnInit{
   @Input() currentCourse: any;
+  currentHiringEvent;
 
-  constructor(private hiringEventService:HiringEventService) { }
+  constructor(private courseService:CourseService, private stateService: StateService) { }
   ngOnInit(): void {
-    this.hiringEventService.getTaHours("33").subscribe(response=>{
-      console.log(response, "TA HOURS UPDATED")
-
-      this.taHours = response[0].enrollmentFile[0].TA_hour;
-    });  }
+    this.currentHiringEvent = this.stateService.getCurrentHiringEvent();
+     }
 
   //visibility for the hours modification form
   visibility = "hidden";
@@ -27,11 +27,10 @@ export class ChairHoursComponent implements OnInit{
     this.taHours = newHours;
     console.log(this.taHours);
 
-    this.hiringEventService.modifyTaHours("ECE 2231B", newHours).subscribe(response=>{
-      console.log(response, "TA HOURS UPDATED")
+    // this.hiringEventService.modifyTaHours(this.currentCourse._id, newHours).subscribe(response=>{
+    //   console.log(response, "TA HOURS UPDATED")
 
-      this.taHours = response[0].enrollmentFile[0].TA_hour;
-    });
+    // });
 
     //changes visibility of form to close
     this.close();

@@ -8,6 +8,8 @@ import {Router} from "@angular/router"
 })
 export class HeaderComponent implements OnInit {
 
+  role: string = localStorage.getItem('role');
+
   constructor(private router: Router) { }
 
 
@@ -16,6 +18,10 @@ export class HeaderComponent implements OnInit {
   //Navigating to the main search page
   navigateToLogin(){
     this.router.navigate(['login']);
+  }
+
+  navigateToSignUp(){
+    this.router.navigate(['signup']);
   }
 
   navigateToLanding(){
@@ -28,6 +34,13 @@ export class HeaderComponent implements OnInit {
 
   navigateToInstructor(){
     this.router.navigate(['instructor']);
+  }
+
+  logout(){
+    localStorage.removeItem('role');
+
+    this.router.navigate(['landing']).then(()=>window.location.reload())
+
   }
 
   ngOnInit(): void {

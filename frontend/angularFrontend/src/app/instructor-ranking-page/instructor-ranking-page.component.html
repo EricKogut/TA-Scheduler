@@ -1,6 +1,6 @@
 <br>
-<div class = "counters">
-    <div *ngFor = "let num of numbers">
+<div class="counters">
+    <div *ngFor="let num of numbers">
         <div class="circle">{{num}}</div>
     </div>
 </div>
@@ -13,20 +13,22 @@
         </div>
     </div>
 
-    <div class = "counters">
-        <div *ngFor = "let name of applicantResponses">
-            <button (click) = "findApp(name.applicantName)" class="applications">View</button>
+    <div class="counters">
+        <div *ngFor="let name of applicantResponses">
+            <button (click)="findApp(name.applicantName)" class="applications">View</button>
         </div>
     </div>
-    
+
     <br><br><br><br><br><br><br><br><br><br><br><br>
     <div class="submission">
         <label *ngFor="let cb of checkboxes">
             <input type="checkbox" [(ngModel)]="cb.state">{{cb.label}}
         </label>
-        <p><button [disabled]="buttonState()" (click) = "submit($event)" id="bt">Submit</button> 
+        <p><button class="btn btn-success" [disabled]="buttonState()" (click)="submit($event)" id="bt">Submit</button>
     </div>
 </ng-container>
+
+<hr>
 
 <ng-container *ngIf="show2">
     <div cdkDropList class="applicants" (cdkDropListDropped)="drop($event)">
@@ -36,23 +38,23 @@
         </div>
     </div>
 
-    <div class = "counters">
-        <div *ngFor = "let name of applicantResponses">
-            <button (click) = "findApp(name.applicantName)" class="applications">View</button>
+    <div class="counters">
+        <div *ngFor="let name of applicantResponses">
+            <button class="btn btn-warning" (click)="findApp(name.applicantName)" class="applications">○ View</button>
         </div>
     </div>
 </ng-container>
 
-<button id = "back" (click)= "navigateToInstructorHome()">Back</button>
+<button class="btn btn-light" id="back" (click)="navigateToInstructorHome()"> ↩️ Back</button>
 
 
-<br><br>
+
 <ng-container *ngIf="view">
-    <div class = "displayApp">
-        <div *ngFor = "let apps of foundApp">
+    <div class="displayApp">
+        <div *ngFor="let apps of foundApp">
             <p>Name: {{ apps.foundName }}</p>
             <p>Email: {{ apps.foundEmail }}</p>
-            <div *ngFor = "let response of apps.foundResponses">
+            <div *ngFor="let response of apps.foundResponses">
                 <p>Question: {{ response.foundQuestion }}</p>
                 <p>Answer: {{ response.foundAnswer }}</p>
             </div>
@@ -60,4 +62,4 @@
     </div>
 </ng-container>
 
-<button (click) = "displayApp()">{{ viewButton }}</button>
+<button class="btn btn-info" (click)="displayApp()">{{ viewButton }}</button>

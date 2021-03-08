@@ -8,7 +8,7 @@
 
 <input maxlength="30" #courseCodeBox (input)="handleCourseCode(courseCodeBox.value)" placeholder="Enter Course Code" />
 
-<button (click)="createHiringEvent()">Create new hiring Event</button>
+<button class="btn btn-secondary" (click)="createHiringEvent()">Create new hiring Event</button>
 
 <table>
     <tr id=" course-list " *ngFor='let event of events'>
@@ -16,7 +16,7 @@
         <td (click)="createEval() ">Add Evaluation</td>
         <td (click)="navigateToApplicants() ">View Applicants</td>
         <td (click)="viewAssigned() ">View Assigned</td>
-        <button (click)="viewCourse(event) ">View Course</button>
+        <button class="btn btn-light" (click)="viewCourse(event) ">View Course</button>
     </tr>
 </table>
 
@@ -38,7 +38,7 @@
         </div>
 
         <button (click)="addQuestion() ">New Question</button>
-         <button  (click)=" submitResponse()" >Save</button>
+        <button (click)="submitResponse()">Save</button>
     </form>
 
 </div>

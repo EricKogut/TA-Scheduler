@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {environment} from "./environment"
 const baseUrl = environment.backend_url;
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -13,32 +12,50 @@ export class HiringEventService {
 
   //GETs
   ///////////////////////////////////////////
-
   getAllEvents(){
-    console.log("GETTING ALL EVENTS")
-    return this.http.get(baseUrl+"/api/hiringEvents/getAll")
+    return this.http.get(baseUrl+"/hiringEvents/getAll")
   }
 
   getEvent(_id){
-    console.log("GETTING EVENT WITH ID")
-    return this.http.get(baseUrl+"/api/hiringEvents/getEvent/"+_id)
+    return this.http.get(baseUrl+"/hiringEvents/getEvent/"+_id)
   }
+  getUserEvents(departmentChairId){
+    return this.http.get(baseUrl+"/get/chairHiringEvents/"+departmentChairId);
+  }
+
+  getTaHours(courseID){
+    return this.http.get(baseUrl+"/get/tahour/"+"ECE 2231B");
+  }
+
+
 
 
   //PUTs
   ///////////////////////////////////////////
-  createEvent(courseCode:string, departmentChairID:string,){
-    return this.http.put(baseUrl+"/api/create/hiringEvent", {courseCode:courseCode, departmentChairID: departmentChairID})
+  createEvent(departmentChairID:string){
+    return this.http.put(baseUrl+"/create/hiringEvent", {departmentChairID: departmentChairID})
   }
   updateQuestions(_id, questions){
-    return this.http.put(baseUrl+"/api/update/hiringEvent/questions", {_id:_id, questions: questions})
+    return this.http.put(baseUrl+"/update/hiringEvent/questions", {_id:_id, questions: questions})
   }
    updateAnswers(_id, answers){
-    return this.http.put(baseUrl+"/api/update/hiringEvent/answers", {_id:_id, answers: answers})
+    return this.http.put(baseUrl+"/update/hiringEvent/answers", {_id:_id, answers: answers})
   }
 
   updateRanking(_id, applicantResponsesUpdated){
-    console.log("updating answers")
-    return this.http.put(baseUrl+"/api/update/hiringEvent/instructorRanking", {_id:_id, applicantResponsesUpdated: applicantResponsesUpdated})
+    return this.http.put(baseUrl+"/update/hiringEvent/instructorRanking", {_id:_id, applicantResponsesUpdated: applicantResponsesUpdated})
+  }
+
+  updateTaHours(_id,enrollmentInfo){
+    console.log(_id, "IS THE INPUTTED ID")
+    return this.http.put(baseUrl+ "/update/hiringEvent/hours", {_id:_id, enrollmentInfo: enrollmentInfo})
+  }
+
+  modifyTaHours(courseCode, hours){
+    return this.http.put(baseUrl+ "/update/hours", {courseCode: courseCode, hours: hours})
+  }
+
+  getPriority(priority){
+    return this.http.put(baseUrl+ "/update/priority", {priority: priority})
   }
 }

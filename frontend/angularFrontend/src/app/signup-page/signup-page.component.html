@@ -1,0 +1,59 @@
+<h1>SIGN UP</h1>
+  
+      <form #signUp="ngForm" (ngSubmit)="signup(signUp.value)">
+        <input
+        ngModel
+        name="name"
+        #nameVal="ngModel"
+        placeholder="name"
+        id="nameVal"
+      />
+
+        <input
+          ngModel
+          name="email"
+          #emailVal="ngModel"
+          placeholder="email"
+          id="emailVal"
+        />
+
+    
+        <datalist name="rolesList" id="rolesList">
+            <option value="chair"></option>
+            <option value="admin"></option>
+            <option value="instructor"></option>
+          </datalist>
+
+          <input
+            ngModel
+            name="role"
+            #courseVal="ngModel"
+            placeholder="select role"
+            autoComplete="on"
+            list="rolesList"
+            id="roleVal"
+            required
+          />
+
+
+
+        <input
+          ngModel
+          name="password"
+          #passwordVal="ngModel"
+          placeholder="password"
+          id="passwordVal"
+          type="password"
+        />
+
+        <input
+        ngModel
+        name="passwordConfirm"
+        #passwordConfirmVal="ngModel"
+        placeholder="passwordConfirm"
+        id="passwordConfirmVal"
+        type="password"
+      />
+  
+        <input type="submit" />
+      </form>

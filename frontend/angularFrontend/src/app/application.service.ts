@@ -15,7 +15,16 @@ export class ApplicationService {
     return this.http.get(baseUrl+"/test")
   }
 
-<<<<<<< HEAD
+
+  signup(data){
+    return this.http.post<any>(baseUrl+"/signup", data)
+  }
+
+  login(data){
+    return this.http.post<any>(baseUrl+"/login", data)
+  }
+
+
   addinstructor(name: string, email: string, course: string){
     return this.http.post(baseUrl + '/api/add/instructor',{
       "name": name,
@@ -25,11 +34,11 @@ export class ApplicationService {
     })
   }
 
-||||||| 05bb6cc
-=======
+
   saveQuestions(questions: any) {
     return this.http.post(baseUrl+"api/addEvaluation/questions", questions);
   }
 
->>>>>>> main
+
 }
+

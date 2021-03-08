@@ -1,4 +1,7 @@
+import { state } from '@angular/animations';
 import { Component, OnInit,Input } from '@angular/core';
+import {StateService} from "../state.service";
+import {CourseService} from "../course.service";
 
 @Component({
   selector: 'app-course-view-page',
@@ -6,21 +9,17 @@ import { Component, OnInit,Input } from '@angular/core';
   styleUrls: ['./course-view-page.component.css']
 })
 export class CourseViewPageComponent implements OnInit {
-
-
-
-
   currentCourse;
 
 
-
-
-  constructor() {
+  constructor(private stateService:StateService) {
   }
 
   ngOnInit(): void {
-    console.log(history.state.data.currentCourse, "is the current state")
-    this.currentCourse = history.state.data.currentCourse;
+    this.currentCourse = this.stateService.getCurrentCourse()
+    //this.currentCourse = history.state.data.currentCourse;
   }
+
+
 
 }

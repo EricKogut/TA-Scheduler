@@ -1,0 +1,18 @@
+<h1>Course Hours</h1>
+
+<p>Allotted hours for course: {{currentCourse.requiredHours}}</p>
+
+<button (click)="changeHours()">Change</button>
+
+<div id="changeHoursForm" [style.visibility]="visibility">
+    <form>
+        <label>
+            Change TA Hours:
+            <input type="text" required #newHours>
+        </label>
+
+        <button (click)="submitResponse(newHours.value)">Change</button>
+        <button (click)="close()">Cancel</button>
+
+    </form>
+</div>

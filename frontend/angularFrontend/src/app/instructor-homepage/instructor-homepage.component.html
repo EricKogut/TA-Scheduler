@@ -15,7 +15,8 @@
         <td>{{event.courseCode}}</td>
         <td (click)="createEval() ">Add Evaluation</td>
         <td (click)="navigateToApplicants() ">View Applicants</td>
-        <td (click)="viewAssigned() ">View Assigned</td>
+        <td (click)="viewAssigned(event) ">View Assigned</td>
+        <td (click)="createAssignment(event)">Create Custom Assignment</td>
         <button class="btn btn-light" (click)="viewCourse(event) ">View Course</button>
     </tr>
 </table>
@@ -40,13 +41,44 @@
         <button (click)="addQuestion() ">New Question</button>
         <button (click)="submitResponse()">Save</button>
     </form>
-
 </div>
 
 <div id="assigned " [style.visibility]="taVisibility ">
     <p (click)="close() ">Close</p>
-    <h4>Assigned TA's:</h4>
-    <ol>
-        <li *ngFor='let ta of assignedTAs'></li>
+    <h4>Suggested TA's:</h4>
+    <ol *ngFor='let ta of suggestedTAs'>
+        <li>    
+            {{ta}} 
+
+            <button (click)="confirm(ta)">Confirm</button>
+            <button (click)="reject(ta)">Reject</button> 
+        </li>
+        
     </ol>
+   
+</div>
+
+<!--This is a chair and admin functionality-->
+<div id="custom-assignment" [style.visibility]="customVisibility ">
+    <p (click)="close() ">Close</p>
+    <h4>Create Custom TA Assignment:</h4>
+    <ol>
+        <form [formGroup]="taForm " (ngSubmit)="save()">
+            <div formArrayName="customTA">
+                <h4>Create Custom TA Assignment:</h4>
+
+                <div *ngFor="let ta of customTA.controls; let i=index ">
+                    <label>
+                        TA Name:
+                        <input type="text " [formControlName]="i">
+                    </label>
+                </div>
+    
+            </div>
+    
+            <button (click)="addTA()">Add TA</button>
+            <button (click)="saveTA()">Save</button>
+        </form>
+    </ol>
+    
 </div>

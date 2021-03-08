@@ -29,6 +29,22 @@ export class HiringEventService {
 
 
 
+  getMatches(course){
+    return this.http.get(baseUrl+"/hiringEvent/matches/"+course)
+  }
+
+  confirmMatch(name, course){
+    return this.http.get(baseUrl+"/hiringEvent/confirmMatch/"+name+"/"+course)
+  }
+
+  rejectMatch(name, course){
+    return this.http.get(baseUrl+"/hiringEvent/rejectMatch/"+name+"/"+course)
+  }
+
+  manualMatch(name, course){
+    return this.http.get(baseUrl+"/hiringEvent/manualMatch/"+name+"/"+course)
+  }
+
 
   //PUTs
   ///////////////////////////////////////////

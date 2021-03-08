@@ -7,6 +7,9 @@ const Course = require("../models/Course")
 
 const { ObjectId } = require( "mongodb");
 
+const Matches = require("../models/Matches");
+const MatchesModel = mongoose.model("matches");
+
 // express stuff
 const express = require("express");
 const router = express.Router();
@@ -27,7 +30,57 @@ var firebaseConfig = {
 const firebase = require("firebase");
 
 
-// SAMPLE ROUTE
+// ----- HIRING EVENT STUFF -------
+
+router.get("/hiringEvent/matches/:course", async (req, res) => {
+  console.log(req.params)
+  Matches.find({ $or: [{ course: req.params.course, status: "pending"}, { course: req.params.course, status: "confirmed"} ] }).then(
+    (doc, err) => {
+      console.log(doc)
+      res.status(200).json(doc)
+    }
+  )
+  
+})
+
+router.get("/hiringEvent/rejectMatch/:name/:course", async (req, res) => {
+  console.log(req.params)
+  Matches.findOneAndUpdate({ course: req.params.course, name: req.params.name }, { status: "rejected"}).then(
+    (doc, err) => {
+      console.log(doc)
+      res.status(200).json(doc)
+    }
+  )
+  
+})
+
+
+router.get("/hiringEvent/confirmMatch/:name/:course", async (req, res) => {
+  console.log(req.params)
+  Matches.findOneAndUpdate({ course: req.params.course, name: req.params.name }, { status: "confirmed"}).then(
+    (doc, err) => {
+      console.log(doc)
+      res.status(200).json(doc)
+    }
+  )
+  
+})
+
+
+router.get("/hiringEvent/manualMatch/:name/:course", async (req, res) => {
+  console.log(req.params)
+  Matches.create({ course: req.params.course, name: req.params.name, status: "confirmed"}).then(
+    (doc, err) => {
+      console.log(doc)
+      res.status(200).json(doc)
+    }
+  )
+  
+})
+
+
+
+
 router.put("/create/hiringEvent", async (req, res) => {
   newEvent = {
     hiringEventName: "New Hiring Event",

@@ -11,19 +11,23 @@ import {StateService} from "../state.service";
   selector: 'app-instructor-homepage',
   templateUrl: './instructor-homepage.component.html',
   styleUrls: ['./instructor-homepage.component.css']
-})
+  })
 export class InstructorHomepageComponent implements OnInit {
   courseCode;
   handleCourseCode(term: string): void {this.courseCode = term.replace(/[<={}()>/\\]/gi, "")}
 
   //sample data
-//used to store array of courses
-  assignedTAs :any = [];
+  //used to store array of courses
+  suggestedTAs :any = [];
+  customAssignment: any = [];
   visibility = "hidden";
   taVisibility = "hidden";
+  customVisibility = "hidden";
   user = "Prof. K. Grolinger";
 
   evQuestions:any;
+
+  openCourse;
 
   //dynamic reactive forms
   evaluationForm = new FormGroup({
@@ -31,6 +35,22 @@ export class InstructorHomepageComponent implements OnInit {
       //placeholders
     ]),
   });
+
+  //Admin and Chair Functionality
+  taForm = new FormGroup({
+    customTA: new FormArray([
+      //placeholders
+    ]),
+  });
+  get customTA(): FormArray {
+    return this.taForm.get('customTA') as FormArray;
+  }
+  // for adding new TA to assignment
+  addTA() {
+    console.log("new TA added");
+    this.customTA.push(new FormControl());
+  }
+
 
   //gets the array of questions from the reactive form
   get questions(): FormArray {
@@ -44,7 +64,6 @@ export class InstructorHomepageComponent implements OnInit {
     this.questions.push(new FormControl());
   }
 
-
   events: any;
 
   constructor(private router: Router,
@@ -53,6 +72,7 @@ export class InstructorHomepageComponent implements OnInit {
     private stateService: StateService) { }
 
   ngOnInit(): void {
+
     this.hiringEventService.getAllEvents().subscribe(events =>{
       console.log(events);
       this.events = events
@@ -70,9 +90,29 @@ export class InstructorHomepageComponent implements OnInit {
     this.router.navigate(['course'], {state: {data: {currentCourse:course}}});
   }
 
+  //this is related to a chair and admin functionality
+  createAssignment(course){
+    this.openCourse = course.courseCode
+    this.customVisibility="visible";
+  }
+  saveTA(){
+
+    console.log(this.customTA.value);
 
 
 
+    this.hiringEventService.manualMatch(this.customTA.value, this.openCourse).subscribe(event=>{
+      console.log(event, "nyeaheh")
+
+
+
+    })
+    //assigns FormArray of TAs to a new array that will be sent to backend
+    this.customAssignment = this.customTA.value;
+    //this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
+    //console.log(response);
+    //});
+  }
 
   //Navigating to the applicant page
   navigateToApplicants(){
@@ -82,13 +122,54 @@ export class InstructorHomepageComponent implements OnInit {
  //toggles div visibility to allow users to create
   createEval(){
     this.visibility = "visible";
+
   }
 
   //shows popup with assigned TAs
-  viewAssigned(){
-    this.taVisibility = "visible";
+  viewAssigned(course){
+
+
+    console.log(course.courseCode)
+
+    this.openCourse = course.courseCode
+    this.hiringEventService.getMatches(course.courseCode).subscribe(event=>{
+      console.log(event, "nyeaheh")
+      let tas = event as Array<any>
+      for(let ta of tas){
+        if(ta.status == "pending"){
+          console.log(ta.name)
+          this.suggestedTAs.push(ta.name)
+        }
+
+      }
+
+      console.log(this.suggestedTAs)
+
+      this.taVisibility = "visible";
+    })
+
   }
 
+  reject(data){
+    console.log(data)
+
+    this.hiringEventService.rejectMatch(data, this.openCourse).subscribe(event=>{
+      console.log(event, "nyeaheh")
+
+
+
+    })
+  }
+
+
+  confirm(data){
+    console.log(data)
+
+    this.hiringEventService.confirmMatch(data, this.openCourse).subscribe(event=>{
+      console.log(event, "nyeaheh")
+
+    })
+  }
 
   createHiringEvent(){
 
@@ -111,19 +192,15 @@ export class InstructorHomepageComponent implements OnInit {
     this.evQuestions = this.questions.value;
     this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
     console.log(response);
-
     });
-
   }
-
-
 
   close(){
     this.visibility = "hidden";
     this.taVisibility = "hidden";
+    this.customVisibility = "hidden";
   }
 
 }
-
 
 // <button type="submit " [disabled]="!evaluationForm.valid ">Save</button>

@@ -25,12 +25,12 @@ import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HeaderComponent } from './header/header.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 import { InstructorRankingPageComponent } from './instructor-ranking-page/instructor-ranking-page.component';
 import { InstructorHomepageComponent } from './instructor-homepage/instructor-homepage.component';
 import { ResponsesUploadPageComponent } from './responses-upload-page/responses-upload-page.component';
 import { CourseViewPageComponent } from './course-view-page/course-view-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
-import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ChairHoursComponent } from './chair-hours/chair-hours.component';
 import { AlgorithmOrderSelectorComponent } from './algorithm-order-selector/algorithm-order-selector.component';
 import { HiringEventsPageComponent } from './hiring-events-page/hiring-events-page.component';
@@ -59,6 +59,11 @@ const myRoutes: Routes =  [
     LoginPageComponent,
     HeaderComponent,
     LandingPageComponent,
+    FileUploadComponent,
+    InstructorRankingPageComponent,
+    InstructorHomepageComponent,
+    ResponsesUploadPageComponent,
+    CourseViewPageComponent,
     InstructorRankingPageComponent,
     InstructorHomepageComponent,
     ResponsesUploadPageComponent,

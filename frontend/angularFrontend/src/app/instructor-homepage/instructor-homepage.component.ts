@@ -154,7 +154,7 @@ export class InstructorHomepageComponent implements OnInit {
   }
 
   createHiringEvent(){
-    this.courseService.createEvent(this.courseCode).subscribe(event=>{
+    this.hiringEventService.createEvent(this.courseCode).subscribe(event=>{
       console.log(event, "created!!")
     })
 

@@ -22,7 +22,12 @@
   </ol>
 </div>
 
-<app-chair-hours [(currentCourse)]='currentCourse'></app-chair-hours>
+<div>
+  <h2>The required hours are</h2>{{currentCourse.requiredHours}}
+
+</div>
+
+<!-- <app-chair-hours [(currentCourse)]='currentCourse'></app-chair-hours> -->
 <hr>
 <app-algorithm-order-selector></app-algorithm-order-selector>
 <hr>

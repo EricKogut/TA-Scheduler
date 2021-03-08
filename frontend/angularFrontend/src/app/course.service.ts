@@ -44,6 +44,7 @@ updateRequiredHours(hiringEventID,  enrollmentFile){
 
 getMatches(course){
   return this.http.get(baseUrl+"/hiringEvent/matches/"+course)
+  console.log("Getting the matches for the following courses", course);
 }
 
 confirmMatch(name, course){

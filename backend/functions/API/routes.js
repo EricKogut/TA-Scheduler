@@ -154,11 +154,12 @@ router.put("/update/hiringEvent/answers", async (req, res) => {
         courseCode: element["Course Code"],
         applicantName: element["Applicant Name"],
         applicantEmail: element["applicant email"],
+        applicantStatus: element["Applicant status ( 1- Fundable, 2-NotFundable,3-External)"],
+        hours: element["5or10 hrs"],
         instructorRank: null,
-        applicantRank: null,
+        applicantRank: element["Course Rank"],
         gradPrioritization: null,
       };
-      console.log(newResponse);
       counter = 1;
       responses = [];
       while (element["Q" + counter]) {

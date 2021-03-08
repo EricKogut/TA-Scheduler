@@ -1,16 +1,27 @@
 <h1>
     Viewing {{currentCourse.courseCode}}
+
 </h1>
 <h2>Upload Questions</h2>
 <app-responses-upload-page [(currentCourse)]='currentCourse' [uploadType]="'question'"></app-responses-upload-page>
 
-<!-- MOVED TO HIRING EVENT
-<h2>Upload Answers</h2>
-<app-responses-upload-page [(currentCourse)]='currentCourse' [uploadType]="'answer'"></app-responses-upload-page>
-<h2>Upload Enrollment</h2>
-<app-responses-upload-page [(currentCourse)]='currentCourse' [uploadType]=" 'upload'"></app-responses-upload-page> -->
-
 <hr>
+
+<h3>Current Course Matches</h3>
+<div id="assigned " >
+
+  <h4>Suggested TA's:</h4>
+  <ol *ngFor='let ta of suggestedTAs'>
+      <li>
+          {{ta}}
+
+          <button (click)="confirm(ta)">Confirm</button>
+          <button (click)="reject(ta)">Reject</button>
+      </li>
+
+  </ol>
+</div>
+
 <app-chair-hours [(currentCourse)]='currentCourse'></app-chair-hours>
 <hr>
 <app-algorithm-order-selector></app-algorithm-order-selector>

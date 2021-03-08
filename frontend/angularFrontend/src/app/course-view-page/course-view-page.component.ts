@@ -19,7 +19,8 @@ export class CourseViewPageComponent implements OnInit {
     this.currentCourse = this.stateService.getCurrentCourse()
     console.log("current course",  this.stateService.getCurrentCourse())
 this.currentCourse =  {applicantResponses:  [
- {courseCode: "SE123", applicantName: "Alice", applicantEmail: "alice@uwo.ca", instructorRank: null, applicantRank: null},
+ {courseCode: "SE123", applicantName: "Alice", applicantEmail: "alice@uwo.ca", instructorRank: null, applicantRank: null, responses:[{question: "Know Java?", answer: "yes"}, {question: "Know OOP?", answer: "No"},
+{question: "Teaching Certificate?", answer: "No answer Provided"}]},
 {courseCode: "SE123", applicantName: "Bob", applicantEmail: "bob@uwo.ca", instructorRank: null, applicantRank: null},
  {courseCode: "SE123", applicantName: "Charles", applicantEmail: "charles@uwo.ca", instructorRank: null, applicantRank: null}
 ],

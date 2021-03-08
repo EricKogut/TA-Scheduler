@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const HiringEvent = require("../models/HiringEvent");
 const Users = require("../models/Users");
 const UsersModel = mongoose.model("users");
+const Course = require("../models/Course")
+
+const { ObjectId } = require( "mongodb");
 
 const Matches = require("../models/Matches");
 const MatchesModel = mongoose.model("matches");
@@ -80,12 +83,28 @@ router.get("/hiringEvent/manualMatch/:name/:course", async (req, res) => {
 
 router.put("/create/hiringEvent", async (req, res) => {
   newEvent = {
-    courseCode: req.body.courseCode,
-    instructorID: null,
+    hiringEventName: "New Hiring Event",
     departmentChairID: req.body.departmentChairID,
+    instructors: [],
     startDate: Date.now(),
     endDate: null,
     status: "questionsPending",
+    rankingFile: null,
+    enrollmentFile: null,
+  };
+
+  HiringEvent.create(newEvent).then((event) => res.status(200).json(event));
+});
+
+// SAMPLE ROUTE
+router.put("/create/course", async (req, res) => {
+  newEvent = {
+    hiringEventName: "New Hiring Event",
+    departmentChairID: req.body.departmentChairID,
+    instructors: [],
+    startDate: Date.now(),
+    endDate: null,
+    status: "Courses and Questions Pending",
     questionFile: null,
     answerFile: null,
     rankingFile: null,
@@ -118,7 +137,7 @@ router.put("/update/hiringEvent/questions", async (req, res) => {
 });
 
 router.put("/update/hiringEvent/answers", async (req, res) => {
-  //console.log(req.body, "is the body")
+  
   await HiringEvent.findOneAndUpdate(
     { _id: req.body._id },
     {
@@ -132,10 +151,12 @@ router.put("/update/hiringEvent/answers", async (req, res) => {
     if (element["Course Code"]) {
       console.log(i, "is the element");
       newResponse = {
+        courseCode: element["Course Code"],
         applicantName: element["Applicant Name"],
         applicantEmail: element["applicant email"],
         instructorRank: null,
         applicantRank: null,
+        gradPrioritization: null,
       };
       console.log(newResponse);
       counter = 1;
@@ -163,9 +184,130 @@ router.put("/update/hiringEvent/answers", async (req, res) => {
   await HiringEvent.findOneAndUpdate(
     { _id: req.body._id },
     {
-      applicantResponses: applicantResponses,
+      answerFile: applicantResponses,
     }
   ).then((event) => res.status(200).json(event));
+});
+
+//PUT for updating TA Hours 
+router.put("/update/hiringEvent/hours", async(req,res)=>{
+
+  let enrolmentBody;
+  let finalArray = [];
+
+  
+  enrolmentBody = req.body.enrollmentInfo;
+
+  enrolmentBody.forEach((element, i)=>{
+    //i starts from 0 and increaments 
+    // element is each element within the array we are looping 
+    let tempObject = {courseID: "", TA_hour: ""};
+    let course = element["Course "];
+    let hour = (element["Hrs 2020"]/element["Enrol 2020"]) * element["Enrol 2021"];
+    tempObject.courseID = course;
+    tempObject.TA_hour = Math.round(hour).toString();
+    // if course is defined then put it in the array 
+    if(course != undefined){
+      finalArray.push(tempObject);
+    }
+    
+  })
+   console.log(finalArray);
+
+
+   const currentObjectId = new ObjectId(req.body._id);
+
+     HiringEvent.findOneAndUpdate(
+     { _id: currentObjectId},
+     {
+       enrollmentFile: finalArray,
+    }
+   ).then((event) =>{
+    res.status(200).json(event)
+    console.log(event, "is the new event")
+   });
+  
+
+});
+
+
+
+router.put('/courses/update/', (req, res) => {
+  hiringEventID = req.body.hiringEventID;
+  answerFile = req.body.answerFile;
+
+  //Parsing the answers to only pertain to a single course
+  //key: courseCode, value: answers
+  courseAnswers = {}
+
+  //Array of courses
+  courses = []
+  //First Creating all the keys
+  answerFile.forEach(answer=>{
+    courses[answer.courseCode] =[];
+  }) 
+
+  answerFile.forEach(answer=>{
+    //console.log(answer, "is the ans")
+    courses[answer.courseCode].push(answer);
+  }) 
+
+  //Adding the answer files for each course
+  Object.keys(courses).forEach(courseCode => {
+    console.log("Updating", courseCode, "for", hiringEventID, "here", courses[courseCode])
+    Course.findOneAndUpdate({hiringEventID: new ObjectId(hiringEventID), courseCode:courseCode},{applicantResponses:courses[courseCode]}).then(element=>console.log());
+  })
+
+  //res.status(200).json({Messange:"yeet"});
+})
+
+
+router.put('/courses/updatehours/', (req, res) => {
+  hiringEventID = req.body.hiringEventID;
+  enrollmentFile = req.body.enrollmentFile;
+  //console.log(enrollmentFile, "is the enrollmenbt dlsjkfhajsdkl")
+ 
+
+  //Adding the answer files for each course
+  enrollmentFile.forEach(course => {
+    console.log("Updating", course.courseID, "for", hiringEventID, "here", course["TA_hour"])
+    Course.findOneAndUpdate({hiringEventID: new ObjectId(hiringEventID), courseCode:course.courseID},{requiredHours:course["TA_hour"]}).then(element=>console.log());
+  })
+
+  //res.status(200).json({Messange:"yeet"});
+})
+
+
+//GET Ta hours from database 
+router.get("/get/tahour/:courseID", async(req,res)=>{
+
+  console.log("pleasee");
+
+ HiringEvent.find({_id: "60401e61625a9ea848c092bc"}).then((event) => res.status(200).json(event));
+
+
+console.log("Trying to get TA Hours");
+/////
+
+});
+
+//Update ta hours 
+router.put("/update/hours", async(req,res)=>{
+  
+  // const hiringevent = HiringEvent.findOne({_id: "60401e61625a9ea848c092bc" })
+  const currentObjectId = new ObjectId("60401e61625a9ea848c092bc");
+  
+ 
+  const updateTaHour = HiringEvent.updateOne(
+    //find the object that coreesponds to this ID
+       {_id: currentObjectId},
+       //set the TA hour to the hours value attached to the request body
+      {$set: {"enrollmentFile.$[elem].TA_hour": req.body.hours} },
+      //the condition to change the TA_hour is that the coursecode must match the corse code attached in the request body
+      {arrayFilters: [{"elem.courseID": req.body.courseCode}]}
+  ).then((event) => res.status(200).json(event));
+   console.log("done changing TA_hour");
+
 });
 
 router.put("/update/hiringEvent/ranking", async (req, res) => {
@@ -185,19 +327,22 @@ router.put("/update/hiringEvent/instructorRanking", async (req, res) => {
     }
   ).then((event) => res.status(200).json(event));
 });
-router.get("/get/hiringEvents/:instructorID", (req, res) => {
-  HiringEvent.find({ instructorID: instructorID }).then((event) =>
-    res.status(200).json(event)
-  );
-});
+// router.get("/get/hiringEvents/:instructorID", (req, res) => {
+//   HiringEvent.find({ instructorID: instructorID }).then((event) =>
+//     res.status(200).json(event)
+//   );
+// });
 
 router.get("/get/hiringEvents/:_id", (req, res) => {
   HiringEvent.find({ _id: _id }).then((event) => res.status(200).json(event));
 });
 
-
-
-
+router.get("/get/chairHiringEvents/:departmentChairId", (req, res) => {
+  console.log("getting");
+  const currentObjectId = new ObjectId(req.params.departmentChairId)
+  console.log(currentObjectId)
+  HiringEvent.find({ departmentChairID: currentObjectId }).then((event) => res.status(200).json(event));
+});
 // auth
 
 const authMid = (req, res, next) => {
@@ -347,3 +492,37 @@ router.get("/hiringEvents/getAll", async (req, res) => {
 module.exports = router;
 
 // hey there, its ok, you'll fix that bug soon, you deserve a break rn - go
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+
+router.get('/courses/getAll/:_id', (req, res) => {
+  
+  Course.find({ hiringEventID: new ObjectId(req.params._id) }).then(course => res.status(200).json(course));
+})
+
+router.get('/courses/getAll/instructorID/:_id', (req, res) => {
+
+  Course.find({ instructorID: new ObjectId(req.params._id) }).then(course => res.status(200).json(course));
+})
+
+
+router.put('/courses/createnew/', (req, res) => {
+  newCourse ={
+      courseCode: req.body.courseCode,
+      instructorID:null,
+      hiringEventID:req.body.hiringEventID,
+      status: "created",
+      requiredHours:null,
+      questionFil:null,
+      rankingFile:null,
+      applicantResponses:null,
+  }
+  console.log("creating", newCourse)
+  Course.create(newCourse).then(course => res.status(200).json(course));
+})
+

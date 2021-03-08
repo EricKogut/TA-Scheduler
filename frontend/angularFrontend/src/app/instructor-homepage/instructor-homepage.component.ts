@@ -4,6 +4,8 @@ import {ApplicationService} from '../application.service';
 import { FormBuilder } from "@angular/forms";
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import { HiringEventService } from "../hiring-event.service";
+import {CourseService} from "../course.service";
+import {StateService} from "../state.service";
 
 @Component({
   selector: 'app-instructor-homepage',
@@ -48,14 +50,14 @@ export class InstructorHomepageComponent implements OnInit {
     console.log("new TA added");
     this.customTA.push(new FormControl());
   }
-  
+
 
   //gets the array of questions from the reactive form
   get questions(): FormArray {
     return this.evaluationForm.get('questions') as FormArray;
   }
 
-   // for adding a new question input 
+   // for adding a new question input
    addQuestion() {
     console.log("new question added");
     //this.questions.push(this.fb.control(""));
@@ -66,7 +68,8 @@ export class InstructorHomepageComponent implements OnInit {
 
   constructor(private router: Router,
     private appService: ApplicationService,
-    private hiringEventService:HiringEventService) { }
+    private hiringEventService:HiringEventService,
+    private stateService: StateService) { }
 
   ngOnInit(): void {
 
@@ -83,16 +86,17 @@ export class InstructorHomepageComponent implements OnInit {
 
   //Navigating to the applicant page
   viewCourse(course){
+    this.stateService.setCurrentCourse(course);
     this.router.navigate(['course'], {state: {data: {currentCourse:course}}});
   }
- 
+
   //this is related to a chair and admin functionality
   createAssignment(course){
     this.openCourse = course.courseCode
     this.customVisibility="visible";
   }
   saveTA(){
-    
+
     console.log(this.customTA.value);
 
 
@@ -118,12 +122,12 @@ export class InstructorHomepageComponent implements OnInit {
  //toggles div visibility to allow users to create
   createEval(){
     this.visibility = "visible";
-    
+
   }
 
   //shows popup with assigned TAs
   viewAssigned(course){
-    
+
 
     console.log(course.courseCode)
 
@@ -136,7 +140,7 @@ export class InstructorHomepageComponent implements OnInit {
           console.log(ta.name)
           this.suggestedTAs.push(ta.name)
         }
-  
+
       }
 
       console.log(this.suggestedTAs)
@@ -163,13 +167,13 @@ export class InstructorHomepageComponent implements OnInit {
 
     this.hiringEventService.confirmMatch(data, this.openCourse).subscribe(event=>{
       console.log(event, "nyeaheh")
-     
+
     })
   }
 
   createHiringEvent(){
 
-    this.hiringEventService.createEvent(this.courseCode, "6022e3cf3e66f36b08f0ca35").subscribe(event=>{
+    this.hiringEventService.createEvent(this.courseCode).subscribe(event=>{
       console.log(event, "created!!")
     })
 
@@ -177,14 +181,14 @@ export class InstructorHomepageComponent implements OnInit {
 
   save(){
     // displays array of questions
-    //console.log(this.questions.value);  
+    //console.log(this.questions.value);
     // displays object containing array of questions
     //console.log(this.evaluationForm.value);
- 
+
   };
 
   submitResponse(){
-    console.log(this.questions.value);  
+    console.log(this.questions.value);
     this.evQuestions = this.questions.value;
     this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
     console.log(response);

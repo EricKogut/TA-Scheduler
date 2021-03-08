@@ -18,7 +18,7 @@ export class CourseViewPageComponent implements OnInit {
   suggestedTAs :any = [];
   customAssignment: any = [];
   currentMatches = [];
-
+  editingHours = false;
 
   constructor(private stateService:StateService,
               private courseService: CourseService) {
@@ -80,4 +80,34 @@ export class CourseViewPageComponent implements OnInit {
     })
   }
 
+
+
+  //visibility for the hours modification form
+  visibility = "hidden";
+  taHours: number;
+
+  //change the TA hours submission button
+  submitResponse(newHours){
+    //updates the local hours variable
+    this.taHours = newHours;
+    console.log(this.taHours);
+    this.currentCourse.requiredHours = newHours;
+    this.courseService.editTAHours(this.currentCourse._id, newHours).subscribe(response=>{
+      console.log(response, "TA HOURS UPDATED")
+
+    });
+
+    //changes visibility of form to close
+    this.close();
+  }
+
+  //changes visibility of form to display
+  changeHours(){
+    this.visibility = "visible";
+  }
+
+  //changes visibility of form to close
+  close(){
+    this.visibility = "hidden";
+  }
 }

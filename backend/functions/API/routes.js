@@ -258,6 +258,10 @@ router.put('/courses/update/', (req, res) => {
 
   //res.status(200).json({Messange:"yeet"});
 })
+router.put('/update/course/hours', (req, res) => {
+  Course.findOneAndUpdate({_id: new ObjectId(req.body._id)}, {requiredHours:req.body.requiredHours}).then(element=>console.log("updated", req.body._id));
+})
+
 
 
 router.put('/courses/updatehours/', (req, res) => {

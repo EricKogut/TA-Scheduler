@@ -40,6 +40,10 @@ updateRequiredHours(hiringEventID,  enrollmentFile){
 
 }
 
+editTAHours(_id,newHours){
+  console.log(_id, "IS THE INPUTTED ID")
+  return this.http.put(baseUrl+ "/update/course/hours", {_id:_id, requiredHours: newHours})
+}
 
 
 getMatches(course){

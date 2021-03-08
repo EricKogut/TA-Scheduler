@@ -23,11 +23,26 @@
 </div>
 
 <div>
-  <h2>The required hours are</h2>{{currentCourse.requiredHours}}
+  <h6>The required hours are</h6>{{currentCourse.requiredHours}}
 
+  <button  type = "button" class = "btn btn-primary"  (click)="changeHours()">Change</button>
+<div id="changeHoursForm" [style.visibility]="visibility">
+    <form>
+        <label>
+            Input the new hours
+            <input type="text" required #newHours>
+        </label>
+
+        <button type = "button" class = "btn btn-success" (click)="submitResponse(newHours.value)">Change</button>
+        <button type = "button" class = "btn btn-danger" (click)="close()">Cancel</button>
+
+    </form>
 </div>
 
 <!-- <app-chair-hours [(currentCourse)]='currentCourse'></app-chair-hours> -->
+
+</div>
+
 <hr>
 <app-algorithm-order-selector></app-algorithm-order-selector>
 <hr>

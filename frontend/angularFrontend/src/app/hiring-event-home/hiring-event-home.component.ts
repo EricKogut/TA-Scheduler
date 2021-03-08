@@ -41,7 +41,8 @@ export class HiringEventHomeComponent implements OnInit {
   }
 
   updateCourses(){
-    this.currentHiringEvent= this.stateService.getCurrentHiringEvent()
+    console.log("updateing", this.stateService.getCurrentHiringEvent())
+        this.currentHiringEvent= this.stateService.getCurrentHiringEvent()
       this.courseService.updateCourses(this.currentHiringEvent._id, this.stateService.getCurrentHiringEvent().answerFile).subscribe(event=>{
         console.log("event updated!")
       })

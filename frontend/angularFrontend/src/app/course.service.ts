@@ -26,6 +26,10 @@ export class CourseService {
   return this.http.get(baseUrl+"/courses/getAll/instructorID/"+instructorID)
 }
 
+updateRanking(_id, applicantResponsesUpdated){
+  return this.http.put(baseUrl+"/update/course/instructorRanking", {_id:_id, applicantResponsesUpdated: applicantResponsesUpdated})
+}
+
 updateCourses(hiringEventID,  applicantResponses){
   console.log(baseUrl+"/courses/createnew/")
   return this.http.put(baseUrl+"/courses/update/",

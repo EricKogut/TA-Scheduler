@@ -41,9 +41,6 @@ export class HiringEventService {
     return this.http.put(baseUrl+"/update/hiringEvent/answers", {_id:_id, answers: answers})
   }
 
-  updateRanking(_id, applicantResponsesUpdated){
-    return this.http.put(baseUrl+"/update/hiringEvent/instructorRanking", {_id:_id, applicantResponsesUpdated: applicantResponsesUpdated})
-  }
 
   updateTaHours(_id,enrollmentInfo){
     console.log(_id, "IS THE INPUTTED ID")

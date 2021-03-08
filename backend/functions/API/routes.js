@@ -137,7 +137,7 @@ router.put("/update/hiringEvent/questions", async (req, res) => {
 });
 
 router.put("/update/hiringEvent/answers", async (req, res) => {
-  
+  console.log("UPDATING THE ANSWERS")
   await HiringEvent.findOneAndUpdate(
     { _id: req.body._id },
     {
@@ -149,7 +149,7 @@ router.put("/update/hiringEvent/answers", async (req, res) => {
 
   req.body.answers.forEach((element, i) => {
     if (element["Course Code"]) {
-      console.log(i, "is the element");
+      console.log(element, "is the element");
       newResponse = {
         courseCode: element["Course Code"],
         applicantName: element["Applicant Name"],
@@ -234,6 +234,7 @@ router.put('/courses/update/', (req, res) => {
   hiringEventID = req.body.hiringEventID;
   answerFile = req.body.answerFile;
 
+  console.log("answerfile sent", hiringEventID, "IS THE HIRING EVENT ID");
   //Parsing the answers to only pertain to a single course
   //key: courseCode, value: answers
   courseAnswers = {}
@@ -252,7 +253,7 @@ router.put('/courses/update/', (req, res) => {
 
   //Adding the answer files for each course
   Object.keys(courses).forEach(courseCode => {
-    console.log("Updating", courseCode, "for", hiringEventID, "here", courses[courseCode])
+    //console.log("Updating", courseCode, "for", hiringEventID, "here", courses[courseCode])
     Course.findOneAndUpdate({hiringEventID: new ObjectId(hiringEventID), courseCode:courseCode},{applicantResponses:courses[courseCode]}).then(element=>console.log());
   })
 
@@ -321,8 +322,8 @@ router.put("/update/hiringEvent/ranking", async (req, res) => {
   ).then((event) => res.status(200).json(event));
 });
 
-router.put("/update/hiringEvent/instructorRanking", async (req, res) => {
-  HiringEvent.findOneAndUpdate(
+router.put("/update/course/instructorRanking", async (req, res) => {
+  Course.findOneAndUpdate(
     { _id: req.body._id },
     {
       applicantResponses: req.body.applicantResponsesUpdated,

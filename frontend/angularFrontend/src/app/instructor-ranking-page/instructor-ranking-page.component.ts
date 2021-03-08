@@ -4,6 +4,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Router} from "@angular/router";
 import { OnInit } from '@angular/core';
 import { HiringEventService } from "../hiring-event.service";
+import {CourseService} from "../course.service";
 @Component({
   selector: 'app-instructor-ranking-page',
   templateUrl: './instructor-ranking-page.component.html',
@@ -11,7 +12,10 @@ import { HiringEventService } from "../hiring-event.service";
 })
 export class InstructorRankingPageComponent implements OnInit{
 
-  constructor(public fb: FormBuilder, private router: Router, private hiringEventService: HiringEventService) {}
+  constructor(public fb: FormBuilder,
+     private router: Router,
+     private hiringEventService: HiringEventService,
+     private courseService : CourseService) {}
 
   numbers: any;
   events: any;
@@ -64,7 +68,7 @@ export class InstructorRankingPageComponent implements OnInit{
     }
 
 
-    this.hiringEventService.updateRanking(this.currentCourse._id, this.applicantResponses).subscribe(response=>{
+    this.courseService.updateRanking(this.currentCourse._id, this.applicantResponses).subscribe(response=>{
       console.log(response, "UPDATE SUCCESSFULLY")
     })
     this.disableChanges();

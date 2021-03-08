@@ -7,10 +7,23 @@
 
 <hr>
 
-<h3>Current Course Matches</h3>
-<div id="assigned " >
+<h3>Matching Applicants</h3>
 
-  <h4>Suggested TA's:</h4>
+<div>
+  <h6>This course requires {{currentCourse.requiredHours}} hours</h6>  <button  type = "button" class = "btn btn-primary"  (click)="changeHours()">Change</button>
+<div id="changeHoursForm" [style.visibility]="visibility">
+    <form>
+        <label>
+            Input the new hours
+            <input type="text" required #newHours>
+        </label>
+        <button type = "button" class = "btn btn-success" (click)="submitResponse(newHours.value)">Change</button>
+        <button type = "button" class = "btn btn-danger" (click)="close()">Cancel</button>
+    </form>
+</div>
+</div>
+
+<div id="assigned " >
   <ol *ngFor='let ta of suggestedTAs'>
       <li>
           {{ta}}
@@ -22,26 +35,7 @@
   </ol>
 </div>
 
-<div>
-  <h6>The required hours are</h6>{{currentCourse.requiredHours}}
 
-  <button  type = "button" class = "btn btn-primary"  (click)="changeHours()">Change</button>
-<div id="changeHoursForm" [style.visibility]="visibility">
-    <form>
-        <label>
-            Input the new hours
-            <input type="text" required #newHours>
-        </label>
-
-        <button type = "button" class = "btn btn-success" (click)="submitResponse(newHours.value)">Change</button>
-        <button type = "button" class = "btn btn-danger" (click)="close()">Cancel</button>
-
-    </form>
-</div>
-
-<!-- <app-chair-hours [(currentCourse)]='currentCourse'></app-chair-hours> -->
-
-</div>
 
 <hr>
 <app-algorithm-order-selector></app-algorithm-order-selector>

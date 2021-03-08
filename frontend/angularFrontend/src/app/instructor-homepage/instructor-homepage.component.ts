@@ -26,7 +26,6 @@ export class InstructorHomepageComponent implements OnInit {
   user = "Prof. K. Grolinger";
 
   evQuestions:any;
-
   openCourse;
 
   //dynamic reactive forms
@@ -45,6 +44,7 @@ export class InstructorHomepageComponent implements OnInit {
   get customTA(): FormArray {
     return this.taForm.get('customTA') as FormArray;
   }
+
   // for adding new TA to assignment
   addTA() {
     console.log("new TA added");

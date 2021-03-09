@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const MatchesSchema = new mongoose.Schema(
   {
     courseID: {
-      type: { type: mongoose.ObjectId, ref: 'Course' },
+      type:mongoose.ObjectId, ref: 'Course',
     },
     hiringEventID: {
       type: mongoose.ObjectId, ref: 'HiringEvent'

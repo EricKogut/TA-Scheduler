@@ -2,6 +2,8 @@ import { state } from '@angular/animations';
 import { Component, OnInit,Input } from '@angular/core';
 import {StateService} from "../state.service";
 import {CourseService} from "../course.service";
+import {HiringEventService} from "../hiring-event.service";
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-course-view-page',
@@ -17,16 +19,26 @@ export class CourseViewPageComponent implements OnInit {
   //used to store array of courses
   suggestedTAs :any = [];
   customAssignment: any = [];
-  currentMatches = [];
+  currentMatches;
   editingHours = false;
+  addTA = false;
+
+  checkoutForm = this.formBuilder.group({
+    applicantName: '',
+    applicantEmail: '',
+    hours: 0
+  });
 
   constructor(private stateService:StateService,
-              private courseService: CourseService) {
+              private courseService: CourseService,
+              private hiringEventService: HiringEventService,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.currentCourse = this.stateService.getCurrentCourse()
     console.log("current course",  this.stateService.getCurrentCourse())
+    this.getMatches();
 // this.currentCourse =  {applicantResponses:  [
 //  {courseCode: "SE123", applicantName: "Alice", applicantEmail: "alice@uwo.ca", instructorRank: null, applicantRank: null, responses:[{question: "Know Java?", answer: "yes"}, {question: "Know OOP?", answer: "No"},
 // {question: "Teaching Certificate?", answer: "No answer Provided"}]},
@@ -109,5 +121,42 @@ export class CourseViewPageComponent implements OnInit {
   //changes visibility of form to close
   close(){
     this.visibility = "hidden";
+  }
+
+  getMatches(){
+    this.hiringEventService.getMatches(this.currentCourse.hiringEventID, this.currentCourse._id).subscribe(matches=>{
+      this.currentMatches = matches[0];
+      console.log(this.currentMatches, "are teh current matches")
+    })
+  }
+
+  toggleAddTA(){
+    console.log(this.addTA)
+    this.addTA = !this.addTA;
+  }
+
+  onSubmit(): void {
+    let newMatch =
+    {
+      applicantName: this.checkoutForm.value.applicantName,
+      applicantEmail: this.checkoutForm.value.applicantEmail,
+      hours: this.checkoutForm.value.hours,
+      priority: "custom",
+      status: "accepted"
+
+    }
+    console.log(typeof(this.currentMatches.hoursFilled))
+    console.log(typeof(parseInt(this.checkoutForm.value.hours)))
+    console.log((parseInt(this.checkoutForm.value.hours)))
+    let number = this.currentMatches.hoursFilled+ parseInt((this.checkoutForm.value.hours))
+
+    this.currentMatches.hoursFilled = number;
+    console.log
+    this.currentMatches.applicants.push(newMatch)
+
+    this.hiringEventService.addCustomApplicant(this.currentMatches).subscribe(match=>{
+      console.log("updated matches")
+    })
+    this.checkoutForm.reset();
   }
 }

@@ -159,16 +159,16 @@ export class HiringEventHomeComponent implements OnInit {
             {applicantName: currentApplicant.applicantName,
             applicantEmail: currentApplicant.applicantEmail,
             priority:currentApplicant.applicantStatus,
+            hours:currentApplicant.hours,
             status: "accepted"})
         }
 
         currentMatch.hoursFilled = hoursFilled;
+      }
+      console.log(currentMatch, "is the current match")
         this.hiringEventService.addMatch(currentMatch).subscribe(match=>{
           console.log("Match successfully added!")
         })
-      }
-
-
       })
     })
 

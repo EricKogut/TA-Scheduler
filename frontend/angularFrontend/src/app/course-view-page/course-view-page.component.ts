@@ -130,6 +130,20 @@ export class CourseViewPageComponent implements OnInit {
     })
   }
 
+  removeTA(matchInput){
+    this.currentMatches.applicants.forEach((match,i)=>{
+      if(match == matchInput){this.currentMatches.applicants.splice(i,1)}
+    })
+
+    let number = this.currentMatches.hoursFilled - parseInt((matchInput.hours))
+
+    this.currentMatches.hoursFilled = number;
+
+    this.hiringEventService.addCustomApplicant(this.currentMatches).subscribe(match=>{
+      console.log("updated matches")
+    })
+  }
+
   toggleAddTA(){
     console.log(this.addTA)
     this.addTA = !this.addTA;
@@ -151,7 +165,7 @@ export class CourseViewPageComponent implements OnInit {
     let number = this.currentMatches.hoursFilled+ parseInt((this.checkoutForm.value.hours))
 
     this.currentMatches.hoursFilled = number;
-    console.log
+
     this.currentMatches.applicants.push(newMatch)
 
     this.hiringEventService.addCustomApplicant(this.currentMatches).subscribe(match=>{

@@ -15,7 +15,7 @@
 <div class = "card-body">
 <h4>Email  : {{match.applicantEmail}}</h4>
 <h4>Priority  : {{match.priority}}</h4>
-<button type = "button" class = "btn btn-danger">Remove TA</button>
+<button type = "button" class = "btn btn-danger" (click) ="removeTA(match)">Remove TA</button>
 <button type = "button" class = "btn btn-primary">Edit Hours Allocation</button>
 </div>
 </div>

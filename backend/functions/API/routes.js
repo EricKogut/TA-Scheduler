@@ -134,13 +134,22 @@ router.put("/create/course", async (req, res) => {
   HiringEvent.create(newEvent).then((event) => res.status(200).json(event));
 });
 
-router.put("/update/hiringEvent/questions", async (req, res) => {
-  HiringEvent.findOneAndUpdate(
+router.put("/update/courses/questions", async (req, res) => {
+  Course.findOneAndUpdate(
     { _id: req.body._id },
     {
-      questionFile: req.body.questions,
+      questionFile: req.body.questionFile,
     }
   ).then((event) => console.log(event));
+});
+
+router.get("/get/hiringEvent/questions/:_id", async (req, res) => {
+  Course.find(
+    { hiringEventID: new ObjectId(req.params._id)},
+    {courseCode:1, questionFile:1}
+).then((questionFile) =>{
+  res.status(200).json(questionFile)
+} );
 });
 
 router.put("/update/hiringEvent/answers", async (req, res) => {

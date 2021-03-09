@@ -5,6 +5,28 @@
 <h2>Upload Questions</h2>
 <app-responses-upload-page [(currentCourse)]='currentCourse' [uploadType]="'question'"></app-responses-upload-page>
 
+<button type= " button" class = "btn btn-success"(click)="createEval() ">Add Questions</button>
+
+<div id="evaluation " *ngIf="createQuestions">
+  <button type= " button" class = "btn btn-danger" (click)="createEval() ">Close</button>
+
+  <form [formGroup]="evaluationForm " (ngSubmit)="save()">
+      <div formArrayName="questions">
+          <h3>Create Evaluation</h3>
+
+          <div *ngFor="let question of questions.controls; let i=index ">
+              <label>
+                  Question:
+                  <input type="text " [formControlName]="i">
+              </label>
+          </div>
+
+      </div>
+
+      <button type = "button" class = "btn btn-secondary"(click)="addQuestion() ">New Question</button>
+      <button type = "button" class = "btn btn-light  " (click)="save()">Save</button>
+  </form>
+</div>
 <hr>
 
 <h3>Matching Applicants</h3>

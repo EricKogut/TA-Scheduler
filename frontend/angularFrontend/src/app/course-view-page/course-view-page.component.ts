@@ -4,6 +4,7 @@ import {StateService} from "../state.service";
 import {CourseService} from "../course.service";
 import {HiringEventService} from "../hiring-event.service";
 import { FormBuilder, FormArray, FormControl, FormGroup } from '@angular/forms';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-course-view-page',
@@ -40,7 +41,8 @@ export class CourseViewPageComponent implements OnInit {
   constructor(private stateService:StateService,
               private courseService: CourseService,
               private hiringEventService: HiringEventService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -89,6 +91,11 @@ save(){
   })
 }
 
+returnToHiringEvent(){
+  this.router.navigate(['hiringEventHome']);
+
+
+}
 
 
   //shows popup with assigned TAs

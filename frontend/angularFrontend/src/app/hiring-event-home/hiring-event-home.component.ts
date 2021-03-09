@@ -4,6 +4,7 @@ import {CourseService} from "../course.service";
 import {HiringEventService} from "../hiring-event.service";
 import {Router} from "@angular/router"
 import { MatSelectionListBase } from '@angular/material';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-hiring-event-home',
@@ -56,6 +57,25 @@ export class HiringEventHomeComponent implements OnInit {
   }
 
 
+  downloadFile() {
+    this.hiringEventService.getAllQuestions(this.currentHiringEvent._id).subscribe(questions=>{
+      console.log(questions, "are the questions");
+      let data = [[]]
+      questions.forEach(course =>{
+        data[0].push(course.courseCode)
+        data.push(course.questionFile)
+      })
+    const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
+    const header = Object.keys(data[0]);
+    let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+    csv.unshift(header.join(','));
+    let csvArray = csv.join('\r\n');
+
+    var blob = new Blob([csvArray], {type: 'text/csv' })
+    saveAs(blob, "myFile.csv");
+
+    })
+}
 
 
   Upload(){

@@ -27,6 +27,11 @@ export class HiringEventService {
     return this.http.get(baseUrl+"/get/tahour/"+"ECE 2231B");
   }
 
+  getAllQuestions(_id){
+    console.log("getting all questions")
+    return this.http.get<any[]>(baseUrl+"/get/hiringEvent/questions/"+_id);
+
+  }
 
 
   //PUTs
@@ -34,12 +39,12 @@ export class HiringEventService {
   createEvent(departmentChairID:string){
     return this.http.put(baseUrl+"/create/hiringEvent", {departmentChairID: departmentChairID})
   }
-  updateQuestions(_id, questions){
-    return this.http.put(baseUrl+"/update/hiringEvent/questions", {_id:_id, questions: questions})
-  }
+
    updateAnswers(_id, answers){
     return this.http.put(baseUrl+"/update/hiringEvent/answers", {_id:_id, answers: answers})
   }
+
+
 
 
   updateTaHours(_id,enrollmentInfo){

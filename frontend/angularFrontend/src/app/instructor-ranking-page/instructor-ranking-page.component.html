@@ -19,8 +19,9 @@
 
     <div class="counters">
         <div *ngFor="let name of applicantResponses">
-            <button (click)="findApp(name.applicantName)" class="applications">View</button>
-        </div>
+            <button type= "button" (click)="findApp(name.applicantName)" class=" btn btn-primary">View</button>
+         <hr style =" visibility: hidden;">
+          </div>
     </div>
   </div>
 

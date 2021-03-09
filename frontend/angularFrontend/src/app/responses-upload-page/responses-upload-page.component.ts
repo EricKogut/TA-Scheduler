@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { read, IWorkBook } from 'ts-xlsx';
 import * as XLSX from 'ts-xlsx';
 import { HiringEventService } from "../hiring-event.service";
+import { CourseService } from "../course.service";
 
 @Component({
   selector: 'app-responses-upload-page',
@@ -16,7 +17,8 @@ export class ResponsesUploadPageComponent  {
    @Input() uploadType: any;
 
 
-  constructor(private hiringEventService:HiringEventService) { }
+  constructor(private hiringEventService:HiringEventService,
+              private courseService: CourseService) { }
 
 
   arrayBuffer:any;
@@ -40,7 +42,7 @@ incomingfile(event)
             const fileObject = XLSX.utils.sheet_to_json(worksheet,{raw:true})
             if(fileObject){
               if(this.uploadType == "question"){
-                this.hiringEventService.updateQuestions(this.currentCourse._id, fileObject).subscribe(object => {
+                this.courseService.updateQuestions(this.currentCourse._id, fileObject).subscribe(object => {
                   console.log("Success in uploading questions.\n", fileObject, "has been uploaded")
                 })
               }

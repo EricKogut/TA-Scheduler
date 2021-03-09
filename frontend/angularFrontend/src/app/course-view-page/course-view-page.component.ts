@@ -3,7 +3,7 @@ import { Component, OnInit,Input } from '@angular/core';
 import {StateService} from "../state.service";
 import {CourseService} from "../course.service";
 import {HiringEventService} from "../hiring-event.service";
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-course-view-page',
@@ -22,12 +22,20 @@ export class CourseViewPageComponent implements OnInit {
   currentMatches;
   editingHours = false;
   addTA = false;
+  createQuestions = false;
 
   checkoutForm = this.formBuilder.group({
     applicantName: '',
     applicantEmail: '',
     hours: 0
   });
+
+    //dynamic reactive forms
+    evaluationForm = new FormGroup({
+      questions: new FormArray([
+        //placeholders
+      ]),
+    });
 
   constructor(private stateService:StateService,
               private courseService: CourseService,
@@ -59,6 +67,27 @@ export class CourseViewPageComponent implements OnInit {
 //     //this.currentCourse = history.state.data.currentCourse;
   }
 
+ //gets the array of questions from the reactive form
+ get questions(): FormArray {
+  return this.evaluationForm.get('questions') as FormArray;
+}
+
+ // for adding a new question input
+ addQuestion() {
+  console.log("new question added");
+  //this.questions.push(this.fb.control(""));
+  this.questions.push(new FormControl());
+}
+ //toggles div visibility to allow users to create
+ createEval(){
+  this.createQuestions = !this.createQuestions;
+
+}
+save(){
+  this.courseService.updateQuestions(this.currentCourse._id, this.questions.value).subscribe(element=>{
+    console.log("SUCCESS in updatingg questions")
+  })
+}
 
 
 
@@ -130,6 +159,20 @@ export class CourseViewPageComponent implements OnInit {
     })
   }
 
+  removeTA(matchInput){
+    this.currentMatches.applicants.forEach((match,i)=>{
+      if(match == matchInput){this.currentMatches.applicants.splice(i,1)}
+    })
+
+    let number = this.currentMatches.hoursFilled - parseInt((matchInput.hours))
+
+    this.currentMatches.hoursFilled = number;
+
+    this.hiringEventService.addCustomApplicant(this.currentMatches).subscribe(match=>{
+      console.log("updated matches")
+    })
+  }
+
   toggleAddTA(){
     console.log(this.addTA)
     this.addTA = !this.addTA;
@@ -151,7 +194,7 @@ export class CourseViewPageComponent implements OnInit {
     let number = this.currentMatches.hoursFilled+ parseInt((this.checkoutForm.value.hours))
 
     this.currentMatches.hoursFilled = number;
-    console.log
+
     this.currentMatches.applicants.push(newMatch)
 
     this.hiringEventService.addCustomApplicant(this.currentMatches).subscribe(match=>{

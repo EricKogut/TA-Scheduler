@@ -54,4 +54,9 @@ export class HiringEventService {
   getPriority(priority){
     return this.http.put(baseUrl+ "/update/priority", {priority: priority})
   }
+
+  addMatch(match){
+    return this.http.put(baseUrl+ "/create/matches", {match: match})
+  }
+
 }

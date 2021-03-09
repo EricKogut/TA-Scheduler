@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {StateService} from "../state.service";
 import {CourseService} from "../course.service";
+import {HiringEventService} from "../hiring-event.service";
 import {Router} from "@angular/router"
+import { MatSelectionListBase } from '@angular/material';
 
 @Component({
   selector: 'app-hiring-event-home',
@@ -16,6 +18,7 @@ export class HiringEventHomeComponent implements OnInit {
 
   constructor(private stateService:StateService,
               private courseService:CourseService,
+              private hiringEventService:HiringEventService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -63,4 +66,134 @@ export class HiringEventHomeComponent implements OnInit {
     this.stateService.setCurrentCourse(course);
     this.router.navigate(['course'])
   }
+
+  createMatches(){
+    //STEP #1
+    //Get all courses that are within this hiring event
+    this.courseService.getHiringEventCourses(this.currentHiringEvent._id).subscribe(courses=>{
+      courses.forEach(course=>{
+        //STEP #2
+        //Parse data to make it easier to work with
+        let currentRequiredHours= course.requiredHours;
+        //Applicants type 1, 2 and 3
+        var secondPriorityApplicants = []
+        var thirdPriorityApplicants = []
+        var firstPriorityApplicants = []
+
+        course.applicantResponses.forEach(response =>{
+          if(response.applicantStatus == 0){
+          }
+
+          else if(response.applicantStatus == 1){
+            //keep this, dunno why it doesnt work
+            while(firstPriorityApplicants.length == 0)[
+              firstPriorityApplicants.push(Object.assign({},response))
+            ]
+
+
+          }
+          else if(response.applicantStatus == 2){
+            secondPriorityApplicants.push(response)
+          }
+          else if(response.applicantStatus == 3){
+            thirdPriorityApplicants.push(response)
+          }
+        })
+
+        //STEP#3
+        //Now we have arrays for each priority of applicant
+        //Now sort according to applicant/prof
+        if(course.priority == "applicant"){
+          firstPriorityApplicants.sort(sortByApplicant)
+          secondPriorityApplicants.sort(sortByApplicant)
+          thirdPriorityApplicants.sort(sortByApplicant)
+        }
+        else{
+          firstPriorityApplicants.sort(sortByInstructor)
+          secondPriorityApplicants.sort(sortByInstructor)
+          thirdPriorityApplicants.sort(sortByInstructor)
+        }
+
+        //All arrays are now sorted by the respective toggle values
+        //NOTE: they are sorted so the BEST applicant is LAST (easier to pop)
+
+      //STEP#4
+      //Create matches on a course by course basis until all the hour requirements are filled
+      //
+      let hoursFilled=0
+      let noMoreApplicants = false;
+
+      //Storing all the matches for the current course
+      let currentMatches = {};
+      var currentMatch =
+      {courseID: course._id,
+         hiringEventID:this.currentHiringEvent._id,
+          hoursFilled:0,
+          applicants:[]};
+      currentMatch.applicants = []
+
+
+      //while we have not filled the required hours and there are applicants
+      while(hoursFilled < currentRequiredHours && !noMoreApplicants){
+        let currentApplicant;
+        //Check to see if there are applicants remaining
+        if(firstPriorityApplicants.length == 0 && secondPriorityApplicants.length == 0 && thirdPriorityApplicants.length == 0){
+          noMoreApplicants = true;
+          break;
+        }
+        else{
+          if(firstPriorityApplicants.length !=0){
+          currentApplicant = firstPriorityApplicants.pop()
+          hoursFilled += currentApplicant.hours
+          }
+          else if(secondPriorityApplicants.length !=0){
+            currentApplicant = secondPriorityApplicants.pop()
+            hoursFilled += currentApplicant.hours
+          }
+          else if(thirdPriorityApplicants.length !=0){
+            currentApplicant = thirdPriorityApplicants.pop()
+            hoursFilled += currentApplicant.hours
+          }
+
+          currentMatch.applicants.push(
+            {applicantName: currentApplicant.applicantName,
+            applicantEmail: currentApplicant.applicantEmail,
+            priority:currentApplicant.applicantStatus,
+            status: "accepted"})
+        }
+
+        currentMatch.hoursFilled = hoursFilled;
+        this.hiringEventService.addMatch(currentMatch).subscribe(match=>{
+          console.log("Match successfully added!")
+        })
+      }
+
+
+      })
+    })
+
+
+    //STEP#5
+    //Show suggested matches row
+
+  }
+}
+function sortByApplicant ( a, b ) {
+  if ( a.applicantRank < b.applicantRank ){
+    return -1;
+  }
+  if ( a.applicantRank > b.applicantRank ){
+    return 1;
+  }
+  return 0;
+}
+
+function sortByInstructor ( a, b ) {
+  if ( a.instructorRank < b.instructorRank ){
+    return -1;
+  }
+  if ( a.instructorRank > b.instructorRank ){
+    return 1;
+  }
+  return 0;
 }

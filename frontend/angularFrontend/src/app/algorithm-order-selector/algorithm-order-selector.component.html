@@ -4,17 +4,18 @@
 
 <form #myForm="ngForm" (submit)="runAlgorithm(myForm)" novalidate>
     <div>
-       <input id="app" type="radio" value="app" name="order" ngModel required>
+       <input class="form-check-input"  id="app" type="radio" value="applicant" name="order" ngModel required>
        <label for="app">Applicant preferences</label>
     </div>
 
     <div>
-       <input id="prof" type="radio" value="prof" name="order" ngModel required>
+       <input class="form-check-input"  id="prof" type="radio" value="proffessor" name="order" ngModel required>
        <label for="prof">Professor preferences</label>
     </div>
 
     <div *ngIf="isSubmitted && myForm.invalid">
        <p>Please select either value</p>
     </div>
-    <button type="submit">Get TA Allocation</button>
+    <br>
+    <button type = "button" class = "btn btn-primary" type="submit">Set Preference</button>
  </form>

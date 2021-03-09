@@ -2,21 +2,17 @@ const mongoose = require("mongoose");
 
 const MatchesSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      maxlength: 20,
+    courseID: {
+      type: { type: mongoose.ObjectId, ref: 'Course' },
     },
-    course: {
-      type: String,
-      required: true,
-      maxlength: 30,
+    hiringEventID: {
+      type: mongoose.ObjectId, ref: 'HiringEvent'
       },
-      status: {
-        type: String,
-        required: true,
-        maxlength: 30,
-      }
+      hoursFilled: {
+        type: Number,
+      },
+      applicants:[Object]
+
   },
   { timestamps: true, versionKey: false }
 );

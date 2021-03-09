@@ -59,4 +59,11 @@ export class HiringEventService {
     return this.http.put(baseUrl+ "/create/matches", {match: match})
   }
 
+  addCustomApplicant(match){
+    return this.http.put(baseUrl+ "/update/matches", {match: match})
+  }
+
+  getMatches(hiringEventID,courseID){
+    return this.http.put(baseUrl+ "/get/matches", {hiringEventID: hiringEventID, courseID:courseID})
+  }
 }

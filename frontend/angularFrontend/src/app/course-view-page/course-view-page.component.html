@@ -9,6 +9,64 @@
 
 <h3>Matching Applicants</h3>
 
+<div *ngFor='let match of currentMatches.applicants' class = "card">
+
+<h4 class = "card-header">{{match.applicantName}}  : {{match.status}}</h4>
+<div class = "card-body">
+<h4>Email  : {{match.applicantEmail}}</h4>
+<h4>Priority  : {{match.priority}}</h4>
+<button type = "button" class = "btn btn-danger">Remove TA</button>
+<button type = "button" class = "btn btn-primary">Edit Hours Allocation</button>
+</div>
+</div>
+
+<button type = "button" class = "btn btn-success" (click)="toggleAddTA()">Add TA</button>
+
+<div *ngIf="addTA">
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="applicantName">
+        Name{{ "  "}}
+      </label>
+      <input id="applicantName" type="text" formControlName="applicantName">
+    </div>
+
+    <div class="form-group">
+      <label for="applicantEmail">
+        Email{{ "  "}}
+      </label>
+      <input id="applicantEmail" type="text" formControlName="applicantEmail">
+    </div>
+
+
+      <div class="form-group">
+        <label for="applicantEmail">
+          Hours
+        </label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="hours" id="hours" value=5 formControlName="hours">
+          <label class="form-check-label" for="hours">
+            5
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="hours" id="hours" value=10 formControlName="hours">
+          <label class="form-check-label" for="hours">
+            10
+          </label>
+        </div>
+      </div>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+
+  </form>
+
+</div>
+
+
+<h6>Currently allocated {{currentMatches.hoursFilled}} hours</h6>
+Note: Hours can only be allocated in 5 hours intervals
 <div>
   <h6>This course requires {{currentCourse.requiredHours}} hours</h6>  <button  type = "button" class = "btn btn-primary"  (click)="changeHours()">Change</button>
 <div id="changeHoursForm" [style.visibility]="visibility">

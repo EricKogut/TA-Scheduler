@@ -55,6 +55,13 @@ router.get("/hiringEvent/rejectMatch/:name/:course", async (req, res) => {
 })
 
 
+router.get("/get/matches", (req, res)=>{
+  Matches.find({hiringEventID:new ObjectId(req.body.hiringEventID),
+                courseID: new ObjectId(req.body.courseID)}).then(matches=>{
+                  res.status(200).json(matches);
+                })
+})
+
 router.get("/hiringEvent/confirmMatch/:name/:course", async (req, res) => {
   console.log(req.params)
   Matches.findOneAndUpdate({ course: req.params.course, name: req.params.name }, { status: "confirmed"}).then(
@@ -521,9 +528,17 @@ router.put('/course/update/priority', (req, res) => {
 
 router.put("/create/matches", (req, res) => {
   currentMatch = req.body.match;
-  console.log("Match has been added")
   Matches.create(currentMatch).then(match=> res.status(200).json(match))
-
+})
+router.put("/update/matches", (req, res) => {
+  currentMatch = req.body.match;
+  console.log(currentMatch, "is the current match")
+  Matches.findOneAndUpdate({_id:currentMatch._id}, {hoursFilled:currentMatch.hoursFilled, applicants:currentMatch.applicants}).then(match=> res.status(200).json(match))
+})
+router.put("/get/matches", (req, res) => {
+  Matches.find({hiringEventID: new ObjectId(req.body.hiringEventID),
+                courseID: new ObjectId(req.body.courseID)
+  }).then(match=> res.status(200).json(match))
 }
 )
 

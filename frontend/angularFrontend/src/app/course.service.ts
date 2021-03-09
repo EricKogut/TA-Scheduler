@@ -19,7 +19,7 @@ export class CourseService {
   }
 
   getHiringEventCourses(idInput){
-    return this.http.get(baseUrl+"/courses/getAll/"+idInput)
+    return this.http.get<any[]>(baseUrl+"/courses/getAll/"+idInput)
   }
 
   getInstructorCourses(instructorID){
@@ -28,6 +28,9 @@ export class CourseService {
 
 updateRanking(_id, applicantResponsesUpdated){
   return this.http.put(baseUrl+"/update/course/instructorRanking", {_id:_id, applicantResponsesUpdated: applicantResponsesUpdated})
+}
+updatePriority(_id, newPriority){
+  return this.http.put(baseUrl+"/course/update/priority", {_id:_id, newPriority:newPriority});
 }
 
 updateCourses(hiringEventID,  applicantResponses){

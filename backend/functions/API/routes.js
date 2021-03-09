@@ -509,10 +509,23 @@ router.get('/courses/getAll/:_id', (req, res) => {
 })
 
 router.get('/courses/getAll/instructorID/:_id', (req, res) => {
-
   Course.find({ instructorID: new ObjectId(req.params._id) }).then(course => res.status(200).json(course));
 })
 
+router.put('/course/update/priority', (req, res) => {
+  newPriority = req.body.newPriority;
+  courseID = new ObjectId(req.body._id);
+  console.log(courseID, "is the course id")
+  Course.findOneAndUpdate({_id:courseID}, {priority: newPriority}).then(course=> res.status(200).json(course))
+})
+
+router.put("/create/matches", (req, res) => {
+  currentMatch = req.body.match;
+  console.log("Match has been added")
+  Matches.create(currentMatch).then(match=> res.status(200).json(match))
+
+}
+)
 
 router.put('/courses/createnew/', (req, res) => {
   newCourse ={
@@ -521,6 +534,7 @@ router.put('/courses/createnew/', (req, res) => {
       hiringEventID:req.body.hiringEventID,
       status: "created",
       requiredHours:null,
+      priority: "proffessor",
       questionFil:null,
       rankingFile:null,
       applicantResponses:null,

@@ -19,7 +19,7 @@ export class CourseViewPageComponent implements OnInit {
   //used to store array of courses
   suggestedTAs :any = [];
   customAssignment: any = [];
-  currentMatches;
+  currentMatches:any = [];
   editingHours = false;
   addTA = false;
   createQuestions = false;
@@ -154,8 +154,9 @@ save(){
 
   getMatches(){
     this.hiringEventService.getMatches(this.currentCourse.hiringEventID, this.currentCourse._id).subscribe(matches=>{
-      this.currentMatches = matches[0];
-      console.log(this.currentMatches, "are teh current matches")
+      if(matches[0] != undefined){
+        this.currentMatches = matches[0];
+      }
     })
   }
 

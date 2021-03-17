@@ -198,6 +198,8 @@ export class HiringEventHomeComponent implements OnInit {
 
   }
 }
+
+//Fix this
 function sortByApplicant ( a, b ) {
   if ( a.applicantRank < b.applicantRank ){
     return -1;

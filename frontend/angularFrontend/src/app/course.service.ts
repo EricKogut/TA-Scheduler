@@ -86,4 +86,12 @@ notifyAdminEval(message, senderEmail, receiverEmail, receiverRole){
   });
  }
 
+
+
+ //---Notification Get calls---////
+   //gets notifications for a specific user from backend
+   getNotifications(recipient){
+    return this.http.get(baseUrl+"/notification/admin/receive/evaluation/"+ recipient);
+  }
+
 }

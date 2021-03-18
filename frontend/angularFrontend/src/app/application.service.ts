@@ -38,10 +38,6 @@ export class ApplicationService {
     return this.http.post(baseUrl+"api/addEvaluation/questions", questions);
   }
 
-  //gets notifications for a specific user from backend
-  getNotifications(recipient){
-    return this.http.get(baseUrl+"/notification/admin/receive/evaluation/"+ recipient);
-  }
 
 }
 

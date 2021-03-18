@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApplicationService} from '../application.service';
+import {CourseService} from "../course.service";
 import { HeaderComponent } from '../header/header.component';
 
 @Component({
@@ -12,7 +13,7 @@ export class NotificationsComponent implements OnInit {
   notifications: any;
   recipient: any;
 
-  constructor(private appService: ApplicationService, private header:HeaderComponent) { }
+  constructor(private courseService: CourseService, private header:HeaderComponent) { }
 
   ngOnInit(): void {
 
@@ -28,9 +29,9 @@ export class NotificationsComponent implements OnInit {
 
     console.log(this.recipient);
     
-    this.appService.getNotifications(this.recipient).subscribe(events =>{
+    this.courseService.getNotifications(this.recipient).subscribe(events =>{
       console.log(events);
-      this.notifications = [{message: events}];
+      this.notifications = events;
     })
     
   }

@@ -152,13 +152,30 @@ router.put("/create/course", async (req, res) => {
   HiringEvent.create(newEvent).then((event) => res.status(200).json(event));
 });
 
+//---Notification Routes-----///
+router.put("/notification/admin/evaluation", async (req, res)=>{
+newNotification = {
+  senderEmail: req.body.senderEmail,
+  recipientEmail: req.body.recipientEmail,
+  recipientRole: req.body.recipientRole,
+  message: req.body.message
+};
+
+Notifications.create(newNotification).then((event)=>res.status(200).json(event));
+
+
+});
+
+
+
+
 router.put("/update/courses/questions", async (req, res) => {
   Course.findOneAndUpdate(
     { _id: req.body._id },
     {
       questionFile: req.body.questionFile,
     }
-  ).then((event) => console.log(event));
+  ).then((event) => res.status(200).json(event));
 });
 
 router.get("/get/hiringEvent/questions/:_id", async (req, res) => {

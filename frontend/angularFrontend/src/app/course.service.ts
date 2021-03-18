@@ -74,4 +74,16 @@ manualMatch(name, course){
   return this.http.get(baseUrl+"/hiringEvent/manualMatch/"+name+"/"+course)
 }
 
+
+
+//---Notification Calls-----///
+notifyAdminEval(message, senderEmail, receiverEmail, receiverRole){
+  return this.http.put(baseUrl+"/notification/admin/evaluation", {
+    message: message, 
+    senderEmail:senderEmail,
+    recipientEmail:receiverEmail,
+    recipientRole:receiverRole
+  });
+ }
+
 }

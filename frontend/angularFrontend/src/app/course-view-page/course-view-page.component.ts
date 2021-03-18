@@ -24,6 +24,10 @@ export class CourseViewPageComponent implements OnInit {
   editingHours = false;
   addTA = false;
   createQuestions = false;
+  notificationMessage:any;
+  senderEmail:any;
+  receiverEmail:any;
+  receiverRole:any;
 
   checkoutForm = this.formBuilder.group({
     applicantName: '',
@@ -86,10 +90,32 @@ export class CourseViewPageComponent implements OnInit {
 
 }
 save(){
-  this.courseService.updateQuestions(this.currentCourse._id, this.questions.value).subscribe(element=>{
-    console.log("SUCCESS in updatingg questions")
-  })
+
+   this.courseService.updateQuestions(this.currentCourse._id, this.questions.value).subscribe(element=>{
+     console.log("SUCCESS in updatingg questions");
+     console.log(element);
+    //On successful execution call the notification function
+    this.notifyAdmin(this.currentCourse.courseCode);
+ })
+
+ 
+
 }
+notifyAdmin(courseID){
+  this.senderEmail = "arsh.lalani@akahyd.org";
+  this.receiverEmail = "sanah@yahoo.com";
+  this.receiverRole = "admin";
+  const course = courseID;
+  this.notificationMessage = "The Instructor has created the evaluation for the course " + course;
+
+  // call the notification api route 
+  this.courseService.notifyAdminEval(this.notificationMessage, this.senderEmail, this.receiverEmail, this.receiverRole).subscribe(response=>{
+    console.log("Notification Sent Successfully");
+    console.log(response);
+  });
+
+
+};
 
 returnToHiringEvent(){
   this.router.navigate(['hiringEventHome']);

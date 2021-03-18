@@ -5,6 +5,10 @@ const Users = require("../models/Users");
 const UsersModel = mongoose.model("users");
 const Course = require("../models/Course")
 
+
+const Notifications = require("../models/Notifications");
+const NotificationsModel = mongoose.model("notifications");
+
 const { ObjectId } = require( "mongodb");
 
 const Matches = require("../models/Matches");
@@ -100,7 +104,21 @@ router.put("/create/hiringEvent", async (req, res) => {
     enrollmentFile: null,
   };
 
-  HiringEvent.create(newEvent).then((event) => res.status(200).json(event));
+  newNotfication = {
+    recipientRole: "instructor",
+    message: "new course my guyy"
+
+  }
+
+  HiringEvent.create(newEvent).then((event) => {
+    console.log("new notification made yayyyy")
+    Notifications.create(newNotfication).then((event) => {res.status(200).json(event)})
+
+
+      
+    }
+    
+    );
 });
 
 // SAMPLE ROUTE

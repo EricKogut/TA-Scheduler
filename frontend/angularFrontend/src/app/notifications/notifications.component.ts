@@ -30,7 +30,7 @@ export class NotificationsComponent implements OnInit {
     
     this.appService.getNotifications(this.recipient).subscribe(events =>{
       console.log(events);
-      this.notifications = events
+      this.notifications = [{message: events}];
     })
     
   }

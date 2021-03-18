@@ -40,7 +40,7 @@ export class ApplicationService {
 
   //gets notifications for a specific user from backend
   getNotifications(recipient){
-    return this.http.get(baseUrl+"/notifications/"+ recipient);
+    return this.http.get(baseUrl+"/notification/admin/receive/evaluation/"+ recipient);
   }
 
 }

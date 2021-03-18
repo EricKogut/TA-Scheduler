@@ -165,6 +165,16 @@ Notifications.create(newNotification).then((event)=>res.status(200).json(event))
 
 });
 
+//get the notification on admin's end
+router.get("/notification/admin/receive/evaluation/:recipient", async (req,res)=>{
+
+  //return the message
+  Notifications.find({_id: "60538803521438dc1455a0c9"}).then((event) => res.status(200).json(event[0].message));
+
+
+
+});
+
 
 
 

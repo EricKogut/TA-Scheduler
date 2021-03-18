@@ -12,7 +12,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-
   ///////////////
   //NAVIGATION///
   //Navigating to the main search page

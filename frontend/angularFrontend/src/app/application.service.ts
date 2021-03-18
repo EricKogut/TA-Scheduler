@@ -34,11 +34,14 @@ export class ApplicationService {
     })
   }
 
-
   saveQuestions(questions: any) {
     return this.http.post(baseUrl+"api/addEvaluation/questions", questions);
   }
 
+  //gets notifications for a specific user from backend
+  getNotifications(recipient){
+    return this.http.get(baseUrl+"/notifications/"+ recipient);
+  }
 
 }
 

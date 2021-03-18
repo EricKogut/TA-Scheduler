@@ -36,6 +36,7 @@ import { AlgorithmOrderSelectorComponent } from './algorithm-order-selector/algo
 import { HiringEventsPageComponent } from './hiring-events-page/hiring-events-page.component';
 import { CreateNewHiringEventComponent } from './create-new-hiring-event/create-new-hiring-event.component';
 import { HiringEventHomeComponent } from './hiring-event-home/hiring-event-home.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const myRoutes: Routes =  [
   { path: 'landing', component: LandingPageComponent },
@@ -49,7 +50,8 @@ const myRoutes: Routes =  [
 
   { path: 'new-hiring-event', component: CreateNewHiringEventComponent},
   { path: 'upload', component: ResponsesUploadPageComponent },
-  { path: 'hours', component:  ChairHoursComponent}
+  { path: 'hours', component:  ChairHoursComponent},
+  { path: 'notifications', component: NotificationsComponent}
 ]
 
 @NgModule({
@@ -75,7 +77,8 @@ const myRoutes: Routes =  [
     AlgorithmOrderSelectorComponent,
     HiringEventsPageComponent,
     CreateNewHiringEventComponent,
-    HiringEventHomeComponent
+    HiringEventHomeComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +99,7 @@ const myRoutes: Routes =  [
     RouterModule.forRoot(myRoutes, {useHash:true}),
     MatSelectModule
   ],
-  providers: [],
+  providers: [HeaderComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

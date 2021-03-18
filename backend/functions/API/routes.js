@@ -107,7 +107,6 @@ router.put("/create/hiringEvent", async (req, res) => {
   newNotfication = {
     recipientRole: "instructor",
     message: "new course my guyy"
-
   }
 
   HiringEvent.create(newEvent).then((event) => {
@@ -600,6 +599,11 @@ router.put('/courses/createnew/', (req, res) => {
   }
   console.log("creating", newCourse)
   Course.create(newCourse).then(course => res.status(200).json(course));
+})
+
+router.get('/notifications/:recipient', (req, res) => {
+  
+  Notifications.find({ recipientEmail: new ObjectId(req.params.recipient) }).then(course => res.status(200).json(course));
 })
 
 // hi

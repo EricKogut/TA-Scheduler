@@ -616,4 +616,11 @@ router.get('/notifications/:recipient', (req, res) => {
   Notifications.find({ recipientEmail: new ObjectId(req.params.recipient) }).then(course => res.status(200).json(course));
 })
 
+router.put('/notifications/update', (req, res) => {
+  recipient = req.body.recipient
+  message = req.body.message;
+  read = req.body.read;
+  
+})
+
 // hi

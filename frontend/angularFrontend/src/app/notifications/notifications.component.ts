@@ -36,4 +36,10 @@ export class NotificationsComponent implements OnInit {
     
   }
 
+  markAsRead(message){
+    this.courseService.updateNotification(this.recipient,message).subscribe(response =>{
+      console.log(response);
+    })
+  }
+
 }

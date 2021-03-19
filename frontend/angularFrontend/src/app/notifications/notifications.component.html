@@ -1,5 +1,11 @@
 <h3>Notifications:</h3>
 
 <div id= "notifications-list " *ngFor='let i of notifications'>
-    <li>{{i.message}}</li>
+    <span *ngIf="i.read == 0">
+        <li>{{i.message}}
+            <button (click)="markAsRead(i.message)">Mark as Read</button>
+        </li>    
+        
+    </span>
 </div>
+

@@ -94,4 +94,9 @@ getNotifications(recipient){
     return this.http.get(baseUrl+"/notification/admin/receive/evaluation/"+ recipient);
   }
 
+  //marks the notification as read
+updateNotification(recipient, message){
+  return this.http.put(baseUrl+ "/notifications/update", {recipient: recipient, message: message, read: 1});
+  }
+
 }

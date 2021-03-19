@@ -20,6 +20,10 @@ export class InstructorRankingPageComponent implements OnInit{
   numbers: any;
   events: any;
   applicantResponses = [];
+  notificationMessage:any;
+  senderEmail:any;
+  receiverEmail:any;
+  receiverRole:any;
 
   @Input() currentResponses: any;
   @Input() currentCourse: any;
@@ -72,6 +76,22 @@ export class InstructorRankingPageComponent implements OnInit{
       console.log(response, "UPDATE SUCCESSFULLY")
     })
     this.disableChanges();
+
+    //notify chair that the instructor has submitted their TA rankings
+    this.notifyChair();
+  }
+
+  notifyChair(){
+    this.senderEmail = "arsh.lalani@akahyd.org";
+    this.receiverEmail = "juan@gmail.com";
+    this.receiverRole = "chair";
+    this.notificationMessage = "The Instructor has submitted their rankings for the TA's";
+  
+    // call the notification api route 
+    this.courseService.notifyUser(this.notificationMessage, this.senderEmail, this.receiverEmail, this.receiverRole).subscribe(response=>{
+      console.log("Notification Sent Successfully");
+      console.log(response);
+    });
   }
 
   //only enable submit button if confirmation check box is selected

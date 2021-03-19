@@ -24,7 +24,7 @@ export class NotificationsComponent implements OnInit {
     }else if (this.header.role == "instructor"){
       this.recipient = "arsh.lalani@akahyd.org";
     }else if(this.header.role == "chair"){
-      this.recipient = "Juan@gmail.com";
+      this.recipient = "juan@gmail.com";
     }
 
     console.log(this.recipient);

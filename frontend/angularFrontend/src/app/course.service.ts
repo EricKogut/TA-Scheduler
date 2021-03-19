@@ -77,8 +77,8 @@ manualMatch(name, course){
 
 
 //---Notification Calls-----///
-notifyAdminEval(message, senderEmail, receiverEmail, receiverRole){
-  return this.http.put(baseUrl+"/notification/admin/evaluation", {
+notifyUser(message, senderEmail, receiverEmail, receiverRole){
+  return this.http.put(baseUrl+"/notification/notify/user", {
     message: message, 
     senderEmail:senderEmail,
     recipientEmail:receiverEmail,
@@ -90,7 +90,7 @@ notifyAdminEval(message, senderEmail, receiverEmail, receiverRole){
 
  //---Notification Get calls---////
    //gets notifications for a specific user from backend
-   getNotifications(recipient){
+getNotifications(recipient){
     return this.http.get(baseUrl+"/notification/admin/receive/evaluation/"+ recipient);
   }
 

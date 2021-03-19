@@ -152,7 +152,7 @@ router.put("/create/course", async (req, res) => {
 });
 
 //---Notification Routes-----///
-router.put("/notification/admin/evaluation", async (req, res)=>{
+router.put("/notification/notify/user", async (req, res)=>{
 newNotification = {
   senderEmail: req.body.senderEmail,
   recipientEmail: req.body.recipientEmail,

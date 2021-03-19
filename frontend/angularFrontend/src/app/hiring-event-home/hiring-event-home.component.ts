@@ -15,6 +15,10 @@ export class HiringEventHomeComponent implements OnInit {
   currentHiringEvent= this.stateService.getCurrentHiringEvent();
   courseCode;
   courses;
+  notificationMessage:any;
+  senderEmail:any;
+  receiverEmail:any;
+  receiverRole:any;
   handleCourseCode(term: string): void {this.courseCode = term.replace(/[<={}()>/\\]/gi, "")}
 
   constructor(private stateService:StateService,
@@ -191,11 +195,23 @@ export class HiringEventHomeComponent implements OnInit {
         })
       })
     })
-
-
+//notifying instructor that the TA allocation has been done
+    this.notifyInstructor();
     //STEP#5
     //Show suggested matches row
 
+  }
+  notifyInstructor(){
+    this.senderEmail = "sanah@yahoo.com" ;
+    this.receiverEmail = "arsh.lalani@akahyd.org";
+    this.receiverRole = "instructor";
+    this.notificationMessage = "The TA's have been successfully allocated!";
+  
+    // call the notification api route 
+    this.courseService.notifyUser(this.notificationMessage, this.senderEmail, this.receiverEmail, this.receiverRole).subscribe(response=>{
+      console.log("Notification Sent Successfully");
+      console.log(response);
+    });
   }
 }
 function sortByApplicant ( a, b ) {

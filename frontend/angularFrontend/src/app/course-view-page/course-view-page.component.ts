@@ -109,7 +109,7 @@ notifyAdmin(courseID){
   this.notificationMessage = "The Instructor has created the evaluation for the course " + course;
 
   // call the notification api route 
-  this.courseService.notifyAdminEval(this.notificationMessage, this.senderEmail, this.receiverEmail, this.receiverRole).subscribe(response=>{
+  this.courseService.notifyUser(this.notificationMessage, this.senderEmail, this.receiverEmail, this.receiverRole).subscribe(response=>{
     console.log("Notification Sent Successfully");
     console.log(response);
   });

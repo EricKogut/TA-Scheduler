@@ -15,6 +15,11 @@ export class ResponsesUploadPageComponent  {
   @Input() currentHiringEvent:any;
 
    @Input() uploadType: any;
+   notificationMessage:any;
+   senderEmail:any;
+   receiverEmail:any;
+   receiverRole:any;
+ 
 
 
   constructor(private hiringEventService:HiringEventService,
@@ -48,7 +53,9 @@ incomingfile(event)
               }
               if(this.uploadType == "answer"){
                 this.hiringEventService.updateAnswers(this.currentHiringEvent._id, fileObject).subscribe(object => {
-                  console.log("Success in uploading answers.\n", fileObject, "has been uploaded")
+                  console.log("Success in uploading answers.\n", fileObject, "has been uploaded");
+                  //after uploading the answers, notify instructor
+                  this.notifyInstructor();
                 })
               }
               if(this.uploadType == "upload"){
@@ -60,6 +67,22 @@ incomingfile(event)
             }
         }
         fileReader.readAsArrayBuffer(this.file);
+
+       
+}
+
+notifyInstructor(){
+  this.senderEmail = "sanah@yahoo.com";
+  this.receiverEmail = "arsh.lalani@akahyd.org";
+  this.receiverRole = "instructor";
+  this.notificationMessage = "The Admin has uploaded the answers for the course ";
+
+  // call the notification api route 
+  this.courseService.notifyUser(this.notificationMessage, this.senderEmail, this.receiverEmail, this.receiverRole).subscribe(response=>{
+    console.log("Notification Sent Successfully");
+    console.log(response);
+  });
+
 }
 
 

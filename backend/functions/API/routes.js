@@ -493,7 +493,15 @@ router.post("/signup", async (req, res) => {
         .save()
         .then((result) => {
           console.log(result);
-          res.status(200).json({ token: token, role: role, email: email, userID: userID, _id: result._id });
+          res
+            .status(200)
+            .json({
+              token: token,
+              role: role,
+              email: email,
+              userID: userID,
+              _id: result._id,
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -523,7 +531,13 @@ router.post("/login", async (req, res) => {
         if (doc) {
           console.log(doc);
 
-          return res.json({ token: token, role: doc.role, email: doc.email, userID: doc.userID,  _id: doc._id });
+          return res.json({
+            token: token,
+            role: doc.role,
+            email: doc.email,
+            userID: doc.userID,
+            _id: doc._id,
+          });
         } else {
           return res.status(404).send("no schedule with that name");
         }
@@ -630,7 +644,6 @@ router.put("/notifications/update", (req, res) => {
 
   Notifications.updateOne(filter, update, {
     new: true,
-   
   }).then((notifcation) => {
     console.log("it works");
     res.status(200).json(notifcation);
@@ -638,5 +651,3 @@ router.put("/notifications/update", (req, res) => {
 });
 
 // hi
-
-

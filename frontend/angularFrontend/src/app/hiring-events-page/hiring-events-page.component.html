@@ -1,24 +1,25 @@
 <h2>Active Hiring Events</h2>
 
-<div *ngFor = "let hiringEvent of  currentHiringEvents">
+<div *ngFor="let hiringEvent of currentHiringEvents">
   <div class="card">
-    <div class="card-header">
-      Current Hiring Event Event
-    </div>
+    <div class="card-header">Current Hiring Event Event</div>
     <div class="card-body">
-      <h5 class="card-title">{{hiringEvent.hiringEventName}}</h5>
-      <p class="card-text">Current status: {{hiringEvent.status}}</p>
-      <p class="card-text">Time created : {{hiringEvent.createdAt}}</p>
+      <h5 class="card-title">{{ hiringEvent.hiringEventName }}</h5>
+      <p class="card-text">Current status: {{ hiringEvent.status }}</p>
+      <p class="card-text">Time created : {{ hiringEvent.createdAt }}</p>
 
-      <a (click) = "navigateToEvent(hiringEvent)" class="btn btn-primary">Navigate to Hiring Event</a>
+      <a (click)="navigateToEvent(hiringEvent)" class="btn btn-primary"
+        >Navigate to Hiring Event</a
+      >
     </div>
   </div>
 </div>
-<hr>
+<hr />
 <div class="card text-center">
-
-
-  <div class="card-body border-info bg-dark text-white">
+  <div
+    *ngIf="role === 'admin' || role === 'chair' || role === 'master'"
+    class="card-body border-info bg-dark text-white"
+  >
     <h5 class="card-title">Create a new Hiring Event</h5>
     <p class="card-text">Enter the event info and get started</p>
     <a routerLink="/new-hiring-event" class="btn btn-primary">Get Started </a>

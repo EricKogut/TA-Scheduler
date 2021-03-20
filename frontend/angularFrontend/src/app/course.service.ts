@@ -74,4 +74,29 @@ manualMatch(name, course){
   return this.http.get(baseUrl+"/hiringEvent/manualMatch/"+name+"/"+course)
 }
 
+
+
+//---Notification Calls-----///
+notifyUser(message, senderEmail, receiverEmail, receiverRole){
+  return this.http.put(baseUrl+"/notification/notify/user", {
+    message: message, 
+    senderEmail:senderEmail,
+    recipientEmail:receiverEmail,
+    recipientRole:receiverRole
+  });
+ }
+
+
+
+ //---Notification Get calls---////
+   //gets notifications for a specific user from backend
+getNotifications(recipient){
+    return this.http.get(baseUrl+"/notification/admin/receive/evaluation/"+ recipient);
+  }
+
+  //marks the notification as read
+updateNotification(recipient, message){
+  return this.http.put(baseUrl+ "/notifications/update", {recipient: recipient, message: message, read: 1});
+  }
+
 }

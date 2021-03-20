@@ -1,49 +1,81 @@
-<h1 id="step1">Title Hiring Event </h1>
+<h1 id="step1">Title Hiring Event</h1>
 
-<input maxlength="30" #courseCodeBox (input)="handleCourseCode(courseCodeBox.value)" placeholder="Enter Course Code" />
+<div *ngIf="role === 'chair' || role === 'master'">
+  <input
+    maxlength="30"
+    #courseCodeBox
+    (input)="handleCourseCode(courseCodeBox.value)"
+    placeholder="Enter Course Code"
+  />
 
-<button class="btn btn-secondary" (click)="addNewCourse()">Create new course</button>
+  <button class="btn btn-secondary" (click)="addNewCourse()">
+    Create new course
+  </button>
+</div>
 
-<div *ngFor = "let course of  courses">
+<div *ngFor="let course of courses">
   <div class="card">
-    <div class="card-header">
-
-    </div>
+    <div class="card-header"></div>
     <div class="card-body">
-      <h5 class="card-title">Course Code: {{course.courseCode}}</h5>
-      <p class="card-text">Current status: {{course.status}}</p>
-      <p class="card-text">Time created : {{course.createdAt}}</p>
+      <h5 class="card-title">Course Code: {{ course.courseCode }}</h5>
+      <p class="card-text">Current status: {{ course.status }}</p>
+      <p class="card-text">Time created : {{ course.createdAt }}</p>
 
-      <a (click) = "navigateToCourse(course)" class="btn btn-primary">Navigate to Course Page</a>
+      <a (click)="navigateToCourse(course)" class="btn btn-primary"
+        >Navigate to Course Page</a
+      >
     </div>
   </div>
 </div>
 
-<hr>
+<hr />
 
-<div id="step3">
+<div *ngIf="role === 'admin' || role === 'master'" id="step3">
   <h5>Upload answers</h5>
-  <app-responses-upload-page [(currentHiringEvent)]='currentHiringEvent' [uploadType]="'answer'"></app-responses-upload-page>
+  <app-responses-upload-page
+    [(currentHiringEvent)]="currentHiringEvent"
+    [uploadType]="'answer'"
+  ></app-responses-upload-page>
 </div>
-<br>
-<div id="step4">
+<br />
+<div *ngIf="role === 'chair' || role === 'master'" id="step4">
   <h2>Upload Enrollment</h2>
-<app-responses-upload-page [(currentHiringEvent)]='currentHiringEvent' [uploadType]=" 'upload'"></app-responses-upload-page>
-
-
-
-
-
+  <app-responses-upload-page
+    [(currentHiringEvent)]="currentHiringEvent"
+    [uploadType]="'upload'"
+  ></app-responses-upload-page>
 </div>
-<br>
-<br>
+<br />
+<br />
 
-<a (click) = "updateCourses()" class="btn btn-primary"> ↻ Update Courses Enrollment and Answers</a>
-<br>
-<br>
+<a
+  *ngIf="role === 'chair' || role === 'master'"
+  (click)="updateCourses()"
+  class="btn btn-primary"
+>
+  ↻ Update Courses Enrollment and Answers</a
+>
+<br />
+<br />
 
-<button type = "button" class ="btn btn-primary" (click) = "createMatches()"> ↱ ↰ Aggregate Rankings and Create Matches</button>
-<br>
-<br>
+<button
+  *ngIf="role === 'admin' || role === 'chair' || role === 'master'"
+  type="button"
+  class="btn btn-primary"
+  (click)="createMatches()"
+>
+  ↱ ↰ Aggregate Rankings and Create Matches
+</button>
+<br />
+<br />
 
-<button type = "button" class ="btn btn-secondary" (click) = "downloadFile()">↓ Save Questions</button>
+<button
+  *ngIf="role === 'admin' || role === 'master'"
+  type="button"
+  class="btn btn-secondary"
+  (click)="downloadFile()"
+>
+  ↓ Save Questions
+</button>
+
+<!-- *ngIf="role === 'admin' || role === 'chair'"  -->

@@ -29,7 +29,7 @@ export class HiringEventHomeComponent implements OnInit {
     private courseService: CourseService,
     private hiringEventService: HiringEventService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getRole();

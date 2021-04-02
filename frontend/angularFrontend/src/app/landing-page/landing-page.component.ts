@@ -9,7 +9,7 @@ export class LandingPageComponent implements OnInit {
 
   instructor = '';
   course = '';
-  email ='';
+  email = '';
 
 
 
@@ -19,23 +19,23 @@ export class LandingPageComponent implements OnInit {
   public data;
 
   ngOnInit(): void {
-    this.applicationService.test().subscribe(data=>{
+    this.applicationService.test().subscribe(data => {
       console.log(data, "is the data")
-      this.data=data
-    } )
-}
+      this.data = data
+    })
+  }
 
-submitInstructor(){
-  this.applicationService.addinstructor(this.instructor, this.email, this.course).subscribe(
-    response=>{
-      console.log("Instructor successfully added to the database");
-      console.log(response);
+  submitInstructor() {
+    this.applicationService.addinstructor(this.instructor, this.email, this.course).subscribe(
+      response => {
+        console.log("Instructor successfully added to the database");
+        console.log(response);
 
-  }, error=>{
-    alert(error.error);
-  });
+      }, error => {
+        alert(error.error);
+      });
 
-}
+  }
 
 
 

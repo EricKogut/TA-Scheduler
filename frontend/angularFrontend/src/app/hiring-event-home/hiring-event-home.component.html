@@ -1,12 +1,8 @@
 <h1 id="step1">Title Hiring Event</h1>
 
 <div *ngIf="role === 'chair' || role === 'master'">
-  <input
-    maxlength="30"
-    #courseCodeBox
-    (input)="handleCourseCode(courseCodeBox.value)"
-    placeholder="Enter Course Code"
-  />
+  <input maxlength="30" #courseCodeBox (input)="handleCourseCode(courseCodeBox.value)"
+    placeholder="Enter Course Code" />
 
   <button class="btn btn-secondary" (click)="addNewCourse()">
     Create new course
@@ -21,9 +17,7 @@
       <p class="card-text">Current status: {{ course.status }}</p>
       <p class="card-text">Time created : {{ course.createdAt }}</p>
 
-      <a (click)="navigateToCourse(course)" class="btn btn-primary"
-        >Navigate to Course Page</a
-      >
+      <a (click)="navigateToCourse(course)" class="btn btn-primary">Navigate to Course Page</a>
     </div>
   </div>
 </div>
@@ -32,49 +26,31 @@
 
 <div *ngIf="role === 'admin' || role === 'master'" id="step3">
   <h5>Upload answers</h5>
-  <app-responses-upload-page
-    [(currentHiringEvent)]="currentHiringEvent"
-    [uploadType]="'answer'"
-  ></app-responses-upload-page>
+  <app-responses-upload-page [(currentHiringEvent)]="currentHiringEvent" [uploadType]="'answer'">
+  </app-responses-upload-page>
 </div>
 <br />
 <div *ngIf="role === 'chair' || role === 'master'" id="step4">
   <h2>Upload Enrollment</h2>
-  <app-responses-upload-page
-    [(currentHiringEvent)]="currentHiringEvent"
-    [uploadType]="'upload'"
-  ></app-responses-upload-page>
+  <app-responses-upload-page [(currentHiringEvent)]="currentHiringEvent" [uploadType]="'upload'">
+  </app-responses-upload-page>
 </div>
 <br />
 <br />
 
-<a
-  *ngIf="role === 'chair' || role === 'master'"
-  (click)="updateCourses()"
-  class="btn btn-primary"
->
-  ↻ Update Courses Enrollment and Answers</a
->
+<a *ngIf="role === 'chair' || role === 'master'" (click)="updateCourses()" class="btn btn-primary">
+  ↻ Update Courses Enrollment and Answers</a>
 <br />
 <br />
 
-<button
-  *ngIf="role === 'admin' || role === 'chair' || role === 'master'"
-  type="button"
-  class="btn btn-primary"
-  (click)="createMatches()"
->
+<button *ngIf="role === 'admin' || role === 'chair' || role === 'master'" type="button" class="btn btn-primary"
+  (click)="createMatches()">
   ↱ ↰ Aggregate Rankings and Create Matches
 </button>
 <br />
 <br />
 
-<button
-  *ngIf="role === 'admin' || role === 'master'"
-  type="button"
-  class="btn btn-secondary"
-  (click)="downloadFile()"
->
+<button *ngIf="role === 'admin' || role === 'master'" type="button" class="btn btn-secondary" (click)="downloadFile()">
   ↓ Save Questions
 </button>
 

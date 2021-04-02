@@ -12,19 +12,19 @@ export class StateService {
   current_course;
   constructor(private http: HttpClient) { }
 
-  getCurrentCourse(){
+  getCurrentCourse() {
     return this._current_course;
   }
-  setCurrentCourse(courseInput){
+  setCurrentCourse(courseInput) {
     this._current_course = courseInput;
   }
 
-  getCurrentHiringEvent(){
+  getCurrentHiringEvent() {
     console.log("getting the hiring event")
     return this._current_hiring_event
   }
 
-  setCurrentHiringEvent(hiringEventInput){
+  setCurrentHiringEvent(hiringEventInput) {
     this._current_hiring_event = hiringEventInput;
   }
 }

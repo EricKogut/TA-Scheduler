@@ -16,7 +16,7 @@ export class HiringEventsPageComponent implements OnInit {
     private hiringEventService: HiringEventService,
     private stateService: StateService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getRole();

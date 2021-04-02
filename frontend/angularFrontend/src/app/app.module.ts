@@ -38,20 +38,20 @@ import { CreateNewHiringEventComponent } from './create-new-hiring-event/create-
 import { HiringEventHomeComponent } from './hiring-event-home/hiring-event-home.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 
-const myRoutes: Routes =  [
+const myRoutes: Routes = [
   { path: 'landing', component: LandingPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
-  {path:  'course', component: CourseViewPageComponent},
-  { path: 'instructor-ranking', component: InstructorRankingPageComponent},
-  { path: 'instructor', component: InstructorHomepageComponent},
-  { path: 'hiringEvents', component: HiringEventsPageComponent},
-  { path: 'hiringEventHome', component: HiringEventHomeComponent},
+  { path: 'course', component: CourseViewPageComponent },
+  { path: 'instructor-ranking', component: InstructorRankingPageComponent },
+  { path: 'instructor', component: InstructorHomepageComponent },
+  { path: 'hiringEvents', component: HiringEventsPageComponent },
+  { path: 'hiringEventHome', component: HiringEventHomeComponent },
 
-  { path: 'new-hiring-event', component: CreateNewHiringEventComponent},
+  { path: 'new-hiring-event', component: CreateNewHiringEventComponent },
   { path: 'upload', component: ResponsesUploadPageComponent },
-  { path: 'hours', component:  ChairHoursComponent},
-  { path: 'notifications', component: NotificationsComponent}
+  { path: 'hours', component: ChairHoursComponent },
+  { path: 'notifications', component: NotificationsComponent }
 ]
 
 @NgModule({
@@ -96,7 +96,7 @@ const myRoutes: Routes =  [
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-    RouterModule.forRoot(myRoutes, {useHash:true}),
+    RouterModule.forRoot(myRoutes, { useHash: true }),
     MatSelectModule
   ],
   providers: [HeaderComponent],

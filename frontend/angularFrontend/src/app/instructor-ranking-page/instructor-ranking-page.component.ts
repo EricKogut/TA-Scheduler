@@ -1,29 +1,29 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {Router} from "@angular/router";
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Router } from "@angular/router";
 import { OnInit } from '@angular/core';
 import { HiringEventService } from "../hiring-event.service";
-import {CourseService} from "../course.service";
+import { CourseService } from "../course.service";
 @Component({
   selector: 'app-instructor-ranking-page',
   templateUrl: './instructor-ranking-page.component.html',
   styleUrls: ['./instructor-ranking-page.component.css']
 })
-export class InstructorRankingPageComponent implements OnInit{
+export class InstructorRankingPageComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
-     private router: Router,
-     private hiringEventService: HiringEventService,
-     private courseService : CourseService) {}
+    private router: Router,
+    private hiringEventService: HiringEventService,
+    private courseService: CourseService) { }
 
   numbers: any;
   events: any;
   applicantResponses = [];
-  notificationMessage:any;
-  senderEmail:any;
-  receiverEmail:any;
-  receiverRole:any;
+  notificationMessage: any;
+  senderEmail: any;
+  receiverEmail: any;
+  receiverRole: any;
 
   @Input() currentResponses: any;
   @Input() currentCourse: any;
@@ -42,14 +42,14 @@ export class InstructorRankingPageComponent implements OnInit{
 
 
   //goes back to
-  navigateToInstructorHome(){
+  navigateToInstructorHome() {
     this.router.navigate(['instructor']);
   };
 
   //counter for number display next to rating scale
-  counter(){
-    for(let i = 0; i < this.applicantResponses.length; i++){
-      this.numbers.push(i+1);
+  counter() {
+    for (let i = 0; i < this.applicantResponses.length; i++) {
+      this.numbers.push(i + 1);
     }
   }
 
@@ -60,19 +60,19 @@ export class InstructorRankingPageComponent implements OnInit{
   }
 
   //submission of ranking function
-  submit(event: CdkDragDrop<string[]>){
+  submit(event: CdkDragDrop<string[]>) {
 
-    const adminRankingAr =[];
+    const adminRankingAr = [];
 
-    for(let n=0; n< this.applicantResponses.length; n++){
-      this.applicantResponses[n].instructorRank = n+1;
+    for (let n = 0; n < this.applicantResponses.length; n++) {
+      this.applicantResponses[n].instructorRank = n + 1;
       console.log(this.applicantResponses[n])
 
-      this.applicantResponses[n].adminRanking = n+1;
+      this.applicantResponses[n].adminRanking = n + 1;
     }
 
 
-    this.courseService.updateRanking(this.currentCourse._id, this.applicantResponses).subscribe(response=>{
+    this.courseService.updateRanking(this.currentCourse._id, this.applicantResponses).subscribe(response => {
       console.log(response, "UPDATE SUCCESSFULLY")
     })
     this.disableChanges();
@@ -81,29 +81,29 @@ export class InstructorRankingPageComponent implements OnInit{
     this.notifyChair();
   }
 
-  notifyChair(){
+  notifyChair() {
     this.senderEmail = "arsh.lalani@akahyd.org";
     this.receiverEmail = "juan@gmail.com";
     this.receiverRole = "chair";
     this.notificationMessage = "The Instructor has submitted their rankings for the TA's";
-  
+
     // call the notification api route 
-    this.courseService.notifyUser(this.notificationMessage, this.senderEmail, this.receiverEmail, this.receiverRole).subscribe(response=>{
+    this.courseService.notifyUser(this.notificationMessage, this.senderEmail, this.receiverEmail, this.receiverRole).subscribe(response => {
       console.log("Notification Sent Successfully");
       console.log(response);
     });
   }
 
   //only enable submit button if confirmation check box is selected
-  checkboxes = [{label: '  I understand that this ranking may only be submit once.', state:''}];
+  checkboxes = [{ label: '  I understand that this ranking may only be submit once.', state: '' }];
 
   buttonState() {
     return !this.checkboxes.some(_ => _.state);
   }
 
   //remove ranking system upon submit
-  public show:boolean = true;
-  public show2:boolean = false;
+  public show: boolean = true;
+  public show2: boolean = false;
 
   disableChanges() {
     this.show = !this.show;
@@ -111,13 +111,13 @@ export class InstructorRankingPageComponent implements OnInit{
   }
 
   //hide display of applications until view button is clicked
-  public view:boolean = false;
-  public viewButton:any = 'Hide';
+  public view: boolean = false;
+  public viewButton: any = 'Hide';
 
-  displayApp(){
+  displayApp() {
     this.view = !this.view;
 
-    if(this.view)
+    if (this.view)
       this.viewButton = "Hide Application";
     else
       this.viewButton = "View Previous";
@@ -126,7 +126,7 @@ export class InstructorRankingPageComponent implements OnInit{
   //found application from searching
   foundApp: any;
 
-  findApp(name){
+  findApp(name) {
 
     //empty application object
     this.foundApp = [{
@@ -136,12 +136,12 @@ export class InstructorRankingPageComponent implements OnInit{
     }];
 
     //load found object details into empty object
-    for(let i = 0; i < this.applicantResponses.length; i++){
-      if(name == this.applicantResponses[i].applicantName){
+    for (let i = 0; i < this.applicantResponses.length; i++) {
+      if (name == this.applicantResponses[i].applicantName) {
         this.foundApp[0].foundName = this.applicantResponses[i].applicantName;
         this.foundApp[0].foundEmail = this.applicantResponses[i].applicantEmail;
-        for(let j = 0; j < this.applicantResponses[i].responses.length; j++){
-          let ob = {foundQuestion: "", foundAnswer: ""};
+        for (let j = 0; j < this.applicantResponses[i].responses.length; j++) {
+          let ob = { foundQuestion: "", foundAnswer: "" };
           ob.foundQuestion = this.applicantResponses[i].responses[j].question;
           ob.foundAnswer = this.applicantResponses[i].responses[j].answer;
           this.foundApp[0].foundResponses.push(ob);

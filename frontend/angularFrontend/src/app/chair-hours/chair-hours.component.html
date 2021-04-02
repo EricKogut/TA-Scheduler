@@ -1,4 +1,4 @@
-<button  type = "button" class = "btn btn-primary"  (click)="changeHours()">Change</button>
+<button type="button" class="btn btn-primary" (click)="changeHours()">Change</button>
 <div id="changeHoursForm" [style.visibility]="visibility">
     <form>
         <label>
@@ -6,8 +6,8 @@
             <input type="text" required #newHours>
         </label>
 
-        <button type = "button" class = "btn btn-success" (click)="submitResponse(newHours.value)">Change</button>
-        <button type = "button" class = "btn btn-danger" (click)="close()">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="submitResponse(newHours.value)">Change</button>
+        <button type="button" class="btn btn-danger" (click)="close()">Cancel</button>
 
     </form>
 </div>

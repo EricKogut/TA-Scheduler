@@ -8,9 +8,9 @@ describe('AlgorithmOrderSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AlgorithmOrderSelectorComponent ]
+      declarations: [AlgorithmOrderSelectorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

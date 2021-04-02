@@ -49,7 +49,7 @@ export class CourseViewPageComponent implements OnInit {
     private hiringEventService: HiringEventService,
     private formBuilder: FormBuilder,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getRole();

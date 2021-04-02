@@ -3,19 +3,19 @@
 <p>Criteria for first priority:</p>
 
 <form #myForm="ngForm" (submit)="runAlgorithm(myForm)" novalidate>
-    <div>
-       <input class="form-check-input"  id="app" type="radio" value="applicant" name="order" ngModel required>
-       <label for="app">Applicant preferences</label>
-    </div>
+   <div>
+      <input class="form-check-input" id="app" type="radio" value="applicant" name="order" ngModel required>
+      <label for="app">Applicant preferences</label>
+   </div>
 
-    <div>
-       <input class="form-check-input"  id="prof" type="radio" value="proffessor" name="order" ngModel required>
-       <label for="prof">Professor preferences</label>
-    </div>
+   <div>
+      <input class="form-check-input" id="prof" type="radio" value="proffessor" name="order" ngModel required>
+      <label for="prof">Professor preferences</label>
+   </div>
 
-    <div *ngIf="isSubmitted && myForm.invalid">
-       <p>Please select either value</p>
-    </div>
-    <br>
-    <button type = "button" class = "btn btn-primary" type="submit">Set Preference</button>
- </form>
+   <div *ngIf="isSubmitted && myForm.invalid">
+      <p>Please select either value</p>
+   </div>
+   <br>
+   <button type="button" class="btn btn-primary" type="submit">Set Preference</button>
+</form>

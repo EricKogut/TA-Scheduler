@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const MatchesSchema = new mongoose.Schema(
   {
     courseID: {
-      type:mongoose.ObjectId, ref: 'Course',
+      type: mongoose.ObjectId, ref: 'Course',
     },
     hiringEventID: {
       type: mongoose.ObjectId, ref: 'HiringEvent'
-      },
-      hoursFilled: {
-        type: Number,
-      },
-      applicants:[Object]
+    },
+    hoursFilled: {
+      type: Number,
+    },
+    applicants: [Object]
 
   },
   { timestamps: true, versionKey: false }

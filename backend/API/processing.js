@@ -14,9 +14,9 @@ class Processor {
 
     createSheet(type = 'Allocations', data) {
         var data = [
-            { name: 'Ouda', hours: 5},
-            { name: 'Eagleson', hours: 10},
-            { name: 'Grolinger', hours: 8}
+            { name: 'Ouda', hours: 5 },
+            { name: 'Eagleson', hours: 10 },
+            { name: 'Grolinger', hours: 8 }
         ]
 
         if (data) {

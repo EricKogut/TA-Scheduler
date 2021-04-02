@@ -12,15 +12,15 @@ const UsersSchema = new mongoose.Schema(
       required: true,
       maxlength: 30,
     },
-   role: {
-       type: String,
-       required: true,
-       maxlength: 10,
-   },
-   userID: {
-       type: String,
-       required: true
-   }
+    role: {
+      type: String,
+      required: true,
+      maxlength: 10,
+    },
+    userID: {
+      type: String,
+      required: true
+    }
   },
   { timestamps: true, versionKey: false }
 );

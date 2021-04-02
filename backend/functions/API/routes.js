@@ -258,7 +258,7 @@ router.put("/update/hiringEvent/hours", async (req, res) => {
     hours.push(
       Math.round(
         (element["Previous TA hours"] / element["Previous Enrollments"]) *
-          element["Current Enrollemnts "]
+        element["Current Enrollemnts "]
       ).toString()
     );
   });

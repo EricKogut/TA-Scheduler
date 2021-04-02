@@ -200,7 +200,7 @@
 
 //      }
 
-    
+
 
 // });
 
@@ -209,7 +209,7 @@
 //           name: req.body.name,
 //           file:  req.body.payload,
 //      });
-     
+
 //      try {
 //           const postEnrolment = await enrolmentModel.save();
 //           res.json(postEnrolment);

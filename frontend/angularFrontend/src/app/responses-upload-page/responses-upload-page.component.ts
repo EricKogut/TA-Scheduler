@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { read, IWorkBook } from 'ts-xlsx';
+import { StateService } from '../state.service';
 import * as XLSX from 'ts-xlsx';
 import { HiringEventService } from "../hiring-event.service";
 import { CourseService } from "../course.service";
+import {HiringEventHomeComponent } from "../hiring-event-home/hiring-event-home.component";
 
 @Component({
   selector: 'app-responses-upload-page',
@@ -23,7 +25,9 @@ export class ResponsesUploadPageComponent  {
 
 
   constructor(private hiringEventService:HiringEventService,
-              private courseService: CourseService) { }
+    private stateService: StateService,
+    private courseService: CourseService,
+    private hiringEventHome: HiringEventHomeComponent) { }
 
 
   arrayBuffer:any;
@@ -64,6 +68,27 @@ incomingfile(event)
                   console.log("Success in uploading enrollment information.\n", fileObject, "has been uploaded")
                 })
               }
+              if(this.uploadType == "uploadCourse"){
+
+                console.log(fileObject);
+                //each element of array  -> course code
+                //call the function 
+                let test = [];
+                for(let i=0; i<=fileObject.length-1; i++){
+                  test.push(fileObject[i]["Course Code"]);
+                  //add new course for each of the course code in the excel 
+                  this.addNewCourse(fileObject[i]["Course Code"]);
+
+                }
+                console.log(test);
+
+
+
+                // this.hiringEventService.updateTaHours(this.currentHiringEvent._id, fileObject).subscribe(object => {
+                //   console.log("UPDATED ")
+                //   console.log("Success in uploading enrollment information.\n", fileObject, "has been uploaded")
+                // })
+              }
             }
         }
         fileReader.readAsArrayBuffer(this.file);
@@ -84,6 +109,17 @@ notifyInstructor(){
   });
 
 }
+
+addNewCourse(courseCode) {
+
+  this.courseService
+    .createNewCourse(courseCode, this.currentHiringEvent._id)
+    .subscribe((courses) => {
+      console.log(courses, ' are the courses');
+      this.hiringEventHome.getCourses();
+    });
+}
+
 
 
 

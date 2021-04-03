@@ -99,7 +99,7 @@ export class CourseViewPageComponent implements OnInit {
     this.courseService
       .updateQuestions(this.currentCourse._id, this.questions.value)
       .subscribe((element) => {
-        console.log('SUCCESS in updatingg questions');
+        console.log('SUCCESS in updating questions');
         console.log(element);
         //On successful execution call the notification function
         this.notifyAdmin(this.currentCourse.courseCode);

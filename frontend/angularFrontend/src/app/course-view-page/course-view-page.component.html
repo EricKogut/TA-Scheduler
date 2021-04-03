@@ -3,6 +3,15 @@
   Return
 </button>
 
+<div class = "display">
+  <h4>Course Info</h4>
+  <p>Course name: {{ currentCourse.courseName }}</p>
+  <p>Lecture hours: {{ currentCourse.lecHours }}</p>
+  <p>Lab/Tutorial hours: {{ currentCourse.ltHours }}</p>
+  <p>Number of sections: {{ currentCourse.noSections }}</p>
+</div>
+
+
 <!-- NOT USING THIS ANYMORE -->
 
 <div *ngIf="role === 'instructor' || role === 'master'">

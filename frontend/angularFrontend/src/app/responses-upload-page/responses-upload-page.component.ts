@@ -116,6 +116,20 @@ export class ResponsesUploadPageComponent {
             console.log("Success in uploading enrollment information.\n", this.fileObject, "has been uploaded")
           })
         }
+        if(this.uploadType == "uploadCourse"){
+          //each element of array  -> course code
+          //call the function
+          let test = [];
+          for(let i=0; i<=this.fileObject.length-1; i++){
+            test.push(this.fileObject[i]["Course Code"]);
+            //add new course for each of the course code in the excel
+            this.addNewCourse(this.fileObject[i]["Course Code"], this.fileObject[i]);
+
+          }
+          console.log(this.fileObject);
+          console.log(test);
+
+        }
       }
 
 

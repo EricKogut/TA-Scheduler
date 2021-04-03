@@ -10,11 +10,13 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
 
-  createNewCourse(courseCodeInput,  hiringEventIDInput){
+  createNewCourse(courseCodeInput, courseInfo,  hiringEventIDInput){
     console.log(baseUrl+"/courses/createnew/")
     return this.http.put(baseUrl+"/courses/createnew/",
     {courseCode:courseCodeInput,
-    hiringEventID:hiringEventIDInput})
+    hiringEventID:hiringEventIDInput,
+    courseInfo: [courseInfo]
+  })
 
   }
 

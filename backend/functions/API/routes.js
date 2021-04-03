@@ -281,6 +281,8 @@ router.put("/update/hiringEvent/hours", async (req, res) => {
   });
 });
 
+
+
 router.put("/courses/update/", (req, res) => {
   hiringEventID = req.body.hiringEventID;
   answerFile = req.body.answerFile;
@@ -614,6 +616,8 @@ router.put("/get/matches", (req, res) => {
   }).then((match) => res.status(200).json(match));
 });
 
+//create new courses
+
 router.put("/courses/createnew/", (req, res) => {
   newCourse = {
     courseCode: req.body.courseCode,
@@ -625,6 +629,7 @@ router.put("/courses/createnew/", (req, res) => {
     questionFil: null,
     rankingFile: null,
     applicantResponses: null,
+    courseInfo:req.body.courseInfo
   };
   console.log("creating", newCourse);
   Course.create(newCourse).then((course) => res.status(200).json(course));

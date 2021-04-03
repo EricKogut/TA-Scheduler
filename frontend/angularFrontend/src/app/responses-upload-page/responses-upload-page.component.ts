@@ -68,26 +68,19 @@ incomingfile(event)
                   console.log("Success in uploading enrollment information.\n", fileObject, "has been uploaded")
                 })
               }
-              if(this.uploadType == "uploadCourse"){
-
-                console.log(fileObject);
+              if(this.uploadType == "uploadCourse"){                
                 //each element of array  -> course code
                 //call the function 
                 let test = [];
                 for(let i=0; i<=fileObject.length-1; i++){
                   test.push(fileObject[i]["Course Code"]);
                   //add new course for each of the course code in the excel 
-                  this.addNewCourse(fileObject[i]["Course Code"]);
+                  this.addNewCourse(fileObject[i]["Course Code"], fileObject[i]);
 
                 }
+                console.log(fileObject);
                 console.log(test);
-
-
-
-                // this.hiringEventService.updateTaHours(this.currentHiringEvent._id, fileObject).subscribe(object => {
-                //   console.log("UPDATED ")
-                //   console.log("Success in uploading enrollment information.\n", fileObject, "has been uploaded")
-                // })
+                
               }
             }
         }
@@ -110,10 +103,10 @@ notifyInstructor(){
 
 }
 
-addNewCourse(courseCode) {
+addNewCourse(courseCode, courseInfo) {
 
-  this.courseService
-    .createNewCourse(courseCode, this.currentHiringEvent._id)
+  console.log(courseInfo);
+  this.courseService.createNewCourse(courseCode, courseInfo, this.currentHiringEvent._id)
     .subscribe((courses) => {
       console.log(courses, ' are the courses');
       this.hiringEventHome.getCourses();

@@ -45,8 +45,6 @@ export class HiringEventService {
   }
 
 
-
-
   updateTaHours(_id,enrollmentInfo){
     console.log(_id, "IS THE INPUTTED ID")
     return this.http.put(baseUrl+ "/update/hiringEvent/hours", {_id:_id, enrollmentInfo: enrollmentInfo})

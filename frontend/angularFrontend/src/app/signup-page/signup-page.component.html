@@ -1,59 +1,61 @@
-<h1>SIGN UP</h1>
-  
-      <form #signUp="ngForm" (ngSubmit)="signup(signUp.value)">
-        <input
-        ngModel
-        name="name"
-        #nameVal="ngModel"
-        placeholder="name"
-        id="nameVal"
-      />
+<h1 style="margin-top: 50px; ">SIGN UP</h1>
 
-        <input
-          ngModel
-          name="email"
-          #emailVal="ngModel"
-          placeholder="email"
-          id="emailVal"
-        />
+<form #signUp="ngForm" (ngSubmit)="signup(signUp.value)">
+  <input
+    class="textBox"
+    ngModel
+    name="name"
+    #nameVal="ngModel"
+    placeholder="name"
+    id="nameVal"
+  />
 
-    
-        <datalist name="rolesList" id="rolesList">
-            <option value="chair"></option>
-            <option value="admin"></option>
-            <option value="instructor"></option>
-          </datalist>
+  <input
+    class="textBox"
+    ngModel
+    name="email"
+    #emailVal="ngModel"
+    placeholder="email"
+    id="emailVal"
+  />
 
-          <input
-            ngModel
-            name="role"
-            #courseVal="ngModel"
-            placeholder="select role"
-            autoComplete="on"
-            list="rolesList"
-            id="roleVal"
-            required
-          />
+  <datalist name="rolesList" id="rolesList">
+    <option value="chair"></option>
+    <option value="admin"></option>
+    <option value="instructor"></option>
+  </datalist>
 
+  <input
+    class="textBox"
+    ngModel
+    name="role"
+    #courseVal="ngModel"
+    placeholder="select role"
+    autoComplete="on"
+    list="rolesList"
+    id="roleVal"
+    required
+  />
 
+  <input
+    class="textBox"
+    ngModel
+    name="password"
+    #passwordVal="ngModel"
+    placeholder="password"
+    id="passwordVal"
+    type="password"
+  />
 
-        <input
-          ngModel
-          name="password"
-          #passwordVal="ngModel"
-          placeholder="password"
-          id="passwordVal"
-          type="password"
-        />
+  <input
+    class="textBox"
+    ngModel
+    name="passwordConfirm"
+    #passwordConfirmVal="ngModel"
+    placeholder="passwordConfirm"
+    id="passwordConfirmVal"
+    type="password"
+  />
 
-        <input
-        ngModel
-        name="passwordConfirm"
-        #passwordConfirmVal="ngModel"
-        placeholder="passwordConfirm"
-        id="passwordConfirmVal"
-        type="password"
-      />
-  
-        <input type="submit" />
-      </form>
+  <input class="textBox" type="submit" />
+</form>

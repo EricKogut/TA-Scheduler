@@ -101,4 +101,8 @@ updateNotification(recipient, message){
   return this.http.put(baseUrl+ "/notifications/update", {recipient: recipient, message: message, read: 1});
   }
 
+  courseInfo(courseCode){
+    return this.http.get(baseUrl+"/courses/get/courseInfo/" + courseCode);
+  }
+
 }

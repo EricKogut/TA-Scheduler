@@ -21,7 +21,6 @@ export class AlgorithmOrderSelectorComponent {
   if(!myForm.valid) {
     return false;
   } else {
-    alert(JSON.stringify(myForm.value.order));
     this.courseService.updatePriority(this.currentCourse._id, myForm.value.order).subscribe(course=>{
       this.currentCourse = course;
     })

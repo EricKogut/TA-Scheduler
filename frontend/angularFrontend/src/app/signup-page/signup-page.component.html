@@ -1,4 +1,6 @@
-<h1 style="margin-top: 50px; ">SIGN UP</h1>
+<h1 *ngIf="role === 'admin' || role === 'chair' || role === 'master'; else General" style="margin-top: 50px; ">Register Instructor</h1>
+<ng-template #General><h1  style="margin-top: 50px; ">Sign Up</h1></ng-template>
+
 
 <form #signUp="ngForm" (ngSubmit)="signup(signUp.value)">
   <input
@@ -18,12 +20,19 @@
     placeholder="email"
     id="emailVal"
   />
+<div *ngIf="role === 'admin' || role === 'chair' || role === 'master'; else New">
+  <datalist name="rolesList" id="rolesList">
+    <option  value="instructor"></option>
+  </datalist>
+</div>
 
+<ng-template #New >
   <datalist name="rolesList" id="rolesList">
     <option value="chair"></option>
     <option value="admin"></option>
-    <option value="instructor"></option>
   </datalist>
+</ng-template>
+
 
   <input
     class="textBox"

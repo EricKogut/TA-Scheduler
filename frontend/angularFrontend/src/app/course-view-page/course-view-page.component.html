@@ -1,8 +1,28 @@
 <h1>Viewing {{ currentCourse.courseCode }}</h1>
+<hr>
+<h4>Course Info</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Course Name</th>
+      <th scope="col">Lecture Hours</th>
+      <th scope="col">Lab/Tutorial Hours</th>
+      <th scope="col">Number of Sections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ courseName }}</td>
+      <td>{{ lecHours }}</td>
+      <td>{{ ltHours }}</td>
+      <td>{{ noSections }}</td>
+    </tr>
+  </tbody>
+</table>
+
 <button type=" button" class="btn btn-dark" (click)="returnToHiringEvent()">
   Return
 </button>
-
 <!-- NOT USING THIS ANYMORE -->
 
 <div *ngIf="role === 'instructor' || role === 'master'">
@@ -88,6 +108,10 @@
     <button class="btn btn-primary" type="submit">Submit</button>
   </form>
 </div>
+
+<hr>
+
+<h3>TA Hours Allocated</h3>
 
 <div *ngIf="role === 'chair' || role === 'master'">
   <h6>Currently allocated {{ currentMatches.hoursFilled }} hours</h6>

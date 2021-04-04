@@ -50,14 +50,14 @@ export class HiringEventHomeComponent implements OnInit {
     });
   }
 
-  addNewCourse() {
-    this.courseService
-      .createNewCourse(this.courseCode, this.currentHiringEvent._id)
-      .subscribe((courses) => {
-        console.log(courses, ' are the courses');
-        this.getCourses();
-      });
-  }
+  // addNewCourse() {
+  //   this.courseService
+  //     .createNewCourse(this.courseCode, this.currentHiringEvent._id)
+  //     .subscribe((courses) => {
+  //       console.log(courses, ' are the courses');
+  //       this.getCourses();
+  //     });
+  // }
 
   updateCourses() {
     console.log('updateing', this.stateService.getCurrentHiringEvent());

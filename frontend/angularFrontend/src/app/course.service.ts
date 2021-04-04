@@ -10,13 +10,13 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
 
-  createNewCourse(courseCodeInput, hiringEventIDInput) {
-    console.log(baseUrl + "/courses/createnew/")
-    return this.http.put(baseUrl + "/courses/createnew/",
-      {
-        courseCode: courseCodeInput,
-        hiringEventID: hiringEventIDInput
-      })
+  createNewCourse(courseCodeInput, courseInfo,  hiringEventIDInput){
+    console.log(baseUrl+"/courses/createnew/")
+    return this.http.put(baseUrl+"/courses/createnew/",
+    {courseCode:courseCodeInput,
+    hiringEventID:hiringEventIDInput,
+    courseInfo: [courseInfo]
+  })
 
   }
 
@@ -103,6 +103,10 @@ export class CourseService {
   //marks the notification as read
   updateNotification(recipient, message) {
     return this.http.put(baseUrl + "/notifications/update", { recipient: recipient, message: message, read: 1 });
+  }
+
+  courseInfo(courseCode){
+    return this.http.get(baseUrl+"/courses/get/courseInfo/" + courseCode);
   }
 
 }

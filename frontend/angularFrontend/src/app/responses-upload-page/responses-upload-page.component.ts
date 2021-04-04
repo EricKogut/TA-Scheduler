@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { read, IWorkBook } from 'ts-xlsx';
+import { StateService } from '../state.service';
 import * as XLSX from 'ts-xlsx';
 import { HiringEventService } from "../hiring-event.service";
 import { CourseService } from "../course.service";
+import {HiringEventHomeComponent } from "../hiring-event-home/hiring-event-home.component";
 
 @Component({
   selector: 'app-responses-upload-page',
@@ -23,7 +25,8 @@ export class ResponsesUploadPageComponent {
 
 
   constructor(private hiringEventService: HiringEventService,
-    private courseService: CourseService) { }
+    private courseService: CourseService,
+    private hiringEventHome: HiringEventHomeComponent) { }
 
 
   arrayBuffer: any;
@@ -83,6 +86,17 @@ export class ResponsesUploadPageComponent {
     });
 
   }
+
+addNewCourse(courseCode, courseInfo) {
+
+  console.log(courseInfo);
+  this.courseService.createNewCourse(courseCode, courseInfo, this.currentHiringEvent._id)
+    .subscribe((courses) => {
+      console.log(courses, ' are the courses');
+      this.hiringEventHome.getCourses();
+    });
+}
+
 
 
 

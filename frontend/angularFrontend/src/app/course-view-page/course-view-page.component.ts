@@ -30,6 +30,11 @@ export class CourseViewPageComponent implements OnInit {
   receiverEmail: any;
   receiverRole: any;
 
+  courseName: any;
+  lecHours: any;
+  ltHours: any;
+  noSections: any;
+
   checkoutForm = this.formBuilder.group({
     applicantName: '',
     applicantEmail: '',
@@ -56,6 +61,7 @@ export class CourseViewPageComponent implements OnInit {
     this.currentCourse = this.stateService.getCurrentCourse();
     console.log('current course', this.stateService.getCurrentCourse());
     this.getMatches();
+    this.findCourseInfo();
     // this.currentCourse =  {applicantResponses:  [
     //  {courseCode: "SE123", applicantName: "Alice", applicantEmail: "alice@uwo.ca", instructorRank: null, applicantRank: null, responses:[{question: "Know Java?", answer: "yes"}, {question: "Know OOP?", answer: "No"},
     // {question: "Teaching Certificate?", answer: "No answer Provided"}]},
@@ -99,7 +105,7 @@ export class CourseViewPageComponent implements OnInit {
     this.courseService
       .updateQuestions(this.currentCourse._id, this.questions.value)
       .subscribe((element) => {
-        console.log('SUCCESS in updatingg questions');
+        console.log('SUCCESS in updating questions');
         console.log(element);
         //On successful execution call the notification function
         this.notifyAdmin(this.currentCourse.courseCode);
@@ -252,5 +258,20 @@ export class CourseViewPageComponent implements OnInit {
         console.log('updated matches');
       });
     this.checkoutForm.reset();
+  }
+
+  findCourseInfo(){
+    this.courseService
+      .courseInfo(this.currentCourse.courseCode)
+      .subscribe((info) => {
+        this.courseName = info["Course Name"];
+        this.ltHours = info["Lab/Tutorial hours"];
+        this.lecHours = info["Lec hours"];
+        this.noSections = info["No of Sections"];
+
+        if(this.ltHours == undefined){
+          this.ltHours = 0;
+        }
+      });
   }
 }

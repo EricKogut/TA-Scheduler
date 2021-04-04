@@ -5,6 +5,7 @@ import { HiringEventService } from "../hiring-event.service";
 import { CourseService } from "../course.service";
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { elementAt } from 'rxjs/operators';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class ResponsesUploadPageComponent {
   receiverRole: any;
   closeResult = '';
   keys = [];
+  updatedKeys = {};
+
   columns = [];
   fileObject;
 
@@ -71,10 +74,22 @@ export class ResponsesUploadPageComponent {
       delete element[key];
     })
   }
+  onKey(event, key) {this.updatedKeys[key]=event.target.value;}
+
+  editColumn(key){
+
+  }
 
 
   Upload(modal) {
-    modal.close('Save click')
+    modal.close('Save click') 
+    //Update any key values
+    this.fileObject.forEach(element =>{
+      for (const [key, value] of Object.entries(this.updatedKeys)) {
+        delete Object.assign(element, {[value.toString()]: element[key] })[key];
+      }
+    })
+
       if (this.fileObject) {
         if (this.uploadType == "question") {
           this.courseService.updateQuestions(this.currentCourse._id, this.fileObject).subscribe(object => {

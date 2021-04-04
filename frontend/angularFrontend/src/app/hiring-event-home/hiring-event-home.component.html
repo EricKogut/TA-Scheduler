@@ -36,6 +36,9 @@
   <h5>Upload answers</h5>
   <app-responses-upload-page [(currentHiringEvent)]="currentHiringEvent" [uploadType]="'answer'">
   </app-responses-upload-page>
+  <h5>Upload Instructor Emails</h5>
+  <app-responses-upload-page [(currentHiringEvent)]="currentHiringEvent" [uploadType]="'email'">
+  </app-responses-upload-page>
 </div>
 <br />
 <div *ngIf="role === 'chair' || role === 'master'" id="step4">

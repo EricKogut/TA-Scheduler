@@ -32,6 +32,11 @@ export class HiringEventService {
     return this.http.get<any[]>(baseUrl + "/get/hiringEvent/questions/" + _id);
 
   }
+  getInstructors(_id) {
+    console.log("getting all questions")
+    return this.http.get<any[]>(baseUrl + "/hiringEvent/getInstructors/" + _id);
+
+  }
 
 
   //PUTs
@@ -43,7 +48,11 @@ export class HiringEventService {
   updateAnswers(_id, answers) {
     return this.http.put(baseUrl + "/update/hiringEvent/answers", { _id: _id, answers: answers })
   }
-
+  updateInstructors(_id, emails) {
+    console.log("pdating the instructors")
+    console.log(emails, "are the emails")
+    return this.http.put(baseUrl + "/update/hiringEvent/instructors/", { hiringEventID: _id, instructorEmails: emails })
+  }
 
 
 

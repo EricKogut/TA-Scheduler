@@ -81,7 +81,7 @@ export class ResponsesUploadPageComponent {
 
 
   Upload(modal) {
-    modal.close('Save click') 
+    modal.close('Save click')
     //Update any key values
     this.fileObject.forEach(element =>{
       for (const [key, value] of Object.entries(this.updatedKeys)) {
@@ -104,6 +104,14 @@ export class ResponsesUploadPageComponent {
         }
         if (this.uploadType == "upload") {
           this.hiringEventService.updateTaHours(this.currentHiringEvent._id, this.fileObject).subscribe(object => {
+            console.log("UPDATED ")
+            console.log("Success in uploading enrollment information.\n", this.fileObject, "has been uploaded")
+          })
+        }
+        if (this.uploadType == "email") {
+          console.log("upload type is email")
+           this.hiringEventService.updateInstructors(this.currentHiringEvent._id, this.fileObject)
+           .subscribe(object => {
             console.log("UPDATED ")
             console.log("Success in uploading enrollment information.\n", this.fileObject, "has been uploaded")
           })

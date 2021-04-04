@@ -57,6 +57,17 @@ router.get("/hiringEvent/rejectMatch/:name/:course", async (req, res) => {
   });
 });
 
+
+//Getting all the instructors that are assigned to a course
+router.get("/hiringEvent/getInstructors/:hiringEventID", async (req, res) => {
+  hiringEventID = new ObjectId(req.params.hiringEventID);
+  Users.find(
+    { hiringEventID: hiringEventID},
+  ).then((users, err) => {
+    res.status(200).json(users);
+  });
+});
+
 router.get("/get/matches", (req, res) => {
   Matches.find({
     hiringEventID: new ObjectId(req.body.hiringEventID),
@@ -179,6 +190,16 @@ router.put("/update/courses/questions", async (req, res) => {
   ).then((event) => res.status(200).json(event));
 });
 
+router.put("/update/courses/instructorID", async (req, res) => {
+  Course.findOneAndUpdate(
+    { _id: req.body._id },
+    {
+      instructorID: req.body.instructorID,
+    }
+  ).then((course) => res.status(200).json(course));
+});
+
+
 router.get("/get/hiringEvent/questions/:_id", async (req, res) => {
   Course.find(
     { hiringEventID: new ObjectId(req.params._id) },
@@ -188,8 +209,22 @@ router.get("/get/hiringEvent/questions/:_id", async (req, res) => {
   });
 });
 
+router.put("/update/hiringEvent/instructors/", async (req, res) => {
+  users = req.body.instructorEmails;
+  users.forEach(user =>{
+    Users.findOneAndUpdate({email:user["Instructor Email"]}, {hiringEventID: new ObjectId(req.body.hiringEventID)})
+    .then( newUser => newUser
+    )
+  })
+
+ 
+    res.status(200).json("Completed udpated");
+ 
+});
+
+
 router.put("/update/hiringEvent/answers", async (req, res) => {
-  console.log("UPDATING THE ANSWERS");
+  //console.log("UPDATING THE ANSWERS");
   await HiringEvent.findOneAndUpdate(
     { _id: req.body._id },
     {
@@ -488,6 +523,7 @@ router.post("/signup", async (req, res) => {
         name: name,
         userID: userID,
         role: role,
+        hiringEventID :null
       });
 
       // save user to db and return token

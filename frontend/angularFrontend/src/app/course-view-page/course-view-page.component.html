@@ -23,7 +23,14 @@
 <button type=" button" class="btn btn-dark" (click)="returnToHiringEvent()">
   Return
 </button>
-<!-- NOT USING THIS ANYMORE -->
+
+<br>
+<div id="evaluation " *ngIf="!hasInstructor">
+  <div class="alert alert-danger" role="alert">
+    No instructor Assigned to this course. Please assign an instructor.
+  </div>
+</div>
+
 
 <div *ngIf="role === 'instructor' || role === 'master'">
   <h2>Instructor Add Questions</h2>
@@ -60,6 +67,14 @@
 <hr />
 
 <div *ngIf="role === 'chair' || role === 'admin' || role === 'master'">
+  <h3>Select a Course instructor</h3>
+  <div ngbDropdown class="d-inline-block">
+    <button class="btn btn-outline-primary" id="dropdownMenuButton" ngbDropdownToggle>List of Instructors</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+      <button *ngFor = "let instructor of instructors" ngbDropdownItem (click) = "updateCourseInstructor(instructor)">{{instructor.name}}</button>
+    </div>
+  </div>
+
   <h3>Matching Applicants</h3>
 
   <div *ngFor="let match of currentMatches.applicants" class="card">

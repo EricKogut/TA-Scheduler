@@ -20,6 +20,10 @@ const UsersSchema = new mongoose.Schema(
     userID: {
       type: String,
       required: true
+    },
+    hiringEventID: {
+      type: { type: mongoose.ObjectId, ref: 'HiringEvent' },
+      required: false
     }
   },
   { timestamps: true, versionKey: false }

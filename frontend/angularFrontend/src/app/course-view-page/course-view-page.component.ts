@@ -5,6 +5,7 @@ import { CourseService } from '../course.service';
 import { HiringEventService } from '../hiring-event.service';
 import { FormBuilder, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { isConstructorDeclaration } from 'typescript';
 
 @Component({
   selector: 'app-course-view-page',
@@ -29,6 +30,8 @@ export class CourseViewPageComponent implements OnInit {
   senderEmail: any;
   receiverEmail: any;
   receiverRole: any;
+  hasInstructor = false;
+  instructors = [];
 
   courseName: any;
   lecHours: any;
@@ -59,9 +62,15 @@ export class CourseViewPageComponent implements OnInit {
   ngOnInit(): void {
     this.getRole();
     this.currentCourse = this.stateService.getCurrentCourse();
-    console.log('current course', this.stateService.getCurrentCourse());
+    if (this.currentCourse.instructorID != null){
+      this.hasInstructor =true;
+    }
+
     this.getMatches();
     this.findCourseInfo();
+    this.hiringEventService.getInstructors(this.currentCourse.hiringEventID).subscribe(users=>{
+      this.instructors = users;
+    })
     // this.currentCourse =  {applicantResponses:  [
     //  {courseCode: "SE123", applicantName: "Alice", applicantEmail: "alice@uwo.ca", instructorRank: null, applicantRank: null, responses:[{question: "Know Java?", answer: "yes"}, {question: "Know OOP?", answer: "No"},
     // {question: "Teaching Certificate?", answer: "No answer Provided"}]},
@@ -89,6 +98,13 @@ export class CourseViewPageComponent implements OnInit {
   //gets the array of questions from the reactive form
   get questions(): FormArray {
     return this.evaluationForm.get('questions') as FormArray;
+  }
+
+  updateCourseInstructor(instructor){
+    console.log("updating the instructor to the id", instructor._id)
+    this.courseService.updateCourseInstructor(this.currentCourse._id, instructor._id).subscribe(course=>{
+      console.log("course instructor has been udpated")
+    })
   }
 
   // for adding a new question input

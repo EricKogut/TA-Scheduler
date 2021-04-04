@@ -37,6 +37,7 @@ import { HiringEventsPageComponent } from './hiring-events-page/hiring-events-pa
 import { CreateNewHiringEventComponent } from './create-new-hiring-event/create-new-hiring-event.component';
 import { HiringEventHomeComponent } from './hiring-event-home/hiring-event-home.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const myRoutes: Routes = [
   { path: 'landing', component: LandingPageComponent },
@@ -97,7 +98,8 @@ const myRoutes: Routes = [
     ReactiveFormsModule,
     DragDropModule,
     RouterModule.forRoot(myRoutes, { useHash: true }),
-    MatSelectModule
+    MatSelectModule,
+    NgbModule
   ],
   providers: [HeaderComponent],
   bootstrap: [AppComponent]

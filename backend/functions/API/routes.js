@@ -635,6 +635,13 @@ router.put("/courses/createnew/", (req, res) => {
   Course.create(newCourse).then((course) => res.status(200).json(course));
 });
 
+//get the course information 
+router.get("/courses/get/courseInfo/:courseCode", (req,res)=>{
+  Course.find({
+    courseCode: req.params.courseCode,
+  }).then((course) => res.status(200).json(course[course.length-1].courseInfo));
+});
+
 router.get("/notifications/:recipient", (req, res) => {
   Notifications.find({
     recipientEmail: new ObjectId(req.params.recipient),

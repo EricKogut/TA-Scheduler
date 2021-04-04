@@ -1,3 +1,29 @@
-<input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file"
+<input type="file" style="display: inline-block;" (change)="incomingfile($event, content)" placeholder="Upload file"
     accept=".xlsx">
-<button type="button" class="btn btn-info" (click)="Upload()">Upload</button>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+     <div *ngFor ="let key of keys">
+      <label >
+        {{key}}
+        <button style = "float: right;" type="button" class="btn btn-outline-danger" (click)="popColumn(key)">Remove Column</button>
+    </label>
+       </div>
+
+  </div>
+
+  <div class="modal-footer">
+  <button type="button" class="btn btn-info" (click)="Upload(modal)">Upload</button>
+</div>
+</ng-template>
+
+<hr>
+

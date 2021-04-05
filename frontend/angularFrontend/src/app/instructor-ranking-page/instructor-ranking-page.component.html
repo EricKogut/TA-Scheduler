@@ -11,8 +11,9 @@
         <div class="col-md">
             <div cdkDropList class="applicants" (cdkDropListDropped)="drop($event)">
                 <div class="box" *ngFor="let name of applicantResponses" cdkDrag>
+                  {{name.applicantName}}
                     <div class="placeholder" *cdkDragPlaceholder>
-                    {{name.applicantName}}
+
                 </div>
             </div>
           </div>
@@ -69,5 +70,5 @@
     </div>
 </ng-container>
 
-<button class="btn btn-light" id="back" (click)="navigateToInstructorHome()"> ↩️ Back</button>
+
 <button class="btn btn-info" (click)="displayApp()">{{ viewButton }}</button>

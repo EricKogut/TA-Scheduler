@@ -146,16 +146,21 @@ export class HiringEventHomeComponent implements OnInit {
           //Now we have arrays for each priority of applicant
           //Now sort according to applicant/prof
           if (course.priority == 'applicant') {
-            firstPriorityApplicants.sort(sortByApplicant);
-            secondPriorityApplicants.sort(sortByApplicant);
-            thirdPriorityApplicants.sort(sortByApplicant);
+            firstPriorityApplicants.sort(sortByApplicantFirst);
+            secondPriorityApplicants.sort(sortByApplicantFirst);
+            thirdPriorityApplicants.sort(sortByApplicantFirst);
           } else {
-            firstPriorityApplicants.sort(sortByInstructor);
-            secondPriorityApplicants.sort(sortByInstructor);
-            thirdPriorityApplicants.sort(sortByInstructor);
+            firstPriorityApplicants.sort(sortByInstructorFirst);
+            secondPriorityApplicants.sort(sortByInstructorFirst);
+            thirdPriorityApplicants.sort(sortByInstructorFirst);
           }
 
-          //All arrays are now sorted by the respective toggle values
+          console.log(firstPriorityApplicants, "are the first priority applicants")
+          console.log(secondPriorityApplicants, "are the second priority applicants")
+          console.log(thirdPriorityApplicants, "are the third priority applicants")
+
+
+          //All arrays are now sorted by the applicant/instructor rank, in addition to the hours
           //NOTE: they are sorted so the BEST applicant is LAST (easier to pop)
 
           //STEP#4
@@ -241,6 +246,17 @@ export class HiringEventHomeComponent implements OnInit {
       });
   }
 }
+
+
+function sortByApplicantFirst(a,b){
+  return a.applicantRank- b.applicantRank || a.instructorRank - b.instructorRank ||  b.hours - a.hours;
+}
+
+function sortByInstructorFirst(a,b){
+  return a.instructorRank - b.instructorRank || a.applicantRank- b.applicantRank ||  b.hours - a.hours;
+}
+
+
 function sortByApplicant(a, b) {
   if (a.applicantRank < b.applicantRank) {
     return -1;

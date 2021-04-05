@@ -31,6 +31,17 @@ export class HiringEventsPageComponent implements OnInit {
     });
   }
 
+  createNewHiringEvent() {
+    this.hiringEventService.createEvent(localStorage.getItem("_id")).subscribe(element => {
+      console.log(element);
+      console.log("created new hiring event")
+
+      this.stateService.setCurrentHiringEvent(element);
+    })
+    this.router.navigate(['landing'])
+
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

@@ -215,12 +215,12 @@ export class HiringEventHomeComponent implements OnInit {
         });
       });
     //notifying instructor that the TA allocation has been done
-    this.notifyInstructor();
+      this.notifyInstructor();
     //STEP#5
     //Show suggested matches row
   }
 
-  
+
   notifyInstructor() {
     this.senderEmail = 'sanah@yahoo.com';
     this.receiverEmail = 'arsh.lalani@akahyd.org';

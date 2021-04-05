@@ -11,11 +11,11 @@
         <div class="col-md">
             <div cdkDropList class="applicants" (cdkDropListDropped)="drop($event)">
                 <div class="box" *ngFor="let name of applicantResponses" cdkDrag>
-                    <div class="placeholder" *cdkDragPlaceholder></div>
+                    <div class="placeholder" *cdkDragPlaceholder>
                     {{name.applicantName}}
                 </div>
             </div>
-
+          </div>
 
             <div class="counters">
                 <div *ngFor="let name of applicantResponses">

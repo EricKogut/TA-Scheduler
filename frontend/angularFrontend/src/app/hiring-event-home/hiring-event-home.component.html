@@ -7,9 +7,9 @@
   <button class="btn btn-secondary" (click)="addNewCourse()">
     Create new course
   </button>
- 
+
   <div *ngIf="role === 'chair' || role === 'admin'|| role === 'master'" id="step4">
-    <h2>Create hiring event for a particular course</h2>
+    <h5>Upload Courses</h5>
     <app-responses-upload-page
       [(currentHiringEvent)]="currentHiringEvent"
       [uploadType]="'uploadCourse'"
@@ -29,8 +29,6 @@
     </div>
   </div>
 </div>
-
-<hr />
 
 <div *ngIf="role === 'admin' || role === 'master'" id="step3">
   <h5>Upload answers</h5>

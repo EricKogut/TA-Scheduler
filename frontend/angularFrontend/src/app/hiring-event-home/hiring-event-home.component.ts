@@ -219,6 +219,8 @@ export class HiringEventHomeComponent implements OnInit {
     //STEP#5
     //Show suggested matches row
   }
+
+  
   notifyInstructor() {
     this.senderEmail = 'sanah@yahoo.com';
     this.receiverEmail = 'arsh.lalani@akahyd.org';

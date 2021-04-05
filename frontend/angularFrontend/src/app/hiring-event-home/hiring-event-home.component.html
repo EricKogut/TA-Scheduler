@@ -4,9 +4,9 @@
   <input maxlength="30" #courseCodeBox (input)="handleCourseCode(courseCodeBox.value)"
     placeholder="Enter Course Code" />
 
-  <button class="btn btn-secondary" (click)="addNewCourse()">
+  <!-- <button class="btn btn-secondary" (click)="addNewCourse()">
     Create new course
-  </button>
+  </button> -->
 
   <div *ngIf="role === 'chair' || role === 'admin'|| role === 'master'" id="step4">
     <h5>Upload Courses</h5>

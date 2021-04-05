@@ -156,7 +156,6 @@ addNewCourse(courseCode, courseInfo) {
   console.log(courseInfo);
   this.courseService.createNewCourse(courseCode, courseInfo, this.currentHiringEvent._id)
     .subscribe((courses) => {
-      console.log(courses, ' are the courses');
       this.hiringEventHome.getCourses();
     });
 }

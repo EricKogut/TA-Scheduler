@@ -46,7 +46,6 @@ export class HiringEventHomeComponent implements OnInit {
     let id = this.stateService.getCurrentHiringEvent()._id;
     this.courseService.getHiringEventCourses(id).subscribe((courses) => {
       this.courses = courses;
-      console.log(courses, ' are the courses');
     });
   }
 
@@ -120,6 +119,7 @@ export class HiringEventHomeComponent implements OnInit {
     this.courseService
       .getHiringEventCourses(this.currentHiringEvent._id)
       .subscribe((courses) => {
+        console.log(courses, 'are the courses')
         courses.forEach((course) => {
           //STEP #2
           //Parse data to make it easier to work with
@@ -155,9 +155,7 @@ export class HiringEventHomeComponent implements OnInit {
             thirdPriorityApplicants.sort(sortByInstructorFirst);
           }
 
-          console.log(firstPriorityApplicants, "are the first priority applicants")
-          console.log(secondPriorityApplicants, "are the second priority applicants")
-          console.log(thirdPriorityApplicants, "are the third priority applicants")
+
 
 
           //All arrays are now sorted by the applicant/instructor rank, in addition to the hours
@@ -201,7 +199,6 @@ export class HiringEventHomeComponent implements OnInit {
                 currentApplicant = thirdPriorityApplicants.pop();
                 hoursFilled += currentApplicant.hours;
               }
-
               currentMatch.applicants.push({
                 applicantName: currentApplicant.applicantName,
                 applicantEmail: currentApplicant.applicantEmail,
@@ -210,10 +207,8 @@ export class HiringEventHomeComponent implements OnInit {
                 status: 'accepted',
               });
             }
-
             currentMatch.hoursFilled = hoursFilled;
           }
-          console.log(currentMatch, 'is the current match');
           this.hiringEventService.addMatch(currentMatch).subscribe((match) => {
             console.log('Match successfully added!');
           });

@@ -224,7 +224,6 @@ router.put("/update/hiringEvent/instructors/", async (req, res) => {
 
 
 router.put("/update/hiringEvent/answers", async (req, res) => {
-  //console.log("UPDATING THE ANSWERS");
   await HiringEvent.findOneAndUpdate(
     { _id: req.body._id },
     {
@@ -236,7 +235,6 @@ router.put("/update/hiringEvent/answers", async (req, res) => {
 
   req.body.answers.forEach((element, i) => {
     if (element["Course Code"]) {
-      console.log(element, "is the element");
       newResponse = {
         courseCode: element["Course Code"],
         applicantName: element["Applicant Name"],
@@ -269,7 +267,6 @@ router.put("/update/hiringEvent/answers", async (req, res) => {
     }
   });
 
-  console.log(applicantResponses, "are the applicant responses");
   await HiringEvent.findOneAndUpdate(
     { _id: req.body._id },
     {
@@ -339,6 +336,7 @@ router.put("/courses/update/", (req, res) => {
     courses[answer.courseCode].push(answer);
   });
 
+
   //Adding the answer files for each course
   Object.keys(courses).forEach((courseCode) => {
     //console.log("Updating", courseCode, "for", hiringEventID, "here", courses[courseCode])
@@ -360,18 +358,10 @@ router.put("/update/course/hours", (req, res) => {
 router.put("/courses/updatehours/", (req, res) => {
   hiringEventID = req.body.hiringEventID;
   enrollmentFile = req.body.enrollmentFile;
-  //console.log(enrollmentFile, "is the enrollmenbt dlsjkfhajsdkl")
 
   //Adding the answer files for each course
   enrollmentFile.forEach((course) => {
-    console.log(
-      "Updating",
-      course.courseID,
-      "for",
-      hiringEventID,
-      "here",
-      course["TA_hour"]
-    );
+    //console.log("Updating",course.courseID,"for",hiringEventID,"here",course["TA_hour"]);
     Course.findOneAndUpdate(
       {
         hiringEventID: new ObjectId(hiringEventID),
@@ -646,6 +636,8 @@ router.put("/update/matches", (req, res) => {
   ).then((match) => res.status(200).json(match));
 });
 router.put("/get/matches", (req, res) => {
+  
+
   Matches.find({
     hiringEventID: new ObjectId(req.body.hiringEventID),
     courseID: new ObjectId(req.body.courseID),

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ApplicationService } from '../application.service';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-signup-page',
@@ -37,4 +39,5 @@ export class SignupPageComponent implements OnInit {
       }
     });
   }
+
 }

@@ -5,6 +5,7 @@ import { CourseService } from '../course.service';
 import { HiringEventService } from '../hiring-event.service';
 import { FormBuilder, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { isConstructorDeclaration } from 'typescript';
 
 @Component({
   selector: 'app-course-view-page',
@@ -29,6 +30,13 @@ export class CourseViewPageComponent implements OnInit {
   senderEmail: any;
   receiverEmail: any;
   receiverRole: any;
+  hasInstructor = false;
+  instructors = [];
+
+  courseName: any;
+  lecHours: any;
+  ltHours: any;
+  noSections: any;
 
   checkoutForm = this.formBuilder.group({
     applicantName: '',
@@ -49,13 +57,20 @@ export class CourseViewPageComponent implements OnInit {
     private hiringEventService: HiringEventService,
     private formBuilder: FormBuilder,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getRole();
     this.currentCourse = this.stateService.getCurrentCourse();
-    console.log('current course', this.stateService.getCurrentCourse());
+    if (this.currentCourse.instructorID != null){
+      this.hasInstructor =true;
+    }
+
     this.getMatches();
+    this.findCourseInfo();
+    this.hiringEventService.getInstructors(this.currentCourse.hiringEventID).subscribe(users=>{
+      this.instructors = users;
+    })
     // this.currentCourse =  {applicantResponses:  [
     //  {courseCode: "SE123", applicantName: "Alice", applicantEmail: "alice@uwo.ca", instructorRank: null, applicantRank: null, responses:[{question: "Know Java?", answer: "yes"}, {question: "Know OOP?", answer: "No"},
     // {question: "Teaching Certificate?", answer: "No answer Provided"}]},
@@ -85,6 +100,13 @@ export class CourseViewPageComponent implements OnInit {
     return this.evaluationForm.get('questions') as FormArray;
   }
 
+  updateCourseInstructor(instructor){
+    console.log("updating the instructor to the id", instructor._id)
+    this.courseService.updateCourseInstructor(this.currentCourse._id, instructor._id).subscribe(course=>{
+      console.log("course instructor has been udpated")
+    })
+  }
+
   // for adding a new question input
   addQuestion() {
     console.log('new question added');
@@ -99,7 +121,7 @@ export class CourseViewPageComponent implements OnInit {
     this.courseService
       .updateQuestions(this.currentCourse._id, this.questions.value)
       .subscribe((element) => {
-        console.log('SUCCESS in updatingg questions');
+        console.log('SUCCESS in updating questions');
         console.log(element);
         //On successful execution call the notification function
         this.notifyAdmin(this.currentCourse.courseCode);
@@ -252,5 +274,20 @@ export class CourseViewPageComponent implements OnInit {
         console.log('updated matches');
       });
     this.checkoutForm.reset();
+  }
+
+  findCourseInfo(){
+    this.courseService
+      .courseInfo(this.currentCourse.courseCode)
+      .subscribe((info) => {
+        this.courseName = info["Course Name"];
+        this.ltHours = info["Lab/Tutorial hours"];
+        this.lecHours = info["Lec hours"];
+        this.noSections = info["No of Sections"];
+
+        if(this.ltHours == undefined){
+          this.ltHours = 0;
+        }
+      });
   }
 }

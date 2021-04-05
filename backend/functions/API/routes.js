@@ -57,6 +57,17 @@ router.get("/hiringEvent/rejectMatch/:name/:course", async (req, res) => {
   });
 });
 
+
+//Getting all the instructors that are assigned to a course
+router.get("/hiringEvent/getInstructors/:hiringEventID", async (req, res) => {
+  hiringEventID = new ObjectId(req.params.hiringEventID);
+  Users.find(
+    { hiringEventID: hiringEventID},
+  ).then((users, err) => {
+    res.status(200).json(users);
+  });
+});
+
 router.get("/get/matches", (req, res) => {
   Matches.find({
     hiringEventID: new ObjectId(req.body.hiringEventID),
@@ -179,6 +190,16 @@ router.put("/update/courses/questions", async (req, res) => {
   ).then((event) => res.status(200).json(event));
 });
 
+router.put("/update/courses/instructorID", async (req, res) => {
+  Course.findOneAndUpdate(
+    { _id: req.body._id },
+    {
+      instructorID: req.body.instructorID,
+    }
+  ).then((course) => res.status(200).json(course));
+});
+
+
 router.get("/get/hiringEvent/questions/:_id", async (req, res) => {
   Course.find(
     { hiringEventID: new ObjectId(req.params._id) },
@@ -188,8 +209,22 @@ router.get("/get/hiringEvent/questions/:_id", async (req, res) => {
   });
 });
 
+router.put("/update/hiringEvent/instructors/", async (req, res) => {
+  users = req.body.instructorEmails;
+  users.forEach(user =>{
+    Users.findOneAndUpdate({email:user["Instructor Email"]}, {hiringEventID: new ObjectId(req.body.hiringEventID)})
+    .then( newUser => newUser
+    )
+  })
+
+ 
+    res.status(200).json("Completed udpated");
+ 
+});
+
+
 router.put("/update/hiringEvent/answers", async (req, res) => {
-  console.log("UPDATING THE ANSWERS");
+  //console.log("UPDATING THE ANSWERS");
   await HiringEvent.findOneAndUpdate(
     { _id: req.body._id },
     {
@@ -258,7 +293,7 @@ router.put("/update/hiringEvent/hours", async (req, res) => {
     hours.push(
       Math.round(
         (element["Previous TA hours"] / element["Previous Enrollments"]) *
-          element["Current Enrollemnts "]
+        element["Current Enrollemnts "]
       ).toString()
     );
   });
@@ -280,6 +315,8 @@ router.put("/update/hiringEvent/hours", async (req, res) => {
     //console.log(event, "is the new event")
   });
 });
+
+
 
 router.put("/courses/update/", (req, res) => {
   hiringEventID = req.body.hiringEventID;
@@ -486,6 +523,7 @@ router.post("/signup", async (req, res) => {
         name: name,
         userID: userID,
         role: role,
+        hiringEventID :null
       });
 
       // save user to db and return token
@@ -614,6 +652,8 @@ router.put("/get/matches", (req, res) => {
   }).then((match) => res.status(200).json(match));
 });
 
+//create new courses
+
 router.put("/courses/createnew/", (req, res) => {
   newCourse = {
     courseCode: req.body.courseCode,
@@ -625,9 +665,18 @@ router.put("/courses/createnew/", (req, res) => {
     questionFil: null,
     rankingFile: null,
     applicantResponses: null,
+    courseInfo:req.body.courseInfo
   };
   console.log("creating", newCourse);
   Course.create(newCourse).then((course) => res.status(200).json(course));
+});
+
+//get the course information 
+router.get("/courses/get/courseInfo/:courseCode", (req,res)=>{
+  console.log(req.params.courseCode);
+  Course.find({
+    courseCode: req.params.courseCode,
+  }).then((course) => res.status(200).json(course[course.length-1].courseInfo[0]));
 });
 
 router.get("/notifications/:recipient", (req, res) => {

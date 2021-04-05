@@ -7,9 +7,9 @@ describe('CreateNewHiringEventComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateNewHiringEventComponent ]
+      declarations: [CreateNewHiringEventComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

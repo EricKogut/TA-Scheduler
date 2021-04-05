@@ -5,44 +5,44 @@
     </div>
 </div>
 
-<ng-container *ngIf="show" >
+<ng-container *ngIf="show">
 
-  <div class = "row">
-    <div class = "col-md">
-    <div cdkDropList class="applicants" (cdkDropListDropped)="drop($event)">
-        <div class="box" *ngFor="let name of applicantResponses" cdkDrag>
-            <div class="placeholder" *cdkDragPlaceholder></div>
-            {{name.applicantName}}
+    <div class="row">
+        <div class="col-md">
+            <div cdkDropList class="applicants" (cdkDropListDropped)="drop($event)">
+                <div class="box" *ngFor="let name of applicantResponses" cdkDrag>
+                    <div class="placeholder" *cdkDragPlaceholder></div>
+                    {{name.applicantName}}
+                </div>
+            </div>
+
+
+            <div class="counters">
+                <div *ngFor="let name of applicantResponses">
+                    <button type="button" (click)="findApp(name.applicantName)" class=" btn btn-primary">View</button>
+                    <hr style=" visibility: hidden;">
+                </div>
+            </div>
         </div>
+
+        <div class="col-md">
+
+            <ng-container *ngIf="view">
+                <div class="displayApp">
+                    <div *ngFor="let apps of foundApp">
+                        <p>Name: {{ apps.foundName }}</p>
+                        <p>Email: {{ apps.foundEmail }}</p>
+                        <div *ngFor="let response of apps.foundResponses">
+                            <p>Question: {{ response.foundQuestion }}</p>
+                            <p>Answer: {{ response.foundAnswer }}</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+        </div>
+
     </div>
-
-
-    <div class="counters">
-        <div *ngFor="let name of applicantResponses">
-            <button type= "button" (click)="findApp(name.applicantName)" class=" btn btn-primary">View</button>
-         <hr style =" visibility: hidden;">
-          </div>
-    </div>
-  </div>
-
-  <div class = "col-md">
-
-    <ng-container *ngIf="view">
-      <div class="displayApp">
-          <div *ngFor="let apps of foundApp">
-              <p>Name: {{ apps.foundName }}</p>
-              <p>Email: {{ apps.foundEmail }}</p>
-              <div *ngFor="let response of apps.foundResponses">
-                  <p>Question: {{ response.foundQuestion }}</p>
-                  <p>Answer: {{ response.foundAnswer }}</p>
-              </div>
-          </div>
-      </div>
-  </ng-container>
-
-  </div>
-
-  </div>
 
     <div class="submission">
         <label *ngFor="let cb of checkboxes">

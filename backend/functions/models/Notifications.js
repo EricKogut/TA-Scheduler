@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 const NotificationsSchema = new mongoose.Schema(
   {
-    senderEmail: { 
-        type: String, 
-        maxlength: 30 },
+    senderEmail: {
+      type: String,
+      maxlength: 30
+    },
 
     recipientEmail: {
       type: String,
@@ -15,13 +16,13 @@ const NotificationsSchema = new mongoose.Schema(
       maxlength: 10,
     },
     message: {
-        type: String,
-        required: true,
-        maxlength: 200,
+      type: String,
+      required: true,
+      maxlength: 200,
     },
-    read:{
-        type: Number,
-        default: 0,
+    read: {
+      type: Number,
+      default: 0,
     }
   },
   { timestamps: true, versionKey: false }

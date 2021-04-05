@@ -7,19 +7,19 @@ const mongoose = require('mongoose');
 
 const instructor = new mongoose.Schema({
     name: {
-        type:String,
+        type: String,
         required: true,
-        min:6,
+        min: 6,
         max: 255
     },
     email: {
-        type:String,
+        type: String,
         required: true,
-        min:6,
+        min: 6,
         max: 255
     },
     course: {
-        type:String
+        type: String
     }
 });
 

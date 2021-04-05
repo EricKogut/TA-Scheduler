@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router"
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-header',
@@ -15,30 +15,30 @@ export class HeaderComponent implements OnInit {
   ///////////////
   //NAVIGATION///
   //Navigating to the main search page
-  navigateToLogin(){
+  navigateToLogin() {
     this.router.navigate(['login']);
   }
 
-  navigateToSignUp(){
+  navigateToSignUp() {
     this.router.navigate(['signup']);
   }
 
-  navigateToLanding(){
+  navigateToLanding() {
     this.router.navigate(['landing']);
   }
 
-  navigateToRanking(){
+  navigateToRanking() {
     this.router.navigate(['instructor-ranking']);
   }
 
-  navigateToInstructor(){
+  navigateToInstructor() {
     this.router.navigate(['instructor']);
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('role');
 
-    this.router.navigate(['landing']).then(()=>window.location.reload())
+    this.router.navigate(['landing']).then(() => window.location.reload())
 
   }
 

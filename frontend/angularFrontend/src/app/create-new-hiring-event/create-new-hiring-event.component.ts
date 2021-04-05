@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as introJs from 'intro.js/intro.js';
 import { HiringEventService } from "../hiring-event.service";
-import {StateService} from "../state.service";
-import {Router} from "@angular/router"
+import { StateService } from "../state.service";
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-create-new-hiring-event',
@@ -12,9 +12,9 @@ import {Router} from "@angular/router"
 export class CreateNewHiringEventComponent implements OnInit {
   introJS = introJs();
 
-  constructor( private hiringEventService:HiringEventService,
-               private stateService:StateService,
-               private router: Router) {
+  constructor(private hiringEventService: HiringEventService,
+    private stateService: StateService,
+    private router: Router) {
 
     this.introJS.setOptions({
       steps: [
@@ -53,13 +53,13 @@ export class CreateNewHiringEventComponent implements OnInit {
   }
 
   createNewHiringEvent() {
-      this.hiringEventService.createEvent(localStorage.getItem("_id")).subscribe(element =>{
-        console.log(element);
-        console.log("created new hiring event")
+    this.hiringEventService.createEvent(localStorage.getItem("_id")).subscribe(element => {
+      console.log(element);
+      console.log("created new hiring event")
 
-        this.stateService.setCurrentHiringEvent(element);
-      })
-      this.router.navigate(['landing'])
+      this.stateService.setCurrentHiringEvent(element);
+    })
+    this.router.navigate(['landing'])
 
   }
 

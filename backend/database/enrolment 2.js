@@ -13,4 +13,4 @@ const enrolment = new mongoose.Schema({ // store previous course enrolments
     }, // Base64 representation of the file
 });
 
-module.exports = Enrolment = mongoose.model('enrollment', enrolment); 
+module.exports = Enrolment = mongoose.model('enrollment', enrolment);

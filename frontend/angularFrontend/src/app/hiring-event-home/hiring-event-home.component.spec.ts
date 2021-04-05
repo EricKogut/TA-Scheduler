@@ -8,9 +8,9 @@ describe('HiringEventHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HiringEventHomeComponent ]
+      declarations: [HiringEventHomeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

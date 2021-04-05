@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {ApplicationService} from '../application.service';
+import { Router } from "@angular/router";
+import { ApplicationService } from '../application.service';
 import { FormBuilder } from "@angular/forms";
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { HiringEventService } from "../hiring-event.service";
-import {CourseService} from "../course.service";
-import {StateService} from "../state.service";
+import { CourseService } from "../course.service";
+import { StateService } from "../state.service";
 
 @Component({
   selector: 'app-instructor-homepage',
   templateUrl: './instructor-homepage.component.html',
   styleUrls: ['./instructor-homepage.component.css']
-  })
+})
 export class InstructorHomepageComponent implements OnInit {
   courseCode;
-  handleCourseCode(term: string): void {this.courseCode = term.replace(/[<={}()>/\\]/gi, "")}
+  handleCourseCode(term: string): void { this.courseCode = term.replace(/[<={}()>/\\]/gi, "") }
 
   //sample data
   //used to store array of courses
-  suggestedTAs :any = [];
+  suggestedTAs: any = [];
   customAssignment: any = [];
   visibility = "hidden";
   taVisibility = "hidden";
   customVisibility = "hidden";
   user = "Prof. K. Grolinger";
 
-  evQuestions:any;
+  evQuestions: any;
   openCourse;
 
   //dynamic reactive forms
@@ -57,8 +57,8 @@ export class InstructorHomepageComponent implements OnInit {
     return this.evaluationForm.get('questions') as FormArray;
   }
 
-   // for adding a new question input
-   addQuestion() {
+  // for adding a new question input
+  addQuestion() {
     console.log("new question added");
     //this.questions.push(this.fb.control(""));
     this.questions.push(new FormControl());
@@ -68,37 +68,37 @@ export class InstructorHomepageComponent implements OnInit {
 
   constructor(private router: Router,
     private appService: ApplicationService,
-    private hiringEventService:HiringEventService,
+    private hiringEventService: HiringEventService,
     private courseService: CourseService,
     private stateService: StateService) { }
 
   ngOnInit(): void {
 
-    this.hiringEventService.getAllEvents().subscribe(events =>{
+    this.hiringEventService.getAllEvents().subscribe(events => {
       console.log(events);
       this.events = events
     })
   }
 
   //Navigating to the applicant page
-  logOut(){
+  logOut() {
     this.router.navigate(['login']);
   }
 
   //Navigating to the applicant page
-  viewCourse(course){
+  viewCourse(course) {
     this.stateService.setCurrentCourse(course);
-    this.router.navigate(['course'], {state: {data: {currentCourse:course}}});
+    this.router.navigate(['course'], { state: { data: { currentCourse: course } } });
   }
 
   //this is related to a chair and admin functionality
-  createAssignment(course){
+  createAssignment(course) {
     this.openCourse = course.courseCode
-    this.customVisibility="visible";
+    this.customVisibility = "visible";
   }
-  saveTA(){
+  saveTA() {
     console.log(this.customTA.value);
-    this.courseService.manualMatch(this.customTA.value, this.openCourse).subscribe(event=>{
+    this.courseService.manualMatch(this.customTA.value, this.openCourse).subscribe(event => {
       console.log(event, "nyeaheh")
     })
     //assigns FormArray of TAs to a new array that will be sent to backend
@@ -109,25 +109,25 @@ export class InstructorHomepageComponent implements OnInit {
   }
 
   //Navigating to the applicant page
-  navigateToApplicants(){
+  navigateToApplicants() {
     this.router.navigate(['instructor-ranking']);
   }
 
- //toggles div visibility to allow users to create
-  createEval(){
+  //toggles div visibility to allow users to create
+  createEval() {
     this.visibility = "visible";
 
   }
 
   //shows popup with assigned TAs
-  viewAssigned(course){
+  viewAssigned(course) {
     console.log(course.courseCode)
     this.openCourse = course.courseCode
-    this.courseService.getMatches(course.courseCode).subscribe(event=>{
+    this.courseService.getMatches(course.courseCode).subscribe(event => {
       console.log(event, "nyeaheh")
       let tas = event as Array<any>
-      for(let ta of tas){
-        if(ta.status == "pending"){
+      for (let ta of tas) {
+        if (ta.status == "pending") {
           console.log(ta.name)
           this.suggestedTAs.push(ta.name)
         }
@@ -138,43 +138,43 @@ export class InstructorHomepageComponent implements OnInit {
     })
   }
 
-  reject(data){
+  reject(data) {
     console.log(data)
-    this.courseService.rejectMatch(data, this.openCourse).subscribe(event=>{
+    this.courseService.rejectMatch(data, this.openCourse).subscribe(event => {
       console.log(event, "nyeaheh")
     })
   }
 
 
-  confirm(data){
+  confirm(data) {
     console.log(data)
-    this.courseService.confirmMatch(data, this.openCourse).subscribe(event=>{
+    this.courseService.confirmMatch(data, this.openCourse).subscribe(event => {
       console.log(event, "nyeaheh")
     })
   }
 
-  createHiringEvent(){
-    this.hiringEventService.createEvent(this.courseCode).subscribe(event=>{
+  createHiringEvent() {
+    this.hiringEventService.createEvent(this.courseCode).subscribe(event => {
       console.log(event, "created!!")
     })
 
   }
-  save(){
+  save() {
     // displays array of questions
     //console.log(this.questions.value);
     // displays object containing array of questions
     //console.log(this.evaluationForm.value);
   };
 
-  submitResponse(){
+  submitResponse() {
     console.log(this.questions.value);
     this.evQuestions = this.questions.value;
-    this.appService.saveQuestions(this.evQuestions).subscribe(response=>{
-    console.log(response);
+    this.appService.saveQuestions(this.evQuestions).subscribe(response => {
+      console.log(response);
     });
   }
 
-  close(){
+  close() {
     this.visibility = "hidden";
     this.taVisibility = "hidden";
     this.customVisibility = "hidden";

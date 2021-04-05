@@ -16,6 +16,7 @@
     <button (click)="logout()">LOGOUT</button>
 </div> -->
 
+
 <nav
   style="
     padding-left: 20px;
@@ -34,14 +35,18 @@
     aria-expanded="false"
     aria-label="Toggle navigation"
   >
+
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <span *ngIf="!role">
+
       <ul style="float: right" class="navbar-nav mr-auto">
+
         <li class="nav-item">
           <a class="nav-link" routerLink="/login">Login</a>
         </li>
+
 
         <li class="nav-item" >
           <a class="nav-link" routerLink="/signup">Sign Up</a>
@@ -73,5 +78,6 @@
     </span>
   </div>
 </nav>
+
 
 

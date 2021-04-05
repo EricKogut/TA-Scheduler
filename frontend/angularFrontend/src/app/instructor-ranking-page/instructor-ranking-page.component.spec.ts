@@ -8,9 +8,9 @@ describe('InstructorRankingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InstructorRankingPageComponent ]
+      declarations: [InstructorRankingPageComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

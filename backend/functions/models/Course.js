@@ -7,6 +7,7 @@ const CourseSchema = new mongoose.Schema({
     status: String,
     requiredHours: Number,
     questionFile: [Object],
+    courseInfo: [Object],
     priority: String,
     rankingFile: [Object],
     applicantResponses: [Object]

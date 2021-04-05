@@ -8,9 +8,9 @@ describe('ResponsesUploadPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ResponsesUploadPageComponent ]
+      declarations: [ResponsesUploadPageComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -17,30 +17,42 @@
 </div> -->
 
 
-<nav style="padding-left: 20px;" class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+<nav
+  style="
+    padding-left: 20px;
+    border-end-end-radius: 20px;
+    border-end-start-radius: 20px;
+  "
+  class="navbar navbar-expand-md bg-dark navbar-dark fixed-top"
+>
   <a class="navbar-brand" href="#" routerLink="/">Course Matcher</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarCollapse"
+    aria-controls="navbarCollapse"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <span *ngIf="!role">
-      <ul class="navbar-nav mr-auto">
 
+      <ul style="float: right" class="navbar-nav mr-auto">
 
         <li class="nav-item">
           <a class="nav-link" routerLink="/login">Login</a>
         </li>
 
-        <li class="nav-item">
+
+        <li class="nav-item" >
           <a class="nav-link" routerLink="/signup">Sign Up</a>
         </li>
       </ul>
     </span>
-
-
-
-
 
     <span *ngIf="role">
       <ul class="navbar-nav mr-auto">
@@ -48,10 +60,9 @@
           <a (click)="logout()" class="nav-link" routerLink="/login">Logout</a>
         </li>
 
-
-        <!-- <li class="nav-item">
-        <a class="nav-link" routerLink="/instructor">Course View </a>
-      </li> -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/instructor">Course View </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/hiringEvents">Hiring Events View </a>
         </li>
@@ -59,8 +70,14 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/notifications">Notifications</a>
         </li>
+
+        <li class="nav-item" *ngIf="role === 'admin' || role === 'chair' || role === 'master'">
+          <a class="nav-link" routerLink="/signup">Register Instructor</a>
+        </li>
       </ul>
     </span>
-
   </div>
 </nav>
+
+
+

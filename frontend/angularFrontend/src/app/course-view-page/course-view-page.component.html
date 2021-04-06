@@ -1,14 +1,3 @@
-<h1
-  *ngIf="role !== 'instructor' || validInstructor === true; else Restricted"
-  style="margin-top: 50px"
->
-  Welcome
-</h1>
-<ng-template #Restricted>
-  <div class="alert alert-danger" role="alert">
-    You do not have access to modify this course
-  </div></ng-template
->
 
 <h1>Viewing {{ currentCourse.courseCode }}</h1>
 <hr />

@@ -1,0 +1,16 @@
+<h1>Courses</h1>
+
+<div *ngFor="let course of courses">
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      <h5 class="card-title">Course Code: {{ course.courseCode }}</h5>
+      <p class="card-text">Current status: {{ course.status }}</p>
+      <p class="card-text">Time created : {{ course.createdAt }}</p>
+
+      <a (click)="navigateToCourse(course)" class="btn btn-primary"
+        >Navigate to Course Page</a
+      >
+    </div>
+  </div>
+</div>

@@ -60,15 +60,17 @@
           <a (click)="logout()" class="nav-link" routerLink="/login">Logout</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/instructor">Course View </a>
-        </li>
+      
         <li class="nav-item">
           <a class="nav-link" routerLink="/hiringEvents">Hiring Events View </a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link" routerLink="/notifications">Notifications</a>
+        </li>
+
+        <li *ngIf="role === 'instructor'" class="nav-item">
+          <a class="nav-link" routerLink="/instructorCourses">Instructor Courses </a>
         </li>
 
         <li class="nav-item" *ngIf="role === 'admin' || role === 'chair' || role === 'master'">

@@ -38,6 +38,7 @@ import { CreateNewHiringEventComponent } from './create-new-hiring-event/create-
 import { HiringEventHomeComponent } from './hiring-event-home/hiring-event-home.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { InstructorCoursesComponent } from './instructor-courses/instructor-courses.component';
 
 const myRoutes: Routes = [
   { path: 'landing', component: LandingPageComponent },
@@ -46,13 +47,14 @@ const myRoutes: Routes = [
   { path: 'course', component: CourseViewPageComponent },
   { path: 'instructor-ranking', component: InstructorRankingPageComponent },
   { path: 'instructor', component: InstructorHomepageComponent },
+  { path: 'instructorCourses', component: InstructorCoursesComponent },
   { path: 'hiringEvents', component: HiringEventsPageComponent },
   { path: 'hiringEventHome', component: HiringEventHomeComponent },
 
   { path: 'new-hiring-event', component: CreateNewHiringEventComponent },
   { path: 'upload', component: ResponsesUploadPageComponent },
   { path: 'hours', component: ChairHoursComponent },
-  { path: 'notifications', component: NotificationsComponent }
+  { path: 'notifications', component: NotificationsComponent },
 ]
 
 @NgModule({
@@ -79,7 +81,8 @@ const myRoutes: Routes = [
     HiringEventsPageComponent,
     CreateNewHiringEventComponent,
     HiringEventHomeComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    InstructorCoursesComponent
   ],
   imports: [
     BrowserModule,

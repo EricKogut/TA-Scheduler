@@ -1,5 +1,17 @@
+<h1
+  *ngIf="role !== 'instructor' || validInstructor === true; else Restricted"
+  style="margin-top: 50px"
+>
+  Welcome
+</h1>
+<ng-template #Restricted>
+  <div class="alert alert-danger" role="alert">
+    You do not have access to modify this course
+  </div></ng-template
+>
+
 <h1>Viewing {{ currentCourse.courseCode }}</h1>
-<hr>
+<hr />
 <h4>Course Info</h4>
 <table class="table">
   <thead>
@@ -20,19 +32,16 @@
   </tbody>
 </table>
 
-
-
 <button type=" button" class="btn btn-dark" (click)="returnToHiringEvent()">
   Return
 </button>
-<br>
-<br>
+<br />
+<br />
 <div id="evaluation " *ngIf="!hasInstructor">
   <div class="alert alert-danger" role="alert">
     No instructor Assigned to this course. Please assign an instructor.
   </div>
 </div>
-
 
 <div *ngIf="role === 'instructor' || role === 'master'">
   <h5>Create new Evaluation</h5>
@@ -69,17 +78,27 @@
 <hr />
 
 <div *ngIf="role === 'chair' || role === 'admin' || role === 'master'">
-
-  <div  *ngIf="!hasInstructor">
+  <div *ngIf="!hasInstructor">
     <h3>Select a Course instructor</h3>
     <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-outline-primary" id="dropdownMenuButton" ngbDropdownToggle>List of Instructors</button>
+      <button
+        class="btn btn-outline-primary"
+        id="dropdownMenuButton"
+        ngbDropdownToggle
+      >
+        List of Instructors
+      </button>
       <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-        <button *ngFor = "let instructor of instructors" ngbDropdownItem (click) = "updateCourseInstructor(instructor)">{{instructor.name}}</button>
+        <button
+          *ngFor="let instructor of instructors"
+          ngbDropdownItem
+          (click)="updateCourseInstructor(instructor)"
+        >
+          {{ instructor.name }}
+        </button>
       </div>
     </div>
   </div>
-
 
   <h3>Matching Applicants</h3>
 
@@ -117,11 +136,25 @@
     <div class="form-group">
       <label for="applicantEmail"> Hours </label>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="hours" id="hours" value="5" formControlName="hours" />
+        <input
+          class="form-check-input"
+          type="radio"
+          name="hours"
+          id="hours"
+          value="5"
+          formControlName="hours"
+        />
         <label class="form-check-label" for="hours"> 5 </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="hours" id="hours" value="10" formControlName="hours" />
+        <input
+          class="form-check-input"
+          type="radio"
+          name="hours"
+          id="hours"
+          value="10"
+          formControlName="hours"
+        />
         <label class="form-check-label" for="hours"> 10 </label>
       </div>
     </div>
@@ -130,7 +163,7 @@
   </form>
 </div>
 
-<hr>
+<hr />
 
 <h3>TA Hours Allocated</h3>
 
@@ -149,7 +182,11 @@
           Input the new hours
           <input type="text" required #newHours />
         </label>
-        <button type="button" class="btn btn-success" (click)="submitResponse(newHours.value)">
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="submitResponse(newHours.value)"
+        >
           Change
         </button>
         <button type="button" class="btn btn-danger" (click)="close()">
@@ -162,7 +199,9 @@
 
 <div *ngIf="role === 'chair' || role === 'master' || role === 'admin'">
   <hr />
-  <app-algorithm-order-selector [(currentCourse)]="currentCourse"></app-algorithm-order-selector>
+  <app-algorithm-order-selector
+    [(currentCourse)]="currentCourse"
+  ></app-algorithm-order-selector>
   <hr />
 </div>
 

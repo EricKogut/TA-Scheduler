@@ -14,6 +14,7 @@ import { isConstructorDeclaration } from 'typescript';
 })
 export class CourseViewPageComponent implements OnInit {
   role;
+  validInstructor;
   currentCourse;
   numbers: any;
   events: any;
@@ -62,6 +63,16 @@ export class CourseViewPageComponent implements OnInit {
   ngOnInit(): void {
     this.getRole();
     this.currentCourse = this.stateService.getCurrentCourse();
+
+    if(this.currentCourse.instructorID === localStorage.getItem('_id')){
+      this.validInstructor = true
+    }
+    else{
+      this.validInstructor = false
+    }
+
+
+
     if (this.currentCourse.instructorID != null){
       this.hasInstructor =true;
     }
@@ -70,6 +81,7 @@ export class CourseViewPageComponent implements OnInit {
     this.findCourseInfo();
     this.hiringEventService.getInstructors(this.currentCourse.hiringEventID).subscribe(users=>{
       this.instructors = users;
+
     })
     // this.currentCourse =  {applicantResponses:  [
     //  {courseCode: "SE123", applicantName: "Alice", applicantEmail: "alice@uwo.ca", instructorRank: null, applicantRank: null, responses:[{question: "Know Java?", answer: "yes"}, {question: "Know OOP?", answer: "No"},
@@ -94,6 +106,9 @@ export class CourseViewPageComponent implements OnInit {
   getRole() {
     this.role = localStorage.getItem('role');
   }
+
+
+
 
   //gets the array of questions from the reactive form
   get questions(): FormArray {
@@ -280,6 +295,7 @@ export class CourseViewPageComponent implements OnInit {
     this.courseService
       .courseInfo(this.currentCourse.courseCode)
       .subscribe((info) => {
+
         this.courseName = info["Course Name"];
         this.ltHours = info["Lab/Tutorial hours"];
         this.lecHours = info["Lec hours"];

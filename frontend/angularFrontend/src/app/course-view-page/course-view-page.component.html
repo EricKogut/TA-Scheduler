@@ -104,10 +104,11 @@
       </button>
     </div>
   </div>
-
-  <button type="button" class="btn btn-success" (click)="toggleAddTA()">
-    Add TA
-  </button>
+  <div *ngIf="role === 'chair' || role === 'admin' || role === 'master'">
+    <button type="button" class="btn btn-success" (click)="toggleAddTA()">
+      Add TA
+    </button>
+  </div>
 </div>
 
 <div *ngIf="addTA">

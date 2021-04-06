@@ -426,16 +426,19 @@ router.put("/update/course/instructorRanking", async (req, res) => {
 // });
 
 router.get("/get/hiringEvents/:_id", (req, res) => {
-  HiringEvent.find({ _id: _id }).then((event) => res.status(200).json(event));
+  HiringEvent.find({}).then((event) => res.status(200).json(event));
 });
 
 router.get("/get/chairHiringEvents/:departmentChairId", (req, res) => {
   console.log("getting");
   const currentObjectId = new ObjectId(req.params.departmentChairId);
   console.log(currentObjectId);
-  HiringEvent.find({ departmentChairID: currentObjectId }).then((event) =>
+   HiringEvent.find({}).then((event) =>
     res.status(200).json(event)
   );
+  // HiringEvent.find({ departmentChairID: currentObjectId }).then((event) =>
+  //   res.status(200).json(event)
+  // );
 });
 // auth
 
